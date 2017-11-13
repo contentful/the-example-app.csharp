@@ -1,0 +1,16 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["ActivePage"] = "Home";
+}
+
+
+<div class="layout-centered">
+    <vc:editorial-features sys="@Model.IndexPage.Sys"></vc:editorial-features>
+</div>
+<div class="modules-container">
+    @foreach (var module in Model.IndexPage.ContentModules)
+    {
+        @Html.Partial(module.GetType().Name, module)
+    }
+</div>

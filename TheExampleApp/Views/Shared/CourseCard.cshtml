@@ -1,0 +1,20 @@
+﻿@model Course
+
+<div class="course-card">
+    <div class="course-card__categories">
+        @if (Model.Categories != null && Model.Categories.Any())
+        {
+            foreach (var category in Model.Categories)
+            {
+                <div class="course-card__category"><a class="course-card__category-link" href="/courses?category=@category.Slug">@category.Title</a></div>
+            }
+        }
+    </div>
+    <h2 class="course-card__title">@Model.Title</h2>
+    <p class="course-card__description">
+        @Model.ShortDescription
+    </p>
+    <div class="course-card__link-wrapper">
+        <a class="course-card__link" href="/courses/@Model.Slug">@Localizer["viewCourseLabel"]</a>
+    </div>
+</div>

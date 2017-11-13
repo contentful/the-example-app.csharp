@@ -1,0 +1,16 @@
+﻿@model TheExampleApp.ViewComponents.LocalesInfo
+
+<div class="header__controls_group">
+    <form action="" method="get">
+        <div class="header__controls_label">@Localizer["locale"]: @Model.SelectedLocale.Name</div>
+        <div class="header__controls_dropdown">
+            <div class="header__controls_help_text">
+                @Localizer["localeQuestion"]
+            </div>
+            @foreach (var locale in Model.Locales)
+            {
+            <button class="header__controls_button @(locale.Code == Model.SelectedLocale.Code ? "header__controls_button--active" : "" )" type="submit" name="locale" value="@locale.Code">@locale.Name (@locale.Code)</button>
+            }
+        </div>
+    </form>
+</div>

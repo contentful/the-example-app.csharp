@@ -1,0 +1,38 @@
+﻿@page "{slug}"
+@model TheExampleApp.Pages.Courses.IndexModel
+@{
+    ViewData["Title"] = Model.Course?.Title;
+}
+<div class="layout-no-sidebar">@Html.Partial("Breadcrumbs")</div>
+<div class="layout-sidebar">
+    @Html.Partial("TableOfContents", Model.Course)
+    <section class="layout-sidebar__content">
+        <div class="course">
+            <h1 class="course__title">@Model.Course?.Title</h1>
+            <vc:editorial-features sys="@Model.Course?.Sys"></vc:editorial-features>
+            <div class="course__overview">
+                <h3 class="course__overview-title">@Localizer["overviewLabel"]</h3>
+                <div class="course__overview-item">
+                    <svg class="course__overview-icon">
+                        <use xlink:href="/icons/icons.svg#duration"></use>
+                    </svg>
+                    <div class="course__overview-value">
+                        @Localizer["durationLabel"]: @Model.Course?.Duration @Localizer["minutesLabel"]
+                    </div>
+                </div>
+                <div class="course__overview-item">
+                    <svg class="course__overview-icon">
+                        <use xlink:href="/icons/icons.svg#skill-level"></use>
+                    </svg>
+                    <div class="course__overview-value">
+                        @Localizer["skillLevelLabel"]: @Model.Course?.SkillLevel
+                    </div>
+                </div>
+                <div class="course__overview-cta-wrapper">
+                    <a class="course__overview-cta cta" href="/courses/@Model.Course?.Slug/lessons/@Model.Course?.Lessons.FirstOrDefault()?.Slug">@Localizer["startCourseLabel"]</a>
+                </div>
+            </div>
+            <div class="course-description"><markdown content="@Model.Course.Description" /></div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,15 @@
+[Bb]in/
+[Oo]bj/
+*.suo
+*.user
+*.userprefs
+_ReSharper.*
+*.ReSharper.user
+*.resharper.user
+.vs/
+.vscode/
+Backup/
+*.lock.json
+*.nuget.props
+*.nuget.targets
+*.orig

@@ -1,0 +1,17 @@
+﻿@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="layout-centered">
+    @Html.Partial("Breadcrumbs")
+    <h1>@Localizer["somethingWentWrongLabel"] (@Response.StatusCode)</h1>
+    <h2>@Localizer["tryLabel"]</h2>
+    <ul>
+        <li>@Localizer["contentModelChangedErrorLabel"]</li>
+        <li>@Localizer["draftOrPublishedErrorLabel"]</li>
+        <li>@Localizer["localeContentErrorLabel"]</li>
+        <li>@Localizer["verifyCredentialsErrorLabel"]</li>
+    </ul>
+</div>

@@ -1,0 +1,27 @@
+﻿@model Course
+@{ 
+    Func<string, string> isVisited = (s) => { return (ViewData["VisitedLessons"] as List<string>).Contains(s) ? "visited" : ""; };
+}
+@if (Model != null)
+{
+<section class="layout-sidebar__sidebar">
+    <div class="layout-sidebar__sidebar-header">
+        <h2 class="layout-sidebar__sidebar-title">@Localizer["tableOfContentsLabel"]</h2>
+    </div>
+    <div class="layout-sidebar__sidebar-content">
+        <div class="table-of-contents">
+            <ul class="table-of-contents__list">
+                <li class="table-of-contents__item">
+                    <a class="table-of-contents__link @(ViewData["slug"] == null ? "active" : "") @isVisited(Model.Sys.Id)" href="/courses/@Model.Slug">@Localizer["courseOverviewLabel"]</a>
+                </li>
+                @foreach (var lesson in Model.Lessons)
+                {
+                    <li class="table-of-contents__item">
+                        <a class="table-of-contents__link @(ViewData["slug"]?.ToString() == lesson.Slug ? "active" : "") @isVisited(lesson.Sys.Id)" href="/courses/@Model.Slug/lessons/@lesson.Slug">@lesson.Title</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+}

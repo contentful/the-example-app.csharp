@@ -1,0 +1,12 @@
+﻿@model LessonImage
+
+<div class="lesson-module lesson-module-image">
+    @if (Model.Image != null)
+    {
+        <contentful-image class="lesson-module-image__image" url="@Model.Image.File.Url" />
+    }
+    else
+    {
+        <h3>The image seems to have gone missing...</h3>
+    }
+</div>

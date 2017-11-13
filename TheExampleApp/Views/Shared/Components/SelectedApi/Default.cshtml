@@ -1,0 +1,23 @@
+﻿@model Tuple<bool, string>
+<div class="header__controls_group">
+    <form  method="post" action="/Settings?handler=SwitchApi" >
+        <div class="header__controls_label">API: @(Model.Item1 ? $"{Localizer["contentPreviewApiLabel"].Value}" : $"{Localizer["contentDeliveryApiLabel"].Value}")</div>
+        <div class="header__controls_dropdown">
+            <div class="header__controls_help_text">
+                @Localizer["apiSwitcherHelp"]
+            </div>
+            <button class="header__controls_button @(Model.Item1 ? "" : "header__controls_button--active")" type="submit" name="api" value="cda">
+                @Localizer["contentDeliveryApiLabel"]:
+                <br />
+                <span class="header__controls_button_help">@Localizer["contentDeliveryApiHelp"]</span>
+            </button>
+            <button class="header__controls_button @(Model.Item1 ? "header__controls_button--active" : "")" type="submit" name="api" value="cpa">
+                @Localizer["contentPreviewApiLabel"]:
+                <br />
+                <span class="header__controls_button_help">@Localizer["contentPreviewApiHelp"]</span>
+            </button>
+        </div>
+        <input type="hidden" name="prevPage" value="@Model.Item2" />
+        @Html.AntiForgeryToken()
+    </form>
+</div>

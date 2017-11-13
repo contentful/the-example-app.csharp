@@ -1,0 +1,107 @@
+﻿@page
+@model TheExampleApp.Pages.SettingsModel
+@{
+    ViewData["Title"] = @Localizer["settingsLabel"].Value;
+    ViewData["ActivePage"] = "Settings";
+}
+
+
+
+<div class="layout-centered-small">
+    @Html.Partial("Breadcrumbs")
+
+    <h1>@Localizer["settingsLabel"]</h1>
+    <p>@Localizer["settingsIntroLabel"]</p>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="status-block status-block--success">
+            <svg class="status-block__icon status-block__icon--success">
+                <use xlink:href="/icons/icons.svg#success"></use>
+            </svg>
+            <div class="status-block__content">
+                <div class="status-block__message">
+                    @Localizer["changesSavedLabel"]
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.SpaceName))
+    {
+        <div class="status-block status-block--info">
+            <svg class="status-block__icon status-block__icon--info">
+                <use xlink:href="/icons/icons.svg#info"></use>
+            </svg>
+            <div class="status-block__content">
+                <div class="status-block__message">
+                    @Localizer["connectedToSpaceLabel"] “@Model.SpaceName”
+                </div>
+            </div>
+        </div>
+    }
+
+    <form method="post" class="form">
+        <div class="form-item">
+            <label asp-for="@Model.AppOptions.SpaceId">@Localizer["spaceIdLabel"]</label>
+            <input asp-for="@Model.AppOptions.SpaceId" />
+            @if (ModelState.GetFieldValidationState("AppOptions.SpaceId") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+            {
+                <span class="form-item__error-wrapper">
+                    <svg class="form-item__error-icon">
+                        <use xlink:href="/icons/icons.svg#error"></use>
+                    </svg>
+                    <span class="form-item__error-message">
+                        <span asp-validation-for="AppOptions.SpaceId"></span>
+                    </span>
+                </span>
+            }
+            <div class="form-item__help-text">@Localizer["spaceIdHelpText"]</div>
+        </div>
+        <div class="form-item">
+            <label asp-for="@Model.AppOptions.AccessToken">Content Delivery API - @Localizer["accessTokenLabel"]</label>
+            <input asp-for="@Model.AppOptions.AccessToken" />
+            @if (ModelState.GetFieldValidationState("AppOptions.AccessToken") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+            {
+                <span class="form-item__error-wrapper">
+                    <svg class="form-item__error-icon">
+                        <use xlink:href="/icons/icons.svg#error"></use>
+                    </svg>
+                    <span class="form-item__error-message">
+                        <span asp-validation-for="AppOptions.AccessToken"></span>
+                    </span>
+                </span>
+            }
+            <div class="form-item__help-text">@Localizer["contentDeliveryApiHelpText"]</div>
+        </div>
+        <div class="form-item">
+            <label asp-for="@Model.AppOptions.PreviewToken">Content Preview API - @Localizer["accessTokenLabel"]</label>
+            <input asp-for="@Model.AppOptions.PreviewToken" />
+            @if (ModelState.GetFieldValidationState("AppOptions.PreviewToken") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+            {
+                <span class="form-item__error-wrapper">
+                    <svg class="form-item__error-icon">
+                        <use xlink:href="/icons/icons.svg#error"></use>
+                    </svg>
+                    <span class="form-item__error-message">
+                        <span asp-validation-for="AppOptions.PreviewToken"></span>
+                    </span>
+                </span>
+            }
+            <div class="form-item__help-text">@Localizer["contentPreviewApiHelpText"]</div>
+        </div>
+        <div class="form-item">
+            <input asp-for="@Model.AppOptions.UsePreviewApi" />
+            <label asp-for="@Model.AppOptions.UsePreviewApi">Use preview API</label>
+        </div>
+        <div class="form-item">
+            <input asp-for="@Model.AppOptions.EnableEditorialFeatures" />
+            <label asp-for="@Model.AppOptions.EnableEditorialFeatures">@Localizer["enableEditorialFeaturesLabel"]</label>
+            <div class="form-item__help-text">@Localizer["enableEditorialFeaturesHelpText"]</div>
+        </div>
+        <div class="form-item">
+            <input class="cta" type="submit" value="@Localizer["saveSettingsButtonLabel"]" />
+        </div>
+    </form>
+</div>
+

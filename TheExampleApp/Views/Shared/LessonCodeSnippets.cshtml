@@ -1,0 +1,117 @@
+﻿@model LessonCodeSnippets
+
+<div class="lesson-module lesson-module-code">
+
+    <div class="lesson-module-code__header">
+        @if (!string.IsNullOrEmpty(Model.Curl))
+        {
+            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-curl">curl</a>
+        }
+        @if (!string.IsNullOrEmpty(Model.DotNet))
+        {
+            <a class="lesson-module-code__trigger lesson-module-code__trigger--active" data-target="@Model.Sys.Id-dotnet">.NET</a>
+        }
+        @if (!string.IsNullOrEmpty(Model.Javascript))
+        {
+            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-javascript">JavaScript</a>
+        }
+        @if (!string.IsNullOrEmpty(Model.Java))
+        {
+            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-java">Java</a>
+        }
+        @if (!string.IsNullOrEmpty(Model.JavaAndroid))
+        {
+            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-android">Android</a>
+        }
+        @if (!string.IsNullOrEmpty(Model.Php))
+        {
+            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-php">PHP</a>
+        }
+        @if (!string.IsNullOrEmpty(Model.Python))
+        {
+            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-python">Python</a>
+        }
+        @if (!string.IsNullOrEmpty(Model.Ruby))
+        {
+            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-ruby">Ruby</a>
+        }
+        @if (!string.IsNullOrEmpty(Model.Swift))
+        {
+            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-swift">Swift</a>
+        }
+    </div>
+    <div class="lesson-module-code__code-area">
+        @if (!string.IsNullOrEmpty(Model.Curl))
+        {
+            <div class="lesson-module-code__code" id="@Model.Sys.Id-curl">
+                <pre>
+                <code class="shell">@Model.Curl</code>
+                </pre>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.DotNet))
+        {
+            <div class="lesson-module-code__code lesson-module-code__code--active" id="@Model.Sys.Id-dotnet">
+                <pre>
+                <code class="shell">@Model.DotNet</code>
+                </pre>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Javascript))
+        {
+            <div class="lesson-module-code__code" id="@Model.Sys.Id-javascript">
+                <pre>
+                <code class="shell">@Model.Javascript</code>
+                </pre>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Java))
+        {
+            <div class="lesson-module-code__code" id="@Model.Sys.Id-java">
+                <pre>
+                <code class="shell">@Model.Java</code>
+                </pre>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.JavaAndroid))
+        {
+            <div class="lesson-module-code__code" id="@Model.Sys.Id-android">
+                <pre>
+                <code class="shell">@Model.JavaAndroid</code>
+                </pre>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Php))
+        {
+            <div class="lesson-module-code__code" id="@Model.Sys.Id-php">
+                <pre>
+                <code class="shell">@Model.Php</code>
+                </pre>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Python))
+        {
+            <div class="lesson-module-code__code" id="@Model.Sys.Id-python">
+                <pre>
+                <code class="shell">@Model.Python</code>
+                </pre>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Ruby))
+        {
+            <div class="lesson-module-code__code" id="@Model.Sys.Id-ruby">
+                <pre>
+                <code class="shell">@Model.Ruby</code>
+                </pre>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Swift))
+        {
+            <div class="lesson-module-code__code" id="@Model.Sys.Id-swift">
+                <pre>
+                <code class="shell">@Model.Swift</code>
+                </pre>
+            </div>
+        }
+    </div>
+</div>

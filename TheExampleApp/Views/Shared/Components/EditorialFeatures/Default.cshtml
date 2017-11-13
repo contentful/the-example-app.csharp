@@ -1,0 +1,23 @@
+﻿@model TheExampleApp.ViewComponents.EditorialFeaturesModel
+@if (Model.FeaturesEnabled)
+{
+    <div class="editorial-features">
+        @if (Model.UsePreviewApi)
+        {
+            <vc:entry-state sys="@Model.Sys"></vc:entry-state>
+        }
+        <div class="editorial-features__item">
+            <a class="editorial-features__text" target="_blank" rel="noopener" href="@($"https://app.contentful.com/spaces/{Model.SpaceId}/entries/{Model.Sys.Id}")">
+                Edit in the web app
+            </a>
+            <div class="editorial-features__hint-wrapper">
+                <svg class="editorial-features__hint-icon">
+                    <use xlink:href="/icons/icons.svg#info"></use>
+                    <div class="editorial-features__hint-message">
+                        @Localizer["editorialFeaturesHint"]
+                    </div>
+                </svg>
+            </div>
+        </div>
+    </div>
+    }

@@ -1,0 +1,15 @@
+﻿@model TheExampleApp.ViewComponents.EntryStateModel
+<div class="editorial-features__item">
+    @if (Model.Draft)
+    {
+        <div class="pill pill--draft">
+            @Localizer["draftLabel"]
+        </div>
+    }
+    @if (Model.PendingChanges)
+    {
+        <div class="pill pill--pending-changes">
+            @Localizer["pendingChangesLabel"]
+        </div>
+    }
+</div>

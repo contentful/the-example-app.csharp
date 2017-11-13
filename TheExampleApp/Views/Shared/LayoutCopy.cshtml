@@ -1,0 +1,20 @@
+﻿@model LayoutCopy
+
+@{ var visualStyle = Model.VisualStyle == "Emphasized" ? "--emphasized" : ""; }
+<div class="module">
+    <div class="@("module-copy"+visualStyle)">
+        <div class="@("module-copy__first" + visualStyle)">
+            @if (!string.IsNullOrEmpty(Model.Headline))
+            {
+                <h1 class="@("module-copy__headline" + visualStyle)">@Model.Headline </h1>
+            }
+            <div class="@("module-copy__copy" + visualStyle)"><markdown content="@Model.Copy" /></div>
+        </div>
+        <div class="@("module-copy__second" + visualStyle)">
+            @if (!string.IsNullOrEmpty(Model.CtaLink) && !string.IsNullOrEmpty(Model.CtaTitle))
+            {
+                <a class="cta @("module-copy__cta" + visualStyle)" href="@Model.CtaLink">@Model.CtaTitle</a>
+            }
+        </div>
+    </div>
+</div>

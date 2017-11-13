@@ -1,0 +1,10 @@
+﻿@model LayoutHeroImage
+
+<div class="module module-hero-image">
+    <div class="module-hero-image__wrapper">
+        <div class="module-hero-image__headline-wrapper">
+            <h2 class="module-hero-image__headline">@Model.Headline</h2>
+        </div>
+        <contentful-image class="module-hero-image__image" url="@Model.BackgroundImage.File.Url" />
+    </div>
+</div>

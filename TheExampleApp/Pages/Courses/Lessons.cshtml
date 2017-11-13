@@ -1,0 +1,26 @@
+﻿@page "{slug}/{lessonSlug}"
+@model TheExampleApp.Pages.Courses.LessonsModel
+@{
+    ViewData["Title"] = Model.Course.Title;
+}
+<div class="layout-no-sidebar">@Html.Partial("Breadcrumbs")</div>
+<div class="layout-sidebar">
+    @Html.Partial("TableOfContents", Model.Course, new ViewDataDictionary(this.ViewData) { { "slug", Model.SelectedLesson.Slug } })
+    <section class="layout-sidebar__content">
+        <div class="lesson">
+            <h1 class="lesson__title">@Model.SelectedLesson.Title</h1>
+            <vc:editorial-features sys="@Model.SelectedLesson.Sys"></vc:editorial-features>
+            <div class="lesson__modules">
+                @foreach (var module in Model.SelectedLesson.Modules)
+                {
+                    @Html.Partial(module.GetType().Name, module)
+                }
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.NextLessonSlug))
+            {
+                <a class="lesson__cta cta" href="/courses/@Model.Course.Slug/lessons/@Model.NextLessonSlug">@Localizer["nextLessonLabel"]</a>
+            }
+        </div>
+    </section>
+</div>

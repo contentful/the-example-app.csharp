@@ -1,0 +1,27 @@
+﻿@model LayoutHighlightedCourse
+
+<div class="module module-higlighted-course">
+    <div class="module-higlighted-course__wrapper" style="background-image:url(@Model.Course.Image.File.Url);">
+        <div class="module-higlighted-course__overlay"></div>
+        <div class="module-higlighted-course__content">
+            @if (Model.Course?.Categories != null && Model.Course.Categories.Any())
+            {
+                <div class="module-higlighted-course__categories">
+                    @foreach (var category in Model.Course.Categories)
+                    {
+                        <a class="module-higlighted-course__category" href="/courses/categories/@category.Slug">@category.Title</a>
+                    }
+                </div>
+            }
+            <h2 class="module-higlighted-course__title">
+                <a href="/courses/@Model.Course.Slug">@Model.Course.Title</a>
+            </h2>
+            <div class="module-higlighted-course__description-wrapper">
+                <p markdown>@Model.Course.ShortDescription</p>
+            </div>
+            <div class="module-higlighted-course__link-wrapper">
+                <a class="module-higlighted-course__link" href="/courses/@Model.Course.Slug">@Localizer["viewCourseLabel"]</a>
+            </div>
+        </div>
+    </div>
+</div>

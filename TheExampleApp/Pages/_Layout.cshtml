@@ -1,0 +1,118 @@
+﻿@{
+    Func<string, string> isActive = (s) => { return ViewData["ActivePage"]?.ToString() == s ? "active" : ""; };
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <vc:meta-tags title="@ViewData["Title"]"></vc:meta-tags>
+    <link rel="stylesheet" href="~/stylesheets/style.css" />
+</head>
+<body>
+    <main class="main">
+        <div class="main__header">
+            <header class="header">
+                <div class="header__upper-wrapper">
+                    <div class="header__upper layout-centered">
+                        <div class="header__upper-title">
+                            <a id="about-this-modal-trigger" href="#" class="header__upper-link">
+                                <svg class="course__overview-icon">
+                                    <use xlink:href="/icons/icons.svg#info"></use>
+                                </svg>
+                                <span>@Localizer["whatIsThisApp"]</span>
+                            </a>
+                        </div>
+                            <div class="header__upper-copy">
+                                <a class="header__upper-link" target="_blank" rel="noopener" href="https://github.com/contentful/the-example-app.csharp">
+                                    <svg class="header__upper-icon">
+                                        <use xlink:href="/icons/icons.svg#github"></use>
+                                        | @Localizer["viewOnGithub"]
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="header__controls">
+                                <vc:selected-api current-path="@Context.Request.Path"></vc:selected-api>
+                                <vc:locales></vc:locales>
+                            </div>
+                            <div class="header__upper-menu">
+                            <a href="/settings" class="@isActive("Settings")">@Localizer["settingsLabel"]</a>
+                        </div>
+                </div>
+            </div>
+            <div class="header__lower-wrapper">
+                <div class="header__lower layout-centered">
+                    <div class="header__logo">
+                        <a class="header__logo-link" href="/">
+                            <img src="~/images/logo-node.svg" alt="@Localizer["logoAlt"]" />
+                        </a>
+                    </div>
+                    <nav class="header__navigation main-navigation">
+                        <ul>
+                            <li><a href="/" class="@isActive("Home")">@Localizer["homeLabel"]</a></li>
+                            <li><a href="/Courses" class="@isActive(null)">@Localizer["coursesLabel"]</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="main__content">
+        @RenderBody()
+    </div>
+    <div class="main__footer">
+        <div class="layout-centered">
+            <footer class="footer">
+                <div class="footer__upper">
+                    <nav class="footer__navigation main-navigation">
+                        <ul>
+                            <li><a href="/" class="@isActive("Home")">@Localizer["homeLabel"]</a></li>
+                            <li><a href="/Courses" class="@isActive(null)">@Localizer["coursesLabel"]</a></li>
+                        </ul>
+                    </nav>
+                    <div class="footer__apps"></div>
+                </div>
+                <div class="footer__lower">
+                    <div class="footer__logo">
+                        <a href="https://www.contentful.com/" target="_blank" rel="noopener"><img class="footer__disclaimer-logo" src="/images/contentful-logo.svg"></a>
+                    </div>
+                    <div class="footer__disclaimer">
+                        <p class="footer__disclaimer-text">@Localizer["footerDisclaimer"] <a href="https://github.com/contentful/the-example-app.csharp" target="_blank" rel="noopener">@Localizer["viewOnGithub"]</a>.
+                        <a href="/imprint">@Localizer["imprintLabel"]</a>.
+                        <a href="https://www.contentful.com/contact/" target="_blank">Contact us</a>.</p>
+                    </div>
+                    <div class="footer__social">
+                        <p>
+                            <a href="https://www.facebook.com/contentful/" target="_blank" rel="noopener"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/icons/icons.svg#facebook"></use></svg></a>
+                            <a href="https://twitter.com/contentful" target="_blank" rel="noopener"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/icons/icons.svg#twitter"></use></svg></a>
+                            <a href="https://github.com/contentful" target="_blank" rel="noopener"><svg class="header__upper-icon"><use xlink:href="/icons/icons.svg#github"></use></svg></a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</main>
+
+<section class="modal" id="about-this-modal">
+    <div class="modal__overlay close"></div>
+    <div class="modal__wrapper">
+        <h1 class="modal__title">@Localizer["modalTitle"]</h1>
+        <div class="modal__content">
+            <p>@Localizer["modalIntro"]</p>
+            <p>@Localizer["modalSpaceIntro"]&nbsp;<a href="https://github.com/contentful/the-example-app.csharp" target="_blank" rel="noopener">Github</a>.</p>
+        </div>
+        <div class="modal__cta-wrapper">
+            <a class="modal__cta close" href="#">@Localizer["modalCTALabel"]</a>
+        </div>
+        <div class="modal__close-wrapper">
+            <a class="modal__close-button close" href="#">
+                <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/icons/icons.svg#cross"></use></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script src="~/scripts/index.js" asp-append-version="true"></script>
+@RenderSection("Scripts", required: false)
+</body>
+</html>

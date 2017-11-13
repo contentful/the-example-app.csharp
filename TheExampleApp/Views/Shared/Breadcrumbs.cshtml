@@ -1,0 +1,17 @@
+﻿@{
+    var crumbs = Context.Items["breadcrumbs"] as List<TheExampleApp.Configuration.Breadcrumb>;
+}
+
+@if (crumbs != null)
+{
+        <nav class="breadcrumb">
+            <ul>
+                @foreach (var crumb in crumbs)
+                {
+                    <li>
+                        <a href="@crumb.Path">@crumb.Label</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+}

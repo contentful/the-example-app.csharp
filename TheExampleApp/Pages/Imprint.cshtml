@@ -1,0 +1,41 @@
+﻿@page
+@model TheExampleApp.Pages.ImprintModel
+@{
+    ViewData["Title"] = Localizer["imprintLabel"].Value;
+    ViewData["ActivePage"] = "Imprint";
+}
+
+<div class="layout-centered">
+    @Html.Partial("Breadcrumbs")
+    <h1>@Localizer["imprintLabel"]</h1>
+    <table>
+        <tbody>
+            <tr>
+                <th>@Localizer["companyLabel"]</th>
+                <td>Contentful GmbH</td>
+            </tr>
+            <tr>
+                <th>@Localizer["officeLabel"]</th>
+                <td>
+                    | Ritterstr. 12-14
+                    <br />
+                    |  10969 Berlin
+                    <br />
+                    |  @Localizer["germanyLabel"]
+                </td>
+            </tr>
+            <tr>
+                <th>@Localizer["registrationCourtLabel"]</th>
+                <td>Berlin-Charlottenburg HRB 155607 B</td>
+            </tr>
+            <tr>
+                <th>@Localizer["managingDirectorLabel"]</th>
+                <td>Sascha Konietzke</td>
+            </tr>
+            <tr>
+                <th>@Localizer["vatNumberLabel"]</th>
+                <td>DE275148225</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
