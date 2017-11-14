@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using TheExampleApp.Configuration;
 
 namespace TheExampleApp
@@ -31,6 +32,7 @@ namespace TheExampleApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddContentful(Configuration);
             // This would normally not be needed, but since we want to load our ContentfulOptions from memory if they're changed within the application
             // we provide our own implementation logic for the IContentfulClient

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Localization;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using System;
@@ -14,9 +15,16 @@ namespace TheExampleApp.Configuration
     {
         private Dictionary<string, Dictionary<string,string>> _items = new Dictionary<string, Dictionary<string, string>>();
 
-        public JsonViewLocalizer()
+        public JsonViewLocalizer(IHostingEnvironment hostingEnvironment)
         {
-            foreach(string file in Directory.EnumerateFiles("wwwroot/locales/", "*.json"))
+            var webRoot = hostingEnvironment.WebRootPath;
+
+            if (string.IsNullOrEmpty(webRoot))
+            {
+                webRoot = $"{hostingEnvironment.ContentRootPath}\\theexampleapp\\wwwroot";
+            }
+
+            foreach (string file in Directory.EnumerateFiles($"{webRoot}\\locales\\", "*.json"))
             {
                 var info = new FileInfo(file);
 
