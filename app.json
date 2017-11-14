@@ -1,0 +1,12 @@
+﻿{
+  "name": "The example app .NET",
+  "description": "Demo app for using Contentful with ASP.NET Core",
+  "repository": "https://github.com/contentful/the-example-app.csharp",
+  "keywords": [ "aspnet", "core", "contentful" ],
+  "stack": "heroku-16",
+  "buildpacks": [
+    {
+      "url": "https://github.com/jincod/dotnetcore-buildpack"
+    }
+  ]
+}
