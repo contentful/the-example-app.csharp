@@ -43,7 +43,7 @@ To start the express server, run the following
 dotnet run
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and take a look around. 
+Open [http://localhost:59990](http://localhost:59990) and take a look around. 
 
 
 ## Steps for read and write access (recommended)
@@ -83,7 +83,7 @@ dotnet run
 ```
 Final Step:
 
-Open [http://localhost:3000?enable_editorial_features](http://localhost:3000?enable_editorial_features) and take a look around. This URL flag adds an “Edit” button in the app on every editable piece of content which will take you back to Contentful web app where you can make changes. It also adds “Draft” and “Pending Changes” status indicators to all content if relevant.
+Open [http://localhost:59990?enable_editorial_features=Enabled](http://localhost:59990?enable_editorial_features=Enabled) and take a look around. This URL flag adds an “Edit” button in the app on every editable piece of content which will take you back to Contentful web app where you can make changes. It also adds “Draft” and “Pending Changes” status indicators to all content if relevant.
 
 ## Deploy to Heroku
 You can also deploy this app to Heroku:
