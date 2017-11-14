@@ -9,9 +9,18 @@
     <h1>@Localizer["somethingWentWrongLabel"] (@Response.StatusCode)</h1>
     <h2>@Localizer["tryLabel"]</h2>
     <ul>
-        <li>@Localizer["contentModelChangedErrorLabel"]</li>
-        <li>@Localizer["draftOrPublishedErrorLabel"]</li>
-        <li>@Localizer["localeContentErrorLabel"]</li>
-        <li>@Localizer["verifyCredentialsErrorLabel"]</li>
+        @if (Response.StatusCode == 404)
+        {
+            <li>@Localizer["draftOrPublishedErrorLabel"]</li>
+        }
+        @if (Response.StatusCode == 400)
+        {
+            <li>@Localizer["contentModelChangedErrorLabel"]</li>
+        }
+        @if (Response.StatusCode == 401)
+        {
+            <li>@Localizer["verifyCredentialsErrorLabel"]</li>
+            <li>@Localizer["localeContentErrorLabel"]</li>
+        }
     </ul>
 </div>
