@@ -27,7 +27,7 @@
     </section>
     <section class="layout-sidebar__content">
         <div class="courses">
-            <h1>All courses (@Model.Courses.Count)</h1>
+            <h1>@Localizer["allCoursesLabel"] (@Model.Courses.Count)</h1>
             <div class="grid-list">
                 @foreach (var course in Model.Courses)
                     {
