@@ -67,7 +67,7 @@ namespace TheExampleApp.Configuration
         public string Path { get; set; }
     }
 
-    public class BreadcrumbsManager
+    public class BreadcrumbsManager : IBreadcrumbsManager
     {
         private readonly IHttpContextAccessor _accessor;
         private List<Breadcrumb> _crumbs;
@@ -85,5 +85,10 @@ namespace TheExampleApp.Configuration
                 _crumbs.First(c => c.Label == slug).Label = label;
             }
         }
+    }
+
+    public interface IBreadcrumbsManager
+    {
+        void ReplaceCrumbForSlug(string slug, string label);
     }
 }

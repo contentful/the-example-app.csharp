@@ -56,7 +56,7 @@ namespace TheExampleApp
                     options.Conventions.AddPageRoute("/Courses/Lessons", "Courses/{slug}/lessons/{lessonSlug}");
                 });
             services.AddSession();
-            services.AddTransient<BreadcrumbsManager>();
+            services.AddTransient<IBreadcrumbsManager, BreadcrumbsManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

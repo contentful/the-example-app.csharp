@@ -15,9 +15,9 @@ namespace TheExampleApp.Pages.Courses
     public class LessonsModel : BasePageModel
     {
         private readonly VisitedLessonsManager _visitedLessonsManager;
-        private readonly BreadcrumbsManager _breadcrumbsManager;
+        private readonly IBreadcrumbsManager _breadcrumbsManager;
 
-        public LessonsModel(IContentfulClient client, VisitedLessonsManager visitedLessonsManager, BreadcrumbsManager breadcrumbsManager) : base(client)
+        public LessonsModel(IContentfulClient client, VisitedLessonsManager visitedLessonsManager, IBreadcrumbsManager breadcrumbsManager) : base(client)
         {
             _visitedLessonsManager = visitedLessonsManager;
             _breadcrumbsManager = breadcrumbsManager;
