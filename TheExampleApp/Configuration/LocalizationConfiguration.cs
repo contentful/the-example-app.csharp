@@ -21,10 +21,10 @@ namespace TheExampleApp.Configuration
 
             if (string.IsNullOrEmpty(webRoot))
             {
-                webRoot = $"{hostingEnvironment.ContentRootPath}\\theexampleapp\\wwwroot";
+                webRoot = $"{hostingEnvironment.ContentRootPath}/theexampleapp/wwwroot";
             }
 
-            foreach (string file in Directory.EnumerateFiles($"{webRoot}\\locales\\", "*.json"))
+            foreach (string file in Directory.EnumerateFiles($"{webRoot}/locales/", "*.json"))
             {
                 var info = new FileInfo(file);
 
