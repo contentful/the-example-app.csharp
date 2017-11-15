@@ -25,7 +25,7 @@ namespace TheExampleApp.Configuration
             var parts = path.ToString().Split("/",StringSplitOptions.RemoveEmptyEntries);
             var items = new List<Breadcrumb>();
             items.Add(new Breadcrumb { Label = _localizer["homeLabel"].Value, Path = "/" });
-            var translations = _localizer.GetAllStrings();
+            var translations = _localizer.GetAllStrings(false);
             foreach (var part in parts)
             {
                 var label = part.Replace("-", " ");
