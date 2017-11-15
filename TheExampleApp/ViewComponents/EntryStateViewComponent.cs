@@ -46,8 +46,6 @@ namespace TheExampleApp.ViewComponents
 
             return View(entry);
         }
-
-        private EntryStateModel Model { get; set; }
     }
 
     public class EntryStateModel

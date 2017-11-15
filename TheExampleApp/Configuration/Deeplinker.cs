@@ -40,7 +40,7 @@ namespace TheExampleApp.Configuration
 
             if (query.ContainsKey("enable_editorial_features"))
             {
-                context.Session.SetString("EditorialFeatures", query["enable_editorial_features"] == "Enabled" ? "Enabled" : "Disabled");
+                context.Session.SetString("EditorialFeatures", "Enabled");
             }
 
             await _next(context);
