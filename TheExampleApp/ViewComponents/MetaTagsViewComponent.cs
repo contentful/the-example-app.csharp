@@ -16,7 +16,7 @@ namespace TheExampleApp.ViewComponents
             _localizer = localizer;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string title)
+        public IViewComponentResult Invoke(string title)
         {
             if (string.IsNullOrEmpty(title))
             {

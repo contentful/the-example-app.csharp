@@ -17,7 +17,7 @@ namespace TheExampleApp.ViewComponents
             _client = client;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string currentPath)
+        public IViewComponentResult Invoke(string currentPath)
         {
             return View(Tuple.Create(_client.IsPreviewClient, currentPath));
         }

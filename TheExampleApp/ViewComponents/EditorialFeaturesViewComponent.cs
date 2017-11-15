@@ -21,7 +21,7 @@ namespace TheExampleApp.ViewComponents
             _options = optionsManager.Options;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(SystemProperties sys)
+        public IViewComponentResult Invoke(SystemProperties sys)
         {
             var model = new EditorialFeaturesModel();
             model.Sys = sys;
