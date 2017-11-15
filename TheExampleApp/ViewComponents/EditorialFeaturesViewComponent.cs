@@ -16,7 +16,7 @@ namespace TheExampleApp.ViewComponents
     {
         private readonly ContentfulOptions _options;
 
-        public EditorialFeaturesViewComponent(ContentfulOptionsManager optionsManager)
+        public EditorialFeaturesViewComponent(IContentfulOptionsManager optionsManager)
         {
             _options = optionsManager.Options;
         }

@@ -17,7 +17,7 @@ namespace TheExampleApp.ViewComponents
         private readonly HttpClient _httpClient;
         private readonly ContentfulOptions _options;
 
-        public EntryStateViewComponent(HttpClient httpClient, ContentfulOptionsManager optionsManager)
+        public EntryStateViewComponent(HttpClient httpClient, IContentfulOptionsManager optionsManager)
         {
             _httpClient = httpClient;
             _options = optionsManager.Options;

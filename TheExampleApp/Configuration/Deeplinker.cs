@@ -12,9 +12,9 @@ namespace TheExampleApp.Configuration
     public class Deeplinker
     {
         private readonly RequestDelegate _next;
-        private readonly ContentfulOptionsManager _manager;
+        private readonly IContentfulOptionsManager _manager;
 
-        public Deeplinker(RequestDelegate next, ContentfulOptionsManager manager)
+        public Deeplinker(RequestDelegate next, IContentfulOptionsManager manager)
         {
             _next = next;
             _manager = manager;

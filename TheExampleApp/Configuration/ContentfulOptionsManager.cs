@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TheExampleApp.Configuration
 {
-    public class ContentfulOptionsManager
+    public class ContentfulOptionsManager : IContentfulOptionsManager
     {
         private ContentfulOptions _options;
         private readonly IHttpContextAccessor _accessor;

@@ -36,10 +36,10 @@ namespace TheExampleApp
             services.AddContentful(Configuration);
             // This would normally not be needed, but since we want to load our ContentfulOptions from memory if they're changed within the application
             // we provide our own implementation logic for the IContentfulClient
-            services.AddSingleton<ContentfulOptionsManager>();
+            services.AddSingleton<IContentfulOptionsManager, ContentfulOptionsManager>();
             services.AddTransient<IContentfulClient, ContentfulClient>((ip) => {
                 var client = ip.GetService<HttpClient>();
-                var options = ip.GetService<ContentfulOptionsManager>().Options;
+                var options = ip.GetService<IContentfulOptionsManager>().Options;
                 var contentfulClient = new ContentfulClient(client,
                     options);
                 var version = typeof(Startup).GetTypeInfo().Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()

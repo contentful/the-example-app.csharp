@@ -18,10 +18,10 @@ namespace TheExampleApp.Pages
 {
     public class SettingsModel : PageModel
     {
-        private readonly ContentfulOptionsManager _manager;
+        private readonly IContentfulOptionsManager _manager;
         private readonly IContentfulClient _client;
 
-        public SettingsModel(ContentfulOptionsManager manager, IContentfulClient client)
+        public SettingsModel(IContentfulOptionsManager manager, IContentfulClient client)
         {
             Options = manager.Options;
             _client = client;
