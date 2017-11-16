@@ -48,7 +48,7 @@ namespace TheExampleApp
                 return contentfulClient;
             });
             services.AddSingleton<IViewLocalizer, JsonViewLocalizer>();
-            services.AddTransient<VisitedLessonsManager>();
+            services.AddTransient<IVisitedLessonsManager, VisitedLessonsManager>();
             services.AddMvc().AddRazorPagesOptions(
                 options => {
                     options.Conventions.AddPageRoute("/Courses", "Courses/Categories/{category?}");
@@ -94,13 +94,13 @@ namespace TheExampleApp
                     {
                         QueryStringKey = "locale"
                     },
-                    new CustomRequestCultureProvider(async (s) => {
+                    new CustomRequestCultureProvider((s) => {
 
                         var sessionCulture = s.Session.GetString("locale");
 
                         if (!string.IsNullOrEmpty(sessionCulture))
                         {
-                            return new ProviderCultureResult(sessionCulture, sessionCulture);
+                            return Task.FromResult(new ProviderCultureResult(sessionCulture, sessionCulture));
                         }
 
                         return null;

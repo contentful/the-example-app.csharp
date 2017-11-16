@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheExampleApp.Configuration
 {
-    public class VisitedLessonsManager
+    public class VisitedLessonsManager: IVisitedLessonsManager
     {
         private readonly string _key = "ContentfulVisitedLessons";
         private readonly IHttpContextAccessor _accessor;
@@ -32,5 +32,11 @@ namespace TheExampleApp.Configuration
             options.Expires = DateTime.Now.AddDays(7);
             _accessor.HttpContext.Response.Cookies.Append(_key, string.Join(';', VisitedLessons.Distinct()), options);
         }
+    }
+
+    public interface IVisitedLessonsManager
+    {
+        void AddVisitedLesson(string lessonId);
+        List<string> VisitedLessons { get; }
     }
 }

@@ -14,10 +14,10 @@ namespace TheExampleApp.Pages.Courses
 {
     public class IndexModel : BasePageModel
     {
-        private readonly VisitedLessonsManager _visitedLessonsManager;
+        private readonly IVisitedLessonsManager _visitedLessonsManager;
         private readonly IBreadcrumbsManager _breadcrumbsManager;
 
-        public IndexModel(IContentfulClient client, VisitedLessonsManager visitedLessonsManager, IBreadcrumbsManager breadcrumbsManager) : base(client)
+        public IndexModel(IContentfulClient client, IVisitedLessonsManager visitedLessonsManager, IBreadcrumbsManager breadcrumbsManager) : base(client)
         {
             _visitedLessonsManager = visitedLessonsManager;
             _breadcrumbsManager = breadcrumbsManager;
