@@ -323,6 +323,55 @@ namespace TheExampleApp.Tests.Pages
                 }
             );
         }
+
+        [Fact]
+        public void SelectedOptionsShouldValidate404Correctly()
+        {
+            //Arrange
+            var notfoundError = @"{
+  ""sys"": {
+    ""type"": ""Error"",
+    ""id"": ""NotFound""
+  },
+  ""message"": ""The resource could not be found."",
+  ""details"": {
+    ""sys"": {
+      ""type"": ""Space""
+    }
+  },
+  ""requestId"": ""435""
+}";
+            var options = new SelectedOptions();
+            options.AccessToken = "Faulty";
+            options.PreviewToken = "Faulty!";
+            options.SpaceId = "Some space";
+            var localizer = new Mock<IViewLocalizer>();
+            localizer.SetupGet(l => l["deliveryKeyInvalidLabel"]).Returns(new LocalizedHtmlString("deliveryKeyInvalidLabel", "Wrong delivery key!"));
+            localizer.SetupGet(l => l["previewKeyInvalidLabel"]).Returns(new LocalizedHtmlString("previewKeyInvalidLabel", "Wrong preview key!"));
+            localizer.SetupGet(l => l["spaceOrTokenInvalid"]).Returns(new LocalizedHtmlString("spaceOrTokenInvalid", "Wrong space id!"));
+            localizer.SetupGet(l => l["somethingWentWrongLabel"]).Returns(new LocalizedHtmlString("somethingWentWrongLabel", "Error!"));
+            var serviceProvider = new Mock<IServiceProvider>();
+            serviceProvider.Setup(c => c.GetService(typeof(IViewLocalizer))).Returns(localizer.Object);
+            var handler = new FakeMessageHandler();
+            handler.Responses.Enqueue(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.NotFound, Content = new StringContent(notfoundError) });
+            handler.Responses.Enqueue(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.NotFound, Content = new StringContent(notfoundError) });
+            var httpClient = new HttpClient(handler);
+            serviceProvider.Setup(c => c.GetService(typeof(HttpClient))).Returns(httpClient);
+            var context = new ValidationContext(options, serviceProvider.Object, null);
+            //Act
+            var res = options.Validate(context);
+            //Assert
+            Assert.Collection(res,
+                (v) => {
+                    Assert.Equal("SpaceId", v.MemberNames.First());
+                    Assert.Equal("Wrong space id!", v.ErrorMessage);
+                },
+                (v) => {
+                    Assert.Equal("SpaceId", v.MemberNames.First());
+                    Assert.Equal("Wrong space id!", v.ErrorMessage);
+                }
+            );
+        }
     }
 
     public class FakeMessageHandler : HttpClientHandler
