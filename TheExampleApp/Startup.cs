@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Net.Http.Headers;
 using TheExampleApp.Configuration;
 
 namespace TheExampleApp
@@ -71,7 +72,16 @@ namespace TheExampleApp
             else
             {
                 var options = new RewriteOptions()
-                    .AddRedirectToHttps();
+                    .Add((c) => {
+                        var request = c.HttpContext.Request;
+                        if(request.Headers.ContainsKey("X-Forwarded-Proto") && request.Headers["X-Forwarded-Proto"] == "http")
+                        {
+                            var response = c.HttpContext.Response;
+                            response.StatusCode = StatusCodes.Status301MovedPermanently;
+                            c.Result = RuleResult.EndResponse;
+                            response.Headers[HeaderNames.Location] = "https://" + request.Host + request.Path + request.QueryString;
+                        }
+                    } );
 
                 //app.UseRewriter(options);
                 app.UseExceptionHandler("/Error");
