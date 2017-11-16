@@ -8,20 +8,35 @@
 <div class="layout-centered">
     @Html.Partial("Breadcrumbs")
     <h1>@Localizer["somethingWentWrongLabel"] (@Response.StatusCode)</h1>
-    <h2>@Localizer["tryLabel"]</h2>
-    <ul>
-        @if (Response.StatusCode == 404)
-        {
-            <li>@Localizer["draftOrPublishedErrorLabel"]</li>
-        }
-        @if (Response.StatusCode == 400)
-        {
-            <li>@Localizer["contentModelChangedErrorLabel"]</li>
-        }
-        @if (Response.StatusCode == 401)
-        {
-            <li>@Localizer["verifyCredentialsErrorLabel"]</li>
-            <li>@Localizer["localeContentErrorLabel"]</li>
-        }
-    </ul>
+
+    @if (Response.StatusCode < 500)
+    {
+        <h2>@Localizer["tryLabel"]</h2>
+        <ul>
+            @if (Response.StatusCode == 404)
+            {
+                <li>@Localizer["draftOrPublishedErrorLabel"]</li>
+            }
+            @if (Response.StatusCode == 400)
+            {
+                <li>@Localizer["contentModelChangedErrorLabel"]</li>
+            }
+            @if (Response.StatusCode == 401)
+            {
+                <li>@Localizer["verifyCredentialsErrorLabel"]</li>
+                <li>@Localizer["localeContentErrorLabel"]</li>
+            }
+        </ul>
+    }
+    else if(Model.ContentfulException != null)
+    {
+        <h2>RequestId: @Model.ContentfulException.RequestId</h2>
+        <pre class="error__stack-trace">
+            <code class="shell">
+                @Model.ContentfulException.Message
+            </code>
+        </pre>
+
+    }
+
 </div>

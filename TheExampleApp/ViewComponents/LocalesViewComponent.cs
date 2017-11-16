@@ -1,7 +1,9 @@
 ﻿using Contentful.Core;
+using Contentful.Core.Models;
 using Contentful.Core.Models.Management;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,17 +23,36 @@ namespace TheExampleApp.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var space = await _client.GetSpace();
+            Space space = null;
+
+            try
+            {
+                space = await _client.GetSpace();
+            }
+            catch
+            {
+                space = new Space() {
+                    Locales = new List<Locale>()
+                    {
+                        new Locale
+                        {
+                            Code = "en-US",
+                            Default = true,
+                            Name = "U.S. English"
+                        }
+                    }
+                };
+            }
 
             var selectedLocale = CultureInfo.CurrentCulture.ToString();
 
             var localeInfo = new LocalesInfo
             {
                 Locales = space.Locales,
-                SelectedLocale = space.Locales.FirstOrDefault(c => c.Code == selectedLocale) ?? space.Locales.Single(c => c.Default)
+                SelectedLocale = space?.Locales.FirstOrDefault(c => c.Code == selectedLocale) ?? space?.Locales.Single(c => c.Default)
             };
 
-            HttpContext.Session.SetString("locale", localeInfo.SelectedLocale.Code);
+            HttpContext.Session.SetString("locale", localeInfo.SelectedLocale?.Code);
 
             return View(localeInfo);
         }

@@ -70,7 +70,8 @@ namespace TheExampleApp
             }
             else
             {
-                var options = new RewriteOptions().AddRedirectToHttps();
+                var options = new RewriteOptions()
+                    .AddRedirectToHttps();
 
                 //app.UseRewriter(options);
                 app.UseExceptionHandler("/Error");
@@ -110,6 +111,7 @@ namespace TheExampleApp
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
+            
             app.UseBreadcrumbs();
             app.UseDeeplinks();
             app.UseMvc(routes =>
