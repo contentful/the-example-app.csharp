@@ -23,8 +23,6 @@ namespace TheExampleApp.Tests.Pages.Courses
 {
     public class LessonsModelTests
     {
-        private object mockSession;
-
         [Fact]
         public async Task PageShouldReturn404IfNoCourseWasFound()
         {
@@ -50,7 +48,6 @@ namespace TheExampleApp.Tests.Pages.Courses
         [Fact]
         public async Task PageShouldReturn404IfNoLessonWasFound()
         {
-
             //Arrange
             var courses = new ContentfulCollection<Course>();
             courses.Items = new List<Course> {
@@ -78,7 +75,6 @@ namespace TheExampleApp.Tests.Pages.Courses
         [Fact]
         public async Task PageShouldSelectCorrectCourseAndLessonBySlugs()
         {
-
             //Arrange
             var courses = new ContentfulCollection<Course>();
             courses.Items = new List<Course> {
