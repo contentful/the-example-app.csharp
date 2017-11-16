@@ -100,7 +100,7 @@ namespace TheExampleApp
 
                         if (!string.IsNullOrEmpty(sessionCulture))
                         {
-                            await Task.FromResult(new ProviderCultureResult(sessionCulture, sessionCulture));
+                            return await Task.FromResult(new ProviderCultureResult(sessionCulture, sessionCulture));
                         }
 
                         return null;
