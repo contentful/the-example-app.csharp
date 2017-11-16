@@ -94,13 +94,13 @@ namespace TheExampleApp
                     {
                         QueryStringKey = "locale"
                     },
-                    new CustomRequestCultureProvider((s) => {
+                    new CustomRequestCultureProvider(async (s) => {
 
                         var sessionCulture = s.Session.GetString("locale");
 
                         if (!string.IsNullOrEmpty(sessionCulture))
                         {
-                            return Task.FromResult(new ProviderCultureResult(sessionCulture, sessionCulture));
+                            await Task.FromResult(new ProviderCultureResult(sessionCulture, sessionCulture));
                         }
 
                         return null;
