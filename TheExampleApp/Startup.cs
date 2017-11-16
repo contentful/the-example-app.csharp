@@ -83,7 +83,7 @@ namespace TheExampleApp
                         }
                     } );
 
-                //app.UseRewriter(options);
+                app.UseRewriter(options);
                 app.UseExceptionHandler("/Error");
             }
 
