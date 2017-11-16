@@ -72,7 +72,7 @@ namespace TheExampleApp
             {
                 var options = new RewriteOptions().AddRedirectToHttps();
 
-                app.UseRewriter(options);
+                //app.UseRewriter(options);
                 app.UseExceptionHandler("/Error");
             }
 
