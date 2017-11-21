@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Net.Http.Headers;
 using TheExampleApp.Configuration;
 
@@ -58,6 +59,8 @@ namespace TheExampleApp
                 });
             services.AddSession();
             services.AddTransient<IBreadcrumbsManager, BreadcrumbsManager>();
+            var embeddedProvider = new EmbeddedFileProvider(GetType().GetTypeInfo().Assembly);
+            services.AddSingleton<IFileProvider>(embeddedProvider);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
