@@ -248,6 +248,65 @@ namespace TheExampleApp.IntegrationTests
             Assert.Equal(HttpStatusCode.Found, response.StatusCode);
         }
 
+        [Fact]
+        public async Task PostingInvalidOptionsShouldReturn200WithErrorMessage()
+        {
+            //Arrange
+            var formContent = await GetRequestContentAsync(_client, "/Settings", new Dictionary<string, string>
+                {
+                    { "AppOptions.SpaceId", "" } ,
+                    { "AppOptions.AccessToken", "" },
+                    { "AppOptions.PreviewToken", "" },
+                });
+            // Act
+            var response = await _client.PostAsync("/Settings", formContent);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains(@"<span class=""field-validation-error"" data-valmsg-for=""AppOptions.SpaceId"" data-valmsg-replace=""true"">This field is required</span>", responseString);
+            Assert.Contains(@"<span class=""field-validation-error"" data-valmsg-for=""AppOptions.AccessToken"" data-valmsg-replace=""true"">This field is required</span>", responseString);
+            Assert.Contains(@"<span class=""field-validation-error"" data-valmsg-for=""AppOptions.PreviewToken"" data-valmsg-replace=""true"">This field is required</span>", responseString);
+        }
+
+        [Fact]
+        public async Task PostingBogusOptionsShouldReturn200WithErrorMessage()
+        {
+            //Arrange
+            var formContent = await GetRequestContentAsync(_client, "/Settings", new Dictionary<string, string>
+                {
+                    { "AppOptions.SpaceId", "321" } ,
+                    { "AppOptions.AccessToken", "421" },
+                    { "AppOptions.PreviewToken", "34" },
+                });
+            // Act
+            var response = await _client.PostAsync("/Settings", formContent);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains(@"<span class=""field-validation-error"" data-valmsg-for=""AppOptions.SpaceId"" data-valmsg-replace=""true"">This space does not exist or your access token is not associated with your space.</span>", responseString);
+            Assert.Contains(@"<span class=""field-validation-error"" data-valmsg-for=""AppOptions.AccessToken"" data-valmsg-replace=""true"">Your Delivery API key is invalid.</span>", responseString);
+        }
+
+        [Fact]
+        public async Task PostingCorrectOptionsShouldReturn302()
+        {
+            //Arrange
+            var formContent = await GetRequestContentAsync(_client, "/Settings", new Dictionary<string, string>
+                {
+                    { "AppOptions.SpaceId", "qz0n5cdakyl9" } ,
+                    { "AppOptions.AccessToken", "df2a18b8a5b4426741408fc95fa4331c7388d502318c44a5b22b167c3c1b1d03" },
+                    { "AppOptions.PreviewToken", "10145c6d864960fdca694014ae5e7bdaa7de514a1b5d7fd8bd24027f90c49bbc" },
+                });
+            // Act
+            var response = await _client.PostAsync("/Settings", formContent);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.Found, response.StatusCode);
+        }
+
         protected virtual void InitializeServices(IServiceCollection services)
         {
             var startupAssembly = typeof(Startup).GetTypeInfo().Assembly;
