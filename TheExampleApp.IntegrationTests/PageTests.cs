@@ -50,6 +50,45 @@ namespace TheExampleApp.IntegrationTests
                 responseString);
         }
 
+        [Fact]
+        public async Task IndexShouldReturn200ForGerman()
+        {
+            // Act
+            var response = await _client.GetAsync("/?locale=de-DE");
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("Die Beispielanwendung für Contentful",
+                responseString);
+        }
+
+        [Fact]
+        public async Task CoursesShouldReturn200()
+        {
+            // Act
+            var response = await _client.GetAsync("/courses");
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("Contentful Example App", responseString);
+            Assert.Contains("<h1>All courses", responseString);
+        }
+
+        [Fact]
+        public async Task CoursesShouldReturn200ForGerman()
+        {
+            // Act
+            var response = await _client.GetAsync("/courses?locale=de-DE");
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("Die Beispielanwendung für Contentful", responseString);
+            Assert.Contains("<h1>Alle Kurse", responseString);
+        }
+
         protected virtual void InitializeServices(IServiceCollection services)
         {
             var startupAssembly = typeof(Startup).GetTypeInfo().Assembly;
