@@ -89,6 +89,32 @@ namespace TheExampleApp.IntegrationTests
             Assert.Contains("<h1>Alle Kurse", responseString);
         }
 
+        [Fact]
+        public async Task HelloWorldCourseShouldReturn200()
+        {
+            // Act
+            var response = await _client.GetAsync("/courses/hello-world");
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("Contentful Example App", responseString);
+            Assert.Contains("Hello world</h1>", responseString);
+        }
+
+        [Fact]
+        public async Task HelloWorldCourseShouldReturn200ForGerman()
+        {
+            // Act
+            var response = await _client.GetAsync("/courses/hello-world?locale=de-DE");
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("Die Beispielanwendung für Contentful", responseString);
+            Assert.Contains("Hallo Welt</h1>", responseString);
+        }
+
         protected virtual void InitializeServices(IServiceCollection services)
         {
             var startupAssembly = typeof(Startup).GetTypeInfo().Assembly;
