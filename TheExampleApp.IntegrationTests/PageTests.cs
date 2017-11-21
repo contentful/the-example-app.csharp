@@ -125,6 +125,32 @@ namespace TheExampleApp.IntegrationTests
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
+        [Fact]
+        public async Task ImprintShouldReturn200()
+        {
+            // Act
+            var response = await _client.GetAsync("/Imprint");
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("Office Berlin",
+                responseString);
+        }
+
+        [Fact]
+        public async Task ImprintShouldReturn200ForGerman()
+        {
+            // Act
+            var response = await _client.GetAsync("/Imprint?locale=de-DE");
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("Büro in Berlin",
+                responseString);
+        }
+
         protected virtual void InitializeServices(IServiceCollection services)
         {
             var startupAssembly = typeof(Startup).GetTypeInfo().Assembly;
