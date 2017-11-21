@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -113,6 +114,15 @@ namespace TheExampleApp.IntegrationTests
             response.EnsureSuccessStatusCode();
             Assert.Contains("Die Beispielanwendung für Contentful", responseString);
             Assert.Contains("Hallo Welt</h1>", responseString);
+        }
+
+        [Fact]
+        public async Task MissingCourseShouldReturn404()
+        {
+            // Act
+            var response = await _client.GetAsync("/courses/no-such-thing");
+            // Assert
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         protected virtual void InitializeServices(IServiceCollection services)
