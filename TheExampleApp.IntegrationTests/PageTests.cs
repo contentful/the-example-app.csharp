@@ -151,6 +151,41 @@ namespace TheExampleApp.IntegrationTests
                 responseString);
         }
 
+        [Fact]
+        public async Task ArchitextureLessonShouldReturn200()
+        {
+            // Act
+            var response = await _client.GetAsync("/courses/hello-world/lessons/architecture");
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("Contentful Example App", responseString);
+            Assert.Contains("Architecture</h1>", responseString);
+        }
+
+        [Fact]
+        public async Task ArchitextureLessonShouldReturn200ForGerman()
+        {
+            // Act
+            var response = await _client.GetAsync("/courses/hello-world/lessons/architecture?locale=de-DE");
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+            Assert.Contains("Die Beispielanwendung für Contentful", responseString);
+            Assert.Contains("Architektur</h1>", responseString);
+        }
+
+        [Fact]
+        public async Task MissingLessonShouldReturn404()
+        {
+            // Act
+            var response = await _client.GetAsync("/courses/hello-world/lessons/this-doesn-not-exist");
+            // Assert
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
         protected virtual void InitializeServices(IServiceCollection services)
         {
             var startupAssembly = typeof(Startup).GetTypeInfo().Assembly;
