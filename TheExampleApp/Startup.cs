@@ -67,6 +67,7 @@ namespace TheExampleApp
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseStatusCodePagesWithReExecute("/Error");
+            var options = new RewriteOptions();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -74,8 +75,7 @@ namespace TheExampleApp
             }
             else
             {
-                var options = new RewriteOptions()
-                    .Add((c) => {
+                    options.Add((c) => {
                         var request = c.HttpContext.Request;
                         if(request.Headers.ContainsKey("X-Forwarded-Proto") && request.Headers["X-Forwarded-Proto"] == "http")
                         {
@@ -85,10 +85,11 @@ namespace TheExampleApp
                             response.Headers[HeaderNames.Location] = "https://" + request.Host + request.Path + request.QueryString;
                         }
                     } );
-
-                app.UseRewriter(options);
                 app.UseExceptionHandler("/Error");
             }
+            options.AddRedirect("courses/(.*)/lessons$", "/courses/$1");
+
+            app.UseRewriter(options);
 
             app.UseStaticFiles();
             
