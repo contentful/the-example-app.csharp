@@ -2,6 +2,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace TheExampleApp.E2eTests
@@ -44,6 +45,21 @@ namespace TheExampleApp.E2eTests
 
             Assert.Contains("Alle Kurse", headerText);
 
+            //reset locale back to english
+            _browser.Navigate().GoToUrl("http://localhost:59989/?locale=en-US");
+        }
+
+        [Fact]
+        public void ClickingOnLocaleShouldShowDropdown()
+        {
+            _browser.Navigate().GoToUrl("http://localhost:59989/");
+            var dropdownElement = _browser.FindElementsByCssSelector(".header__controls_dropdown").Last();
+
+            Assert.False(dropdownElement.Displayed);
+
+            _browser.FindElementsByCssSelector(".header__controls_label").Last().Click();
+
+            Assert.True(dropdownElement.Displayed);
         }
     }
 }
