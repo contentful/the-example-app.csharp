@@ -113,7 +113,7 @@
 <script src="~/scripts/index.js" asp-append-version="true"></script>
 @RenderSection("Scripts", required: false)
 <environment include="Heroku">
-    <script src="~/scripts/analytics.js"></script>
+    @Html.Partial("Analytics")
 </environment>
 </body>
 </html>
