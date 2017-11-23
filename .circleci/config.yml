@@ -24,8 +24,9 @@ jobs:
           name: Run app
           command: dotnet run
           background: true
-      - run: Switch directory back
-          name: cd ..
+      - run: 
+          name: Switch directory back
+          command: cd ..
       - run:
           name: Run E2E tests
           command: dotnet test TheExampleApp.E2eTests
