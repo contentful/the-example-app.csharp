@@ -3,6 +3,9 @@ jobs:
   build:
     docker:
       - image: microsoft/aspnetcore-build:2.0
+      - image: circleci/node:6-browsers
+        environment:
+          CHROME_BIN: "/usr/bin/google-chrome"
     steps:
       - checkout
       - run:
