@@ -3,6 +3,8 @@ jobs:
   build:
     docker:
       - image: microsoft/aspnetcore-build:2.0
+    environment:
+      - ASPNETCORE_ENVIRONMENT: Heroku
     steps:
       - checkout
       - run:
