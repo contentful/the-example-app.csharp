@@ -19,4 +19,4 @@ jobs:
           command: cd TheExampleApp ; dotnet run &
       - run:
           name: Run E2E tests
-          command: dotnet test TheExampleApp.E2eTests
+          command: cd TheExampleApp.E2eTests ; dotnet test TheExampleApp.E2eTests
