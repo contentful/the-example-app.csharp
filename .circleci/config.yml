@@ -15,11 +15,8 @@ jobs:
           name: Integration tests
           command: dotnet test TheExampleApp.IntegrationTests
       - run:
-          name: Publish app
-          command: dotnet publish -o /app
-      - run:
           name: Switch directory
-          command: cd /app
+          command: cd theexampleapp
       - run:
           name: Run app
           command: dotnet run
