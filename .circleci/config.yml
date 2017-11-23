@@ -16,7 +16,7 @@ jobs:
           command: dotnet test TheExampleApp.IntegrationTests
       - run:
           name: Switch directory
-          command: cd theexampleapp
+          command: cd TheExampleApp
       - run:
           name: Run app
           command: dotnet run
