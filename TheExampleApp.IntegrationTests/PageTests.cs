@@ -64,7 +64,7 @@ namespace TheExampleApp.IntegrationTests
 
             // Assert
             response.EnsureSuccessStatusCode();
-            Assert.Contains("Die Beispielanwendung für Contentful",
+            Assert.Contains("Dies ist die Beispielanwendung",
                 responseString);
         }
 
@@ -90,7 +90,7 @@ namespace TheExampleApp.IntegrationTests
 
             // Assert
             response.EnsureSuccessStatusCode();
-            Assert.Contains("Die Beispielanwendung für Contentful", responseString);
+            Assert.Contains("Dies ist die Beispielanwendung", responseString);
             Assert.Contains("<h1>Alle Kurse", responseString);
         }
 
@@ -116,7 +116,7 @@ namespace TheExampleApp.IntegrationTests
 
             // Assert
             response.EnsureSuccessStatusCode();
-            Assert.Contains("Die Beispielanwendung für Contentful", responseString);
+            Assert.Contains("Dies ist die Beispielanwendung", responseString);
             Assert.Contains("Hallo Welt</h1>", responseString);
         }
 
@@ -151,7 +151,7 @@ namespace TheExampleApp.IntegrationTests
 
             // Assert
             response.EnsureSuccessStatusCode();
-            Assert.Contains("Büro in Berlin",
+            Assert.Contains("Amtsgericht",
                 responseString);
         }
 
@@ -177,7 +177,7 @@ namespace TheExampleApp.IntegrationTests
 
             // Assert
             response.EnsureSuccessStatusCode();
-            Assert.Contains("Die Beispielanwendung für Contentful", responseString);
+            Assert.Contains("Dies ist die Beispielanwendung", responseString);
             Assert.Contains("Architektur</h1>", responseString);
         }
 
