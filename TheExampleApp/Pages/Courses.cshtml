@@ -1,7 +1,7 @@
 ﻿@page
 @model TheExampleApp.Pages.CoursesModel
 @{
-    ViewData["Title"] = $"{Localizer["allCoursesLabel"]} ({Model.Categories.Count})";
+    ViewData["Title"] = $"{Localizer["allCoursesLabel"].Value} ({Model.Categories.Count})";
 }
 <div class="layout-no-sidebar">@Html.Partial("Breadcrumbs")</div>
 <div class="layout-sidebar">
