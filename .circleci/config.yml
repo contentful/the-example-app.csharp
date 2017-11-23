@@ -15,5 +15,17 @@ jobs:
           name: Integration tests
           command: dotnet test TheExampleApp.IntegrationTests
       - run:
-          name: E2E tests
-          command: dotnet publish theexampleapp -o ./app/ ; cd app ; dotnet run & cd.. ; dotnet test TheExampleApp.E2eTests
+          name: Publish app
+          command: dotnet publish theexampleapp -o /app
+      - run:
+          name: Switch directory
+          command: cd /app
+      - run:
+          name: Run app
+          command: dotnet run
+          background: true
+      - run: Switch directory back
+        name: cd ..
+      - run:
+          name: Run E2E tests
+          command: dotnet test TheExampleApp.E2eTests
