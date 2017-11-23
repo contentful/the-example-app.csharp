@@ -16,4 +16,4 @@ jobs:
           command: dotnet test TheExampleApp.IntegrationTests
       - run:
           name: E2E tests
-          command: dotnet publish -o /app/ ; cd app ; dotnet run & cd.. ; dotnet test TheExampleApp.E2eTests
+          command: dotnet publish theexampleapp -o ./app/ ; cd app ; dotnet run & cd.. ; dotnet test TheExampleApp.E2eTests
