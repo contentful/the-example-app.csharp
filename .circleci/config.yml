@@ -16,6 +16,4 @@ jobs:
           command: dotnet test TheExampleApp.IntegrationTests
       - run:
           name: E2E tests
-          command: 
-            - cd theexampleapp 
-            - dotnet run & cd.. & dotnet test TheExampleApp.E2eTests
+          command: cd theexampleapp ; dotnet run & cd.. ; dotnet test TheExampleApp.E2eTests
