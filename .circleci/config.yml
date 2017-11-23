@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: microsoft/aspnetcore-build:2.0
+    steps:
+      - checkout
+      - run:
+          name: build
+          command: dotnet build
+      - run:
+          name: Unit tests
+          command: dotnet test TheExampleApp.Tests
+      - run:
+          name: Integration tests
+          command: dotnet test TheExampleApp.IntegrationTests
