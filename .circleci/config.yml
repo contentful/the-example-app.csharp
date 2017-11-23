@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: build
+          name: Build
           command: dotnet build
       - run:
           name: Unit tests
@@ -14,3 +14,8 @@ jobs:
       - run:
           name: Integration tests
           command: dotnet test TheExampleApp.IntegrationTests
+      - run:
+          name: E2E tests
+          command: 
+            - cd theexampleapp 
+            - dotnet run & cd.. & dotnet test TheExampleApp.E2eTests
