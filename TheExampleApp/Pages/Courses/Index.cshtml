@@ -25,7 +25,7 @@
                         <use xlink:href="/icons/icons.svg#skill-level"></use>
                     </svg>
                     <div class="course__overview-value">
-                        @Localizer["skillLevelLabel"]: @Model.Course?.SkillLevel
+                        @Localizer["skillLevelLabel"]: @Localizer[$"{@Model.Course?.SkillLevel}Label"] 
                     </div>
                 </div>
                 <div class="course__overview-cta-wrapper">
