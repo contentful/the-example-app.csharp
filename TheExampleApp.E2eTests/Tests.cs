@@ -67,6 +67,54 @@ namespace TheExampleApp.E2eTests
             Assert.True(dropdownElement.Displayed);
         }
 
+        [Fact]
+        public void ClickingOnLocaleShouldSwitchLocale()
+        {
+            _browser.Navigate().GoToUrl(_basehost);
+            var dropdownElement = _browser.FindElementsByCssSelector(".header__controls_dropdown").Last();
+
+            Assert.False(dropdownElement.Displayed);
+
+            _browser.FindElementsByCssSelector(".header__controls_label").Last().Click();
+
+            Assert.True(dropdownElement.Displayed);
+
+            _browser.FindElementByCssSelector(".header__controls_button[value=de-DE]").Click();
+
+            var elementText = _browser.FindElementByCssSelector("h2.module-highlighted-course__title").Text;
+
+            Assert.Equal("Hallo Welt", elementText);
+
+            //reset locale back to english
+            _browser.Navigate().GoToUrl($"{_basehost}?locale=en-US");
+        }
+
+        [Fact]
+        public void SettingsPageShouldDisplayDefaultCredentials()
+        {
+            _browser.Navigate().GoToUrl($"{_basehost}settings");
+            
+            var spaceId = _browser.FindElementByCssSelector("#AppOptions_SpaceId").GetAttribute("value");
+            var accessToken = _browser.FindElementByCssSelector("#AppOptions_AccessToken").GetAttribute("value");
+            var previewToken = _browser.FindElementByCssSelector("#AppOptions_PreviewToken").GetAttribute("value");
+
+            Assert.Equal("qz0n5cdakyl9", spaceId);
+            Assert.Equal("df2a18b8a5b4426741408fc95fa4331c7388d502318c44a5b22b167c3c1b1d03", accessToken);
+            Assert.Equal("10145c6d864960fdca694014ae5e7bdaa7de514a1b5d7fd8bd24027f90c49bbc", previewToken);
+        }
+
+        [Fact]
+        public void SettingsPageShouldDisplaySuccessMessageOnPost()
+        {
+            _browser.Navigate().GoToUrl($"{_basehost}settings");
+
+            Assert.Throws<NoSuchElementException>(() => _browser.FindElementByCssSelector(".status-block .status-block--success"));
+
+            _browser.FindElementByCssSelector(".cta[value='Save settings']").Click();
+
+            Assert.Equal("Changes saved successfully!", _browser.FindElementByCssSelector(".status-block.status-block--success").Text);
+        }
+
         // Get the full path to the target project for testing
         private static string GetProjectPath(string projectRelativePath, Assembly startupAssembly)
         {
