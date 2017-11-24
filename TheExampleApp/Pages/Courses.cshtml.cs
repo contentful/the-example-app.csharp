@@ -24,7 +24,7 @@ namespace TheExampleApp.Pages
         public async Task OnGet(string category)
         {
             var categories = await _client.GetEntriesByType("category", QueryBuilder<Category>.New.Include(5).LocaleIs(CultureInfo.CurrentCulture.ToString()));
-            var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").Include(5).LocaleIs(CultureInfo.CurrentCulture.ToString());
+            var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").Include(5).LocaleIs(CultureInfo.CurrentCulture.ToString()).OrderBy("-sys.createdAt");
 
             var courses = await _client.GetEntries(queryBuilder);
 
