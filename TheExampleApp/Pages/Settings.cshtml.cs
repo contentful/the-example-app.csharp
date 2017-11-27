@@ -186,76 +186,87 @@ namespace TheExampleApp.Pages
 
             if(!string.IsNullOrEmpty(SpaceId) && !string.IsNullOrEmpty(AccessToken) && !string.IsNullOrEmpty(PreviewToken))
             {
-                //We got all required fields. Make a test call to verify.
+                // We got all required fields. Make a test call to each API to verify.
                 var httpClient = validationContext.GetService(typeof(HttpClient)) as HttpClient;
+
                 var contentfulClient = new ContentfulClient(httpClient, AccessToken, PreviewToken, SpaceId);
-                ValidationResult vr = null;
-                try
+
+                foreach(var validationResult in MakeTestCalls(httpClient, contentfulClient, localizer))
                 {
-                    var s = contentfulClient.GetSpace().Result;
+                    yield return validationResult;
                 }
-                catch(AggregateException ae)
-                {
-                    ae.Handle((ce) => {
-                        if(ce is ContentfulException)
+            }
+        }
+
+        private IEnumerable<ValidationResult> MakeTestCalls(HttpClient httpClient, IContentfulClient contentfulClient, IViewLocalizer localizer)
+        {
+            ValidationResult validationResult = null;
+
+            try
+            {
+                var space = contentfulClient.GetSpace().Result;
+            }
+            catch (AggregateException ae)
+            {
+                ae.Handle((ce) => {
+                    if (ce is ContentfulException)
+                    {
+                        if ((ce as ContentfulException).StatusCode == 401)
                         {
-                            if ((ce as ContentfulException).StatusCode == 401)
-                            {
-                                vr = new ValidationResult(localizer["deliveryKeyInvalidLabel"].Value, new[] { nameof(AccessToken) });
-                            }
-                            else if ((ce as ContentfulException).StatusCode == 404)
-                            {
-                                vr = new ValidationResult(localizer["spaceOrTokenInvalid"].Value, new[] { nameof(SpaceId) });
-                            }
-                            else
-                            {
-                                vr = new ValidationResult($"{localizer["somethingWentWrongLabel"].Value}: {ce.Message}", new[] { nameof(AccessToken) });
-                            }
-                            return true;
+                            validationResult = new ValidationResult(localizer["deliveryKeyInvalidLabel"].Value, new[] { nameof(AccessToken) });
                         }
-                        return false;
-                    });
-                    
-                }
-
-                if(vr != null)
-                {
-                    yield return vr;
-                }
-
-                contentfulClient = new ContentfulClient(httpClient, AccessToken, PreviewToken, SpaceId, true);
-
-                try
-                {
-                    var s = contentfulClient.GetSpace().Result;
-                }
-                catch (AggregateException ae)
-                {
-                    ae.Handle((ce) => {
-                        if (ce is ContentfulException)
+                        else if ((ce as ContentfulException).StatusCode == 404)
                         {
-                            if ((ce as ContentfulException).StatusCode == 401)
-                            {
-                                vr = new ValidationResult(localizer["previewKeyInvalidLabel"].Value, new[] { nameof(PreviewToken) });
-                            }
-                            else if ((ce as ContentfulException).StatusCode == 404)
-                            {
-                                vr = new ValidationResult(localizer["spaceOrTokenInvalid"].Value, new[] { nameof(SpaceId) });
-                            }
-                            else
-                            {
-                                vr = new ValidationResult($"{localizer["somethingWentWrongLabel"].Value}: {ce.Message}", new[] { nameof(PreviewToken) });
-                            }
-                            return true;
+                            validationResult = new ValidationResult(localizer["spaceOrTokenInvalid"].Value, new[] { nameof(SpaceId) });
                         }
-                        return false;
-                    });
-                }
+                        else
+                        {
+                            validationResult = new ValidationResult($"{localizer["somethingWentWrongLabel"].Value}: {ce.Message}", new[] { nameof(AccessToken) });
+                        }
+                        return true;
+                    }
+                    return false;
+                });
 
-                if (vr != null)
-                {
-                    yield return vr;
-                }
+            }
+
+            if (validationResult != null)
+            {
+                yield return validationResult;
+            }
+
+            contentfulClient = new ContentfulClient(httpClient, AccessToken, PreviewToken, SpaceId, true);
+
+            try
+            {
+                var space = contentfulClient.GetSpace().Result;
+            }
+            catch (AggregateException ae)
+            {
+                ae.Handle((ce) => {
+                    if (ce is ContentfulException)
+                    {
+                        if ((ce as ContentfulException).StatusCode == 401)
+                        {
+                            validationResult = new ValidationResult(localizer["previewKeyInvalidLabel"].Value, new[] { nameof(PreviewToken) });
+                        }
+                        else if ((ce as ContentfulException).StatusCode == 404)
+                        {
+                            validationResult = new ValidationResult(localizer["spaceOrTokenInvalid"].Value, new[] { nameof(SpaceId) });
+                        }
+                        else
+                        {
+                            validationResult = new ValidationResult($"{localizer["somethingWentWrongLabel"].Value}: {ce.Message}", new[] { nameof(PreviewToken) });
+                        }
+                        return true;
+                    }
+                    return false;
+                });
+            }
+
+            if (validationResult != null)
+            {
+                yield return validationResult;
             }
         }
     }
