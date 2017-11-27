@@ -38,7 +38,14 @@ namespace TheExampleApp.Configuration
 
         public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
         {
-            return _items[CultureInfo.CurrentCulture.ToString()].Select(c => new LocalizedString(c.Key, c.Value));
+            var culture = CultureInfo.CurrentCulture.ToString();
+
+            if (!_items.ContainsKey(culture))
+            {
+                return new List<LocalizedString>();
+            }
+
+            return _items[culture].Select(c => new LocalizedString(c.Key, c.Value));
         }
 
         public LocalizedString GetString(string name)
@@ -48,7 +55,14 @@ namespace TheExampleApp.Configuration
 
         public LocalizedString GetString(string name, params object[] arguments)
         {
-            return new LocalizedString(name, _items[CultureInfo.CurrentCulture.ToString()][name]);
+            var culture = CultureInfo.CurrentCulture.ToString();
+
+            if (!_items.ContainsKey(culture) || !_items[culture].ContainsKey(name))
+            {
+                return new LocalizedString(name, name, true);
+            }
+
+            return new LocalizedString(name, _items[culture][name]);
         }
 
         public IHtmlLocalizer WithCulture(CultureInfo culture)
