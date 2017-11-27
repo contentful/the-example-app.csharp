@@ -16,11 +16,19 @@ using TheExampleApp.Configuration;
 
 namespace TheExampleApp.Pages
 {
+    /// <summary>
+    /// Model for the /settings view.
+    /// </summary>
     public class SettingsModel : PageModel
     {
         private readonly IContentfulOptionsManager _manager;
         private readonly IContentfulClient _client;
 
+        /// <summary>
+        /// Instantiates the model.
+        /// </summary>
+        /// <param name="manager">The class that manages the Contentful configuration for the application.</param>
+        /// <param name="client">The client used to communicate with the Contentful API.</param>
         public SettingsModel(IContentfulOptionsManager manager, IContentfulClient client)
         {
             Options = manager.Options;
@@ -35,6 +43,10 @@ namespace TheExampleApp.Pages
             };
         }
 
+        /// <summary>
+        /// Returns the result of getting the view.
+        /// </summary>
+        /// <returns>The view.</returns>
         public async Task OnGet()
         {
             var space = await _client.GetSpace();
@@ -42,22 +54,36 @@ namespace TheExampleApp.Pages
             AppOptions.EnableEditorialFeatures = HttpContext.Session.GetString("EditorialFeatures") == "Enabled";
         }
 
+        /// <summary>
+        /// Post action from the dropdown to switch api.
+        /// </summary>
+        /// <param name="api">The api to switch to.</param>
+        /// <param name="prevPage">The page that originated the post.</param>
+        /// <returns>A redirect result back to the originating page.</returns>
         public IActionResult OnPostSwitchApi(string api, string prevPage)
         {
-            var options = new ContentfulOptions();
-            options.UsePreviewApi = api == "cpa";
-            options.DeliveryApiKey = _manager.Options.DeliveryApiKey;
-            options.SpaceId = _manager.Options.SpaceId;
-            options.PreviewApiKey = _manager.Options.PreviewApiKey;
-            options.MaxNumberOfRateLimitRetries = _manager.Options.MaxNumberOfRateLimitRetries;
-            options.ResolveEntriesSelectively = _manager.Options.ResolveEntriesSelectively;
-            options.ManagementApiKey = _manager.Options.ManagementApiKey;
+            // Retain all options except whether to use the preview api or not.
+            var options = new ContentfulOptions
+            {
+                UsePreviewApi = api == "cpa",
+                DeliveryApiKey = _manager.Options.DeliveryApiKey,
+                SpaceId = _manager.Options.SpaceId,
+                PreviewApiKey = _manager.Options.PreviewApiKey,
+                MaxNumberOfRateLimitRetries = _manager.Options.MaxNumberOfRateLimitRetries,
+                ResolveEntriesSelectively = _manager.Options.ResolveEntriesSelectively,
+                ManagementApiKey = _manager.Options.ManagementApiKey
+            };
 
 
             HttpContext.Session.SetString(nameof(ContentfulOptions), JsonConvert.SerializeObject(options));
             return Redirect(prevPage);
         }
 
+        /// <summary>
+        /// Post action from the /settings view.
+        /// </summary>
+        /// <param name="appOptions">The options provided by the user.</param>
+        /// <returns>The updated view or the current view with validation errors.</returns>
         public IActionResult OnPost(SelectedOptions appOptions)
         {
             if (!ModelState.IsValid)
@@ -74,14 +100,16 @@ namespace TheExampleApp.Pages
                 HttpContext.Session.SetString("EditorialFeatures", "Disabled");
             }
 
-            var currentOptions = new ContentfulOptions(); 
-            currentOptions.DeliveryApiKey = appOptions.AccessToken;
-            currentOptions.SpaceId = appOptions.SpaceId;
-            currentOptions.UsePreviewApi = appOptions.UsePreviewApi;
-            currentOptions.PreviewApiKey = appOptions.PreviewToken;
-            currentOptions.MaxNumberOfRateLimitRetries = _manager.Options.MaxNumberOfRateLimitRetries;
-            currentOptions.ResolveEntriesSelectively = _manager.Options.ResolveEntriesSelectively;
-            currentOptions.ManagementApiKey = _manager.Options.ManagementApiKey;
+            var currentOptions = new ContentfulOptions
+            {
+                DeliveryApiKey = appOptions.AccessToken,
+                SpaceId = appOptions.SpaceId,
+                UsePreviewApi = appOptions.UsePreviewApi,
+                PreviewApiKey = appOptions.PreviewToken,
+                MaxNumberOfRateLimitRetries = _manager.Options.MaxNumberOfRateLimitRetries,
+                ResolveEntriesSelectively = _manager.Options.ResolveEntriesSelectively,
+                ManagementApiKey = _manager.Options.ManagementApiKey
+            };
 
             HttpContext.Session.SetString(nameof(ContentfulOptions), JsonConvert.SerializeObject(currentOptions));
             TempData["Success"] = true;
@@ -89,21 +117,57 @@ namespace TheExampleApp.Pages
             return RedirectToPage("Settings");
         }
 
+        /// <summary>
+        /// The current options the application is using.
+        /// </summary>
         public ContentfulOptions Options { get; set; }
+
+        /// <summary>
+        /// The options displayed in the view, editeable by the user.
+        /// </summary>
         public SelectedOptions AppOptions { get; set; }
+
+        /// <summary>
+        /// The name of the currently connected space.
+        /// </summary>
         public string SpaceName { get; set; }
     }
 
+    /// <summary>
+    /// Class encapsulating the options a user can set through the /settings view.
+    /// </summary>
     public class SelectedOptions : IValidatableObject
     {
+        /// <summary>
+        /// The selected space id.
+        /// </summary>
         public string SpaceId { get; set; }
         
+        /// <summary>
+        /// The delivery API access token for the space.
+        /// </summary>
         public string AccessToken { get; set; }
         
+        /// <summary>
+        /// The preview API access token for the space.
+        /// </summary>
         public string PreviewToken { get; set; }
+
+        /// <summary>
+        /// Whether or not to use the preview API.
+        /// </summary>
         public bool UsePreviewApi { get; set; }
+
+        /// <summary>
+        /// Whether or not to enable editorial features.
+        /// </summary>
         public bool EnableEditorialFeatures { get; set; }
 
+        /// <summary>
+        /// Validation logic for the options.
+        /// </summary>
+        /// <param name="validationContext">The validation context.</param>
+        /// <returns>An IEnumerable of ValidationResult.</returns>
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var localizer = validationContext.GetService(typeof(IViewLocalizer)) as IViewLocalizer;

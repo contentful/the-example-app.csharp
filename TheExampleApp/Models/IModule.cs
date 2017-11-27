@@ -5,14 +5,23 @@ using System.Threading.Tasks;
 
 namespace TheExampleApp.Models
 {
+    /// <summary>
+    /// Interface to mark which classes can be used as modules.
+    /// </summary>
     public interface IModule
     {
     }
 
+    /// <summary>
+    /// Interface to mark lesson modules.
+    /// </summary>
     public interface ILessonModule : IModule
     {
     }
 
+    /// <summary>
+    /// Interface to mark layout modules.
+    /// </summary>
     public interface ILayoutModule : IModule
     {
     }

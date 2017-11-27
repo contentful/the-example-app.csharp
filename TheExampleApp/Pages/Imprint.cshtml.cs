@@ -7,8 +7,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace TheExampleApp.Pages
 {
+    /// <summary>
+    /// Model for the /imprint view.
+    /// </summary>
+    /// <remarks>Very uninteresting class.</remarks>
     public class ImprintModel : PageModel
     {
+        /// <summary>
+        /// Returns the view.
+        /// </summary>
         public void OnGet()
         {
 

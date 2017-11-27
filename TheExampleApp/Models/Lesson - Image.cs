@@ -7,12 +7,24 @@ using Contentful.Core.Models;
 
 namespace TheExampleApp.Models
 {
+    /// <summary>
+    /// Represents a image module for a lesson.
+    /// </summary>
     public class LessonImage : ILessonModule
     {
+        /// <summary>
+        /// The system defined meta data properties.
+        /// </summary>
         public SystemProperties Sys { get; set; }
 
+        /// <summary>
+        /// The title of the module.
+        /// </summary>
         public string Title { get; set; }
 
+        /// <summary>
+        /// The image of the module.
+        /// </summary>
         public Asset Image { get; set; }
     }
 }
