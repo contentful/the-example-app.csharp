@@ -47,6 +47,29 @@ namespace TheExampleApp.Configuration
                 return _options;
             }
         }
+
+        /// <summary>
+        /// Whether or not the application is using custom credentials.
+        /// </summary>
+        public bool IsUsingCustomCredentials
+        {
+            get
+            {
+                var sessionString = _accessor.HttpContext.Session.GetString(nameof(ContentfulOptions));
+
+                if (string.IsNullOrEmpty(sessionString))
+                {
+                    return false;
+                }
+
+                var options = JsonConvert.DeserializeObject<ContentfulOptions>(sessionString); ;
+
+                return (options.SpaceId == _options.SpaceId && 
+                    options.UsePreviewApi == _options.UsePreviewApi &&
+                    options.DeliveryApiKey == _options.DeliveryApiKey &&
+                    options.PreviewApiKey == _options.PreviewApiKey) == false;
+            }
+        }
     }
 
     /// <summary>
@@ -61,5 +84,10 @@ namespace TheExampleApp.Configuration
         {
             get;
         }
+
+        /// <summary>
+        /// Whether or not the application is using custom credentials.
+        /// </summary>
+        bool IsUsingCustomCredentials { get; }
     }
 }
