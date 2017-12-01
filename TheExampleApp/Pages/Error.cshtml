@@ -27,16 +27,21 @@
                 <li>@Localizer["localeContentErrorLabel"]</li>
             }
         </ul>
+        <form method="post" action="/Settings?handler=ResetCredentials" asp-antiforgery="true">
+            <button type="submit">@Localizer["resetCredentialsLabel"]</button>
+        </form>
     }
-    else if(Model.ContentfulException != null)
+    else if (Model.ContentfulException != null)
     {
         <h2>RequestId: @Model.ContentfulException.RequestId</h2>
         <pre class="error__stack-trace">
-            <code class="shell">
+        <code class="shell">
                 @Model.ContentfulException.Message
             </code>
         </pre>
-
+        <form method="post" action="/Settings?handler=ResetCredentials" asp-antiforgery="true">
+            <button type="submit">@Localizer["resetCredentialsLabel"]</button>
+        </form>
     }
 
 </div>
