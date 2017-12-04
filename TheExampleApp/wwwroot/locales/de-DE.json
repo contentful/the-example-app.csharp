@@ -102,7 +102,7 @@
   "currentLocaleLabel": "Deutsch (Deutschland)",
   "hostedLabel": "Gehostet",
   "comingSoonLabel": "Bald verfügbar",
-  "credentialSourceLabel": "Ursprung der Zugangsdaten:",
+  "credentialSourceLabel": "Ursprung der Zugangsdaten",
   "readMoreLabel": "Weiterlesen",
   "credentialsLocationLabel": "Ihre Zugangsdaten werden derzeit aus",
   "overwriteCredentialsLabel": "Sie können überschrieben werden, indem Sie das Formular unten oder Querystring Parameter verwenden.",
