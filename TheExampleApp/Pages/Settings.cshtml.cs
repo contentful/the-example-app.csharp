@@ -115,7 +115,7 @@ namespace TheExampleApp.Pages
             {
                 DeliveryApiKey = appOptions.AccessToken,
                 SpaceId = appOptions.SpaceId,
-                UsePreviewApi = appOptions.UsePreviewApi,
+                UsePreviewApi = _manager.Options.UsePreviewApi,
                 PreviewApiKey = appOptions.PreviewToken,
                 MaxNumberOfRateLimitRetries = _manager.Options.MaxNumberOfRateLimitRetries,
                 ResolveEntriesSelectively = _manager.Options.ResolveEntriesSelectively,

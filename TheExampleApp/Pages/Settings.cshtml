@@ -39,12 +39,11 @@
                 <div class="status-block__message">
                     @Localizer["connectedToSpaceLabel"] “@Model.SpaceName”<br />
                     @Localizer["credentialSourceLabel"]: <a href="https://github.com/contentful/the-example-app.csharp/blob/master/TheExampleApp/appsettings.json" target="_blank" rel="noopener">appsettings.json</a><br />
-                    <p><a href="#" class="status-block__readmore-trigger">@Localizer["readMoreLabel"]</a></p>
+                    <p><a href="#" class="status-block__readmore-trigger" data-alternate-text="@Localizer["closeLabel"]">@Localizer["readMoreLabel"]</a></p>
                 </div>
                 <div class="status-block__readmore">
                     <p>@Localizer["credentialsLocationLabel"] appsettings.json.</p>
                     <p>@Localizer["overwriteCredentialsLabel"]</p>
-                    <p><a href="#" class="status-block__readmore-close">@Localizer["closeLabel"]</a></p>
                 </div>
             </div>
             }
@@ -53,17 +52,21 @@
             <div class="status-block__content">
                 <div class="status-block__message">
                     @Localizer["connectedToSpaceLabel"] “@Model.SpaceName”<br />
-                    @Localizer["credentialSourceLabel"]: Session<br />
-                    <p><a class="status-block__sharelink" href="@($"{Request.Scheme}://{Request.Host}?space_id={Model.AppOptions.SpaceId}&preview_token={Model.AppOptions.PreviewToken}&delivery_token={Model.AppOptions.AccessToken}&api={(Model.AppOptions.UsePreviewApi ? "cpa" : "cda")}{(Model.AppOptions.EnableEditorialFeatures ? "&enable_editorial_features" : "")}")">@Localizer["copyLinkLabel"]</a></p>
+                    @Localizer["credentialSourceLabel"]: Session
                     <form method="post" action="/Settings?handler=ResetCredentials" asp-antiforgery="true">
-                        <button type="submit">@Localizer["resetCredentialsLabel"]</button>
+                        <p>
+                            @Localizer["youCanLabel"]<br />
+
+                            <button type="submit">@Localizer["resetCredentialsLabel"]</button><br />
+
+                            <a class="status-block__sharelink" href="@($"{Request.Scheme}://{Request.Host}?space_id={Model.AppOptions.SpaceId}&preview_token={Model.AppOptions.PreviewToken}&delivery_token={Model.AppOptions.AccessToken}&api={(Model.AppOptions.UsePreviewApi ? "cpa" : "cda")}{(Model.AppOptions.EnableEditorialFeatures ? "&enable_editorial_features" : "")}")">@Localizer["copyLinkLabel"]</a>
+                        </p>
                     </form>
-                    <p><a href="#" class="status-block__readmore-trigger">@Localizer["readMoreLabel"]</a></p>
+                    <p><a href="#" class="status-block__readmore-trigger" data-alternate-text="@Localizer["closeLabel"]">@Localizer["readMoreLabel"]</a></p>
                 </div>
                 <div class="status-block__readmore">
                     <p>@Localizer["credentialsLocationLabel"] session.</p>
                     <p>@Localizer["resetAboveLabel"]</p>
-                    <p><a href="#" class="status-block__readmore-close">@Localizer["closeLabel"]</a></p>
                 </div>
             </div>
 
@@ -119,10 +122,6 @@
                 </span>
             }
             <div class="form-item__help-text">@Localizer["contentPreviewApiHelpText"]</div>
-        </div>
-        <div class="form-item">
-            <input asp-for="@Model.AppOptions.UsePreviewApi" />
-            <label asp-for="@Model.AppOptions.UsePreviewApi">Use preview API</label>
         </div>
         <div class="form-item">
             <input asp-for="@Model.AppOptions.EnableEditorialFeatures" />

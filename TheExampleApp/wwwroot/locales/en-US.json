@@ -109,5 +109,6 @@
   "copyLinkLabel": "Copy a shareable link",
   "resetCredentialsLabel": "Reset credentials to default",
   "resetAboveLabel": "You can reset to the default credentials above.",
-  "closeLabel": "close"
+  "closeLabel": "Close",
+  "youCanLabel":  "You can"
 }

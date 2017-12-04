@@ -109,5 +109,6 @@
   "copyLinkLabel": "Kopiere einen share Link",
   "resetCredentialsLabel": "Anmeldeinformationen zurücksetzen",
   "resetAboveLabel": "Sie können auf die Standardanmeldeinformationen zurücksetzen.",
-  "closeLabel": "schließen"
+  "closeLabel": "Schließen",
+  "youCanLabel":  "Sie können"
 }
