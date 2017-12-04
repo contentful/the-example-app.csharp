@@ -41,7 +41,7 @@
   "modalPlatforms": "This app is also available in the following platforms and languages:",
   "modalSpaceLinkLabel": "here",
   "modalCTALabel": "Ok, got it.",
-  "editorialFeaturesHint": "Edit this entry in our web app. You have to be logged in and have access to the connected space to use this feature.",
+  "editorialFeaturesHint": "Edit this entry in the Contentful web app. You have to be logged in and have access to the connected space to use this feature.",
   "draftLabel": "draft",
   "pendingChangesLabel": "pending changes",
   "lessonModuleErrorTitle": "⚠️ Invalid lesson module",
