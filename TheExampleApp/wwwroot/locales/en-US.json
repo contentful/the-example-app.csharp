@@ -79,7 +79,7 @@
   "changesSavedLabel": "Changes saved successfully!",
   "errorOcurredTitleLabel": "Error occurred",
   "errorOcurredMessageLabel": "Some errors occurred. Please check the error messages next to the fields.",
-  "connectedToSpaceLabel": "Connected to the Contentful space",
+  "connectedToSpaceLabel": "Connected space",
   "spaceIdLabel": "Space ID",
   "spaceIdHelpText": "The Space ID is a unique identifier for your space.",
   "accessTokenLabel": "access token",
@@ -106,9 +106,13 @@
   "readMoreLabel": "Read more",
   "credentialsLocationLabel": "Your credentials are currently loaded from",
   "overwriteCredentialsLabel": "They can be overwritten by changing them below or using query string parameters.",
-  "copyLinkLabel": "Copy a shareable link",
+  "copyLinkLabel": "Copy session deeplink to clipboard",
   "resetCredentialsLabel": "Reset credentials to default",
   "resetAboveLabel": "You can reset to the default credentials above.",
   "closeLabel": "Close",
-  "youCanLabel":  "You can"
+  "overrideConfigLabel": "This configuration can be overriden through the form below or by using query string parameters.",
+  "loadedFromLocalFileLabel": "Loaded from local file",
+  "usingServerCredentialsLabel": "The example app is currently using server side stored credentials to connect to a Contentful space.",
+  "usingSessionCredentialsLabel": "The example app is currently using application session stored credentials to connect to a Contentful space.",
+  "applicationCredentialsLabel": "Application session credentials"
 }

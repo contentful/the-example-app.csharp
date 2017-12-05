@@ -79,7 +79,7 @@
   "changesSavedLabel": "Änderungen erfolgreich gespeichert!",
   "errorOcurredTitleLabel": "Fehler aufgetreten",
   "errorOcurredMessageLabel": "Einige Fehler sind aufgetreten. Bitte schauen Sie sich die Fehlermeldungen neben den Feldern an.",
-  "connectedToSpaceLabel": "Verbunden mit Space ",
+  "connectedToSpaceLabel": "Verbunden Space ",
   "spaceIdLabel": "Space ID",
   "spaceIdHelpText": "Die Space Id ist eine eindeutige Identifizierung für Ihren Space.",
   "accessTokenLabel": "Access Token",
@@ -102,7 +102,7 @@
   "currentLocaleLabel": "Deutsch (Deutschland)",
   "hostedLabel": "Gehostet",
   "comingSoonLabel": "Bald verfügbar",
-  "credentialSourceLabel": "Ursprung der Zugangsdaten",
+  "credentialSourceLabel": "Ursprung der Zugangsdaten:",
   "readMoreLabel": "Weiterlesen",
   "credentialsLocationLabel": "Ihre Zugangsdaten werden derzeit aus",
   "overwriteCredentialsLabel": "Sie können überschrieben werden, indem Sie das Formular unten oder Querystring Parameter verwenden.",
@@ -110,5 +110,9 @@
   "resetCredentialsLabel": "Zugangsdaten zurücksetzen",
   "resetAboveLabel": "Sie können auf voreingestellten Zugangsdaten wiederherstellen.",
   "closeLabel": "Schließen",
-  "youCanLabel":  "Sie können"
+  "overrideConfigLabel": "Diese Konfiguration kann durch das folgende Formular oder durch Verwendung von Abfragezeichenfolgen überschrieben werden.",
+  "loadedFromLocalFileLabel": "Geladen von der lokalen Datei",
+  "usingServerCredentialsLabel": "Die Beispielanwendung verwendet derzeit serverseitig gespeicherte Anmeldeinformationen zum Herstellen einer Verbindung mit einem Contentful-Bereich.",
+  "usingSessionCredentialsLabel": "Die Beispielanwendung verwendet derzeit Anmeldeinformationen für die Anwendungssitzung, um eine Verbindung zu einem Contentful-Bereich herzustellen.",
+  "applicationCredentialsLabel": "Anmeldeinformationen für die Anwendungssitzung"
 }
