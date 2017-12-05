@@ -79,7 +79,7 @@
   "changesSavedLabel": "Changes saved successfully!",
   "errorOcurredTitleLabel": "Error occurred",
   "errorOcurredMessageLabel": "Some errors occurred. Please check the error messages next to the fields.",
-  "connectedToSpaceLabel": "Connected to space",
+  "connectedToSpaceLabel": "Connected to the Contentful space",
   "spaceIdLabel": "Space ID",
   "spaceIdHelpText": "The Space ID is a unique identifier for your space.",
   "accessTokenLabel": "access token",
