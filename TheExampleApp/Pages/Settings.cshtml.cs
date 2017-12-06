@@ -52,6 +52,17 @@ namespace TheExampleApp.Pages
             var space = await _client.GetSpace();
             SpaceName = space.Name;
             AppOptions.EnableEditorialFeatures = HttpContext.Session.GetString("EditorialFeatures") == "Enabled";
+            IsUsingCustomCredentials = _manager.IsUsingCustomCredentials;
+        }
+
+        /// <summary>
+        /// Post action to reset session credentials to the default ones.
+        /// </summary>
+        /// <returns>A redirect back to the settings page.</returns>
+        public IActionResult OnPostResetCredentials()
+        {
+            HttpContext.Session.SetString(nameof(ContentfulOptions), "");
+            return RedirectToPage("Settings");
         }
 
         /// <summary>
@@ -104,7 +115,7 @@ namespace TheExampleApp.Pages
             {
                 DeliveryApiKey = appOptions.AccessToken,
                 SpaceId = appOptions.SpaceId,
-                UsePreviewApi = appOptions.UsePreviewApi,
+                UsePreviewApi = _manager.Options.UsePreviewApi,
                 PreviewApiKey = appOptions.PreviewToken,
                 MaxNumberOfRateLimitRetries = _manager.Options.MaxNumberOfRateLimitRetries,
                 ResolveEntriesSelectively = _manager.Options.ResolveEntriesSelectively,
@@ -131,6 +142,8 @@ namespace TheExampleApp.Pages
         /// The name of the currently connected space.
         /// </summary>
         public string SpaceName { get; set; }
+
+        public bool IsUsingCustomCredentials { get; set; }
     }
 
     /// <summary>

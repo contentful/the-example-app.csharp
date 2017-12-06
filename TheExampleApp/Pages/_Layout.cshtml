@@ -94,10 +94,49 @@
 <section class="modal" id="about-this-modal">
     <div class="modal__overlay close"></div>
     <div class="modal__wrapper">
-        <h1 class="modal__title">@Localizer["modalTitle"]</h1>
+        <h1 class="modal__title">@Localizer["modalTitleDotnet"]</h1>
         <div class="modal__content">
-            <p>@Localizer["modalIntro"]</p>
-            <p>@Localizer["modalSpaceIntro"]&nbsp;<a href="https://github.com/contentful/the-example-app.csharp" target="_blank" rel="noopener">Github</a>.</p>
+            <p>@Localizer["modalIntroDotnet"]&nbsp;<a href="https://github.com/contentful/the-example-app.csharp" target="_blank" rel="noopener">Github</a>.</p>
+            <p>@Localizer["modalSpaceIntro"]&nbsp;<a href="https://github.com/contentful/content-models/blob/master/the-example-app/README.md " target="_blank" rel="noopener">here</a>.</p>
+            <p>@Localizer["modalPlatforms"]</p>
+            <ul>
+                <li>
+                    <img src="/images/nodejs-icon.svg"><br />
+                    <a href="https://the-example-app-nodejs.herokuapp.com/" rel="noopener" target="_blank">@Localizer["hostedLabel"]</a> <br />
+                    <a href="https://github.com/contentful/the-example-app.nodejs" rel="noopener" target="_blank">GitHub</a>
+                </li>
+                <li>
+                    <img src="/images/dotnet.svg"><br />
+                    <a href="https://the-example-app-csharp.herokuapp.com/" rel="noopener" target="_blank">@Localizer["hostedLabel"]</a> <br />
+                    <a href="https://github.com/contentful/the-example-app.csharp" rel="noopener" target="_blank">GitHub</a>
+                </li>
+                <li>
+                    <img src="/images/ruby.svg"><br />
+                    <a href="https://the-example-app-rb.herokuapp.com/" rel="noopener" target="_blank">@Localizer["hostedLabel"]</a> <br />
+                    <a href="https://github.com/contentful/the-example-app.rb" rel="noopener" target="_blank">GitHub</a>
+                </li>
+                <li>
+                    <img src="/images/php.svg"><br />
+                    <a href="https://the-example-app-php.herokuapp.com/" rel="noopener" target="_blank">@Localizer["hostedLabel"]</a> <br />
+                    <a href="https://github.com/contentful/the-example-app.php" rel="noopener" target="_blank">GitHub</a>
+                </li>
+                <li>
+                    <img src="/images/python.svg" class="inactive"><br />
+                    @Localizer["comingSoonLabel"]
+                </li>
+                <li>
+                    <img src="/images/swift.svg" class="inactive"><br />
+                    @Localizer["comingSoonLabel"]
+                </li>
+                <li>
+                    <img src="/images/java.svg" class="inactive"><br />
+                    @Localizer["comingSoonLabel"]
+                </li>
+                <li>
+                    <img src="/images/android-icon.svg" class="inactive"><br />
+                    @Localizer["comingSoonLabel"]
+                </li>
+            </ul>
         </div>
         <div class="modal__cta-wrapper">
             <a class="modal__cta close" href="#">@Localizer["modalCTALabel"]</a>

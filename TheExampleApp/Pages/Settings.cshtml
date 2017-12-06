@@ -33,11 +33,61 @@
             <svg class="status-block__icon status-block__icon--info">
                 <use xlink:href="/icons/icons.svg#info"></use>
             </svg>
+            @if (Model.IsUsingCustomCredentials == false)
+            {
             <div class="status-block__content">
                 <div class="status-block__message">
-                    @Localizer["connectedToSpaceLabel"] “@Model.SpaceName”
+                    <p>
+                        <em>
+                            @Localizer["usingServerCredentialsLabel"]
+                        </em>
+                    </p>
+                    <p>
+                        <strong>@Localizer["connectedToSpaceLabel"]:</strong><br />
+                        @Model.SpaceName (ID:@Model.AppOptions.SpaceId)
+                    </p>
+                    <p>
+                        <strong>@Localizer["credentialSourceLabel"]:</strong><br />
+                        @Localizer["loadedFromLocalFileLabel"] <a href="https://github.com/contentful/the-example-app.csharp/blob/master/TheExampleApp/appsettings.json" target="_blank" rel="noopener">appsettings.json</a>
+                    </p>
+                    <p>
+                        <em>
+                            @Localizer["overrideConfigLabel"]
+                        </em>
+                    </p>
                 </div>
             </div>
+            }
+            else
+            {
+            <div class="status-block__content">
+                <div class="status-block__message">
+                    <p>
+                        <em>
+                            @Localizer["usingSessionCredentialsLabel"]
+                        </em>
+                    </p>
+                    <p>
+                        <strong>@Localizer["connectedToSpaceLabel"]:</strong><br />
+                        @Model.SpaceName (ID:@Model.AppOptions.SpaceId)
+                    </p>
+
+                    <form method="post" action="/Settings?handler=ResetCredentials" asp-antiforgery="true">
+                        <p>
+                            <strong>@Localizer["applicationCredentialsLabel"]:</strong><br />
+                            <button type="submit">@Localizer["resetCredentialsLabel"]</button><br />
+                            <a class="status-block__sharelink" href="@($"{Request.Scheme}://{Request.Host}?space_id={Model.AppOptions.SpaceId}&preview_token={Model.AppOptions.PreviewToken}&delivery_token={Model.AppOptions.AccessToken}&api={(Model.AppOptions.UsePreviewApi ? "cpa" : "cda")}{(Model.AppOptions.EnableEditorialFeatures ? "&enable_editorial_features" : "")}")">@Localizer["copyLinkLabel"]</a>
+                        </p>
+                    </form>
+                    <p>
+                        <em>
+                            @Localizer["overrideConfigLabel"]
+                        </em>
+                    </p>
+                </div>
+            </div>
+
+            }
         </div>
     }
 
@@ -89,10 +139,6 @@
                 </span>
             }
             <div class="form-item__help-text">@Localizer["contentPreviewApiHelpText"]</div>
-        </div>
-        <div class="form-item">
-            <input asp-for="@Model.AppOptions.UsePreviewApi" />
-            <label asp-for="@Model.AppOptions.UsePreviewApi">Use preview API</label>
         </div>
         <div class="form-item">
             <input asp-for="@Model.AppOptions.EnableEditorialFeatures" />
