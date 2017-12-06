@@ -9,7 +9,7 @@
     <section class="layout-sidebar__content">
         <div class="course">
             <h1 class="course__title">@Model.Course?.Title</h1>
-            <vc:editorial-features sys="@Model.Course?.Sys"></vc:editorial-features>
+            <vc:editorial-features sys="@new [] { Model.Course?.Sys }"></vc:editorial-features>
             <div class="course__overview">
                 <h3 class="course__overview-title">@Localizer["overviewLabel"]</h3>
                 <div class="course__overview-item">

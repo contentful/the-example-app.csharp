@@ -28,14 +28,31 @@
     <section class="layout-sidebar__content">
         <div class="courses">
             <h1>@Localizer["allCoursesLabel"] (@Model.Courses.Count)</h1>
-            <div class="grid-list">
-                @foreach (var course in Model.Courses)
-                    {
-                        <div class="grid-list__item">
-                            @Html.Partial("CourseCard", course)
+            @if (Model.EditorialFeaturesEnabled) {
+                <div class="editorial-features">
+                    <div class="editorial-features__item">
+                        <a class="editorial-features__text" target="_blank" rel="noopener" href="@($"https://app.contentful.com/spaces/{Model.Categories.FirstOrDefault()?.Sys?.Space?.SystemProperties?.Id}/entries/?contentTypeId=course")">
+                            @Localizer["editInTheWebAppLabel"]
+                        </a>
+                        <div class="editorial-features__hint-wrapper">
+                            <svg class="editorial-features__hint-icon">
+                                <use xlink:href="/icons/icons.svg#info"></use>
+                                <div class="editorial-features__hint-message">
+                                    @Localizer["editorialFeaturesHint"]
+                                </div>
+                            </svg>
                         </div>
-                    }
+                    </div>
+                </div>
+            }
+            <div class="grid-list">
+            @foreach (var course in Model.Courses)
+            {
+                <div class="grid-list__item">
+                    @Html.Partial("CourseCard", course)
+                </div>
+            }
+                </div>
             </div>
-        </div>
     </section>
 </div>

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Contentful.Core;
+using Contentful.Core.Models;
 using Contentful.Core.Search;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -67,6 +68,13 @@ namespace TheExampleApp.Pages.Courses
             // Add the visited lessons and courses to viewdata.
             ViewData["VisitedLessons"] = _visitedLessonsManager.VisitedLessons;
 
+            var systemProperties = new List<SystemProperties> { SelectedLesson.Sys };
+            if (SelectedLesson.Modules != null && SelectedLesson.Modules.Any())
+            {
+                systemProperties.AddRange(SelectedLesson.Modules?.Select(c => c.Sys));
+            }
+            SystemProperties = systemProperties;
+
             return Page();
         }
 
@@ -79,6 +87,11 @@ namespace TheExampleApp.Pages.Courses
         /// The lesson to display.
         /// </summary>
         public Lesson SelectedLesson { get; set; }
+
+        /// <summary>
+        /// All system properties this lesson relies on.
+        /// </summary>
+        public IEnumerable<SystemProperties> SystemProperties { get; set; }
 
         /// <summary>
         /// The slug of the next lesson of the course.

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Contentful.Core;
 using Contentful.Core.Search;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TheExampleApp.Configuration;
@@ -74,5 +75,10 @@ namespace TheExampleApp.Pages
         /// The categories to display.
         /// </summary>
         public List<Category> Categories { get; set; }
+
+        /// <summary>
+        /// Returns wether or not editorial features are enabled.
+        /// </summary>
+        public bool EditorialFeaturesEnabled => HttpContext.Session.GetString("EditorialFeatures") == "Enabled";
     }
 }

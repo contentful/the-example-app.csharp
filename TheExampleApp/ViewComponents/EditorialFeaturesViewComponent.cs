@@ -33,7 +33,7 @@ namespace TheExampleApp.ViewComponents
         /// </summary>
         /// <param name="sys">They system properties of the entry to display editorial features for.</param>
         /// <returns>The view.</returns>
-        public IViewComponentResult Invoke(SystemProperties sys)
+        public IViewComponentResult Invoke(IEnumerable<SystemProperties> sys)
         {
             var model = new EditorialFeaturesModel();
             model.Sys = sys;
@@ -53,7 +53,7 @@ namespace TheExampleApp.ViewComponents
         /// <summary>
         /// The system properties of the entry to display editorial features for.
         /// </summary>
-        public SystemProperties Sys { get; set; }
+        public IEnumerable<SystemProperties> Sys { get; set; }
         /// <summary>
         /// Whether or not features should be enabled.
         /// </summary>
