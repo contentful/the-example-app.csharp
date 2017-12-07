@@ -58,6 +58,8 @@ namespace TheExampleApp
                     options.Conventions.AddPageRoute("/Courses/Lessons", "Courses/{slug}/lessons/{lessonSlug}");
                 });
             services.AddSession(options => {
+                // IdleTimeout is set to a high value to confirm to requirements for this particular application.
+                // In your application you should use an IdleTimeout that suits your application needs or stick to the default of 20 minutes.
                 options.IdleTimeout = TimeSpan.FromDays(2);
             });
             services.AddTransient<IBreadcrumbsManager, BreadcrumbsManager>();
