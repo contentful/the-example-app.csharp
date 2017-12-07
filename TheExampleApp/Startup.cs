@@ -57,7 +57,9 @@ namespace TheExampleApp
                     options.Conventions.AddPageRoute("/Courses/Index", "Courses/{slug}/lessons");
                     options.Conventions.AddPageRoute("/Courses/Lessons", "Courses/{slug}/lessons/{lessonSlug}");
                 });
-            services.AddSession();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromDays(2);
+            });
             services.AddTransient<IBreadcrumbsManager, BreadcrumbsManager>();
             var embeddedProvider = new EmbeddedFileProvider(GetType().GetTypeInfo().Assembly);
             services.AddSingleton<IFileProvider>(embeddedProvider);
