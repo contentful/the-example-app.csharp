@@ -9,7 +9,7 @@
     <section class="layout-sidebar__content">
         <div class="lesson">
             <h1 class="lesson__title">@Model.SelectedLesson.Title</h1>
-            <vc:editorial-features sys="@Model.SelectedLesson.Sys"></vc:editorial-features>
+            <vc:editorial-features sys="@Model.SystemProperties"></vc:editorial-features>
             <div class="lesson__modules">
                 @foreach (var module in Model.SelectedLesson.Modules)
                 {

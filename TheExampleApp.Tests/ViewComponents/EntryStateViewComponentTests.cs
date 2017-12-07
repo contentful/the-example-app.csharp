@@ -21,13 +21,12 @@ namespace TheExampleApp.Tests.ViewComponents
         {
             //Arrange
             var handler = new FakeMessageHandler();
-            handler.Responses.Enqueue(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.NotFound, Content = new StringContent("{}") });
+            handler.Responses.Enqueue(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.NotFound, Content = new StringContent(@"{""sys"":{""type"":""Array""},""total"":0,""skip"":0,""limit"":100,""items"":[]}") });
             var httpClient = new HttpClient(handler);
             var optionsManager = new Mock<IContentfulOptionsManager>();
             optionsManager.SetupGet(c => c.Options).Returns(new ContentfulOptions());
             var component = new EntryStateViewComponent(httpClient, optionsManager.Object);
-            var sysProperties = new SystemProperties();
-            sysProperties.Id = "434";
+            var sysProperties = new List<SystemProperties> { new SystemProperties { Id = "434" } };
             //Act
             var res = await component.InvokeAsync(sysProperties);
 
@@ -41,7 +40,7 @@ namespace TheExampleApp.Tests.ViewComponents
         {
             //Arrange
             var handler = new FakeMessageHandler();
-            handler.Responses.Enqueue(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(@"{""sys"": {""updatedAt"":""2017-10-01""}, ""fields"": {""test"": ""pop""}}") });
+            handler.Responses.Enqueue(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(@"{""sys"":{""type"":""Array""},""total"":0,""skip"":0,""limit"":100,""items"":[{""sys"": {""updatedAt"":""2017-10-01""}, ""fields"": {""test"": ""pop""}}]}") });
             var httpClient = new HttpClient(handler);
             var optionsManager = new Mock<IContentfulOptionsManager>();
             optionsManager.SetupGet(c => c.Options).Returns(new ContentfulOptions());
@@ -50,7 +49,7 @@ namespace TheExampleApp.Tests.ViewComponents
             sysProperties.UpdatedAt = new DateTime(2017, 11, 03);
             sysProperties.Id = "123";
             //Act
-            var res = await component.InvokeAsync(sysProperties);
+            var res = await component.InvokeAsync(new[] { sysProperties });
 
             //Assert
             Assert.IsType<ViewViewComponentResult>(res);

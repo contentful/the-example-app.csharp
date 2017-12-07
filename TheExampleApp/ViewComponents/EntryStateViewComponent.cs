@@ -36,32 +36,47 @@ namespace TheExampleApp.ViewComponents
         /// </summary>
         /// <param name="sys">They system properties of the entry to display status for.</param>
         /// <returns>The view.</returns>
-        public async Task<IViewComponentResult> InvokeAsync(SystemProperties sys)
+        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<SystemProperties> sys)
         {
             // Create a new client with preview set to false to always get the entry from the delivery API.
             var client = new ContentfulClient(_httpClient, _options.DeliveryApiKey, _options.PreviewApiKey, _options.SpaceId, false);
-            EntryStateModel entry = null;
-
+            IEnumerable<EntryStateModel> entries = null;
+            var model = new EntryStateModel();
             try
             {
                 // Try getting the entry by the specified Id. If it throws or returns null the entry is not published.
-                entry = await client.GetEntry<EntryStateModel>(sys.Id);
+                entries = await client.GetEntries<EntryStateModel>($"?sys.id[in]={string.Join(",", sys.Select(c => c.Id))}");
             }
             catch { }
 
-            if(entry == null)
+            if(entries == null || (entries.Any() == false || sys.Select(c => c.Id).Except(entries.Select(e => e.Sys.Id)).Any()))
             {
-                // The entry is not published, thus it must be in draft mode.
-                entry = new EntryStateModel { Draft = true };
-                return View(entry);
-            }
-            else if(sys.UpdatedAt != entry.Sys.UpdatedAt)
-            {
-                // The entry is published but the UpdatedAt dates do not match, thus it must have pending changes.
-                entry.PendingChanges = true;
+                // One of the entries are not published, thus it is in draft mode.
+                model.Draft = true;
             }
 
-            return View(entry);
+            if (entries != null && AnySystemPropertiesNotMatching(entries.Select(c => c.Sys),sys))
+            {
+                // The entry is published but the UpdatedAt dates do not match, thus it must have pending changes.
+                model.PendingChanges = true;
+            }
+
+            return View(model);
+
+            bool AnySystemPropertiesNotMatching(IEnumerable<SystemProperties> published, IEnumerable<SystemProperties> preview)
+            {
+                foreach (var publishedEntry in published)
+                {
+                    var previewEntry = preview.FirstOrDefault(c => c.Id == publishedEntry.Id);
+                    if(publishedEntry.UpdatedAt != previewEntry?.UpdatedAt)
+                    {
+                        // At least one of the entries have UpdatedAt that does not match, thus it has pending changes.
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
         }
     }
 

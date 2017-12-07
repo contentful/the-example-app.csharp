@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Routing;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TheExampleApp.Configuration;
 using TheExampleApp.ViewComponents;
@@ -41,11 +42,11 @@ namespace TheExampleApp.Tests.ViewComponents
             component.ViewComponentContext = componentContext;
 
             //Act
-            var res = component.Invoke(new SystemProperties { Id = "3232" });
+            var res = component.Invoke(new[] { new SystemProperties { Id = "3232" } });
 
             //Assert
             Assert.IsType<ViewViewComponentResult>(res);
-            Assert.Equal("3232", ((res as ViewViewComponentResult).ViewData.Model as EditorialFeaturesModel).Sys.Id);
+            Assert.Equal("3232", ((res as ViewViewComponentResult).ViewData.Model as EditorialFeaturesModel).Sys.First().Id);
             Assert.False(((res as ViewViewComponentResult).ViewData.Model as EditorialFeaturesModel).FeaturesEnabled);
         }
 
@@ -72,11 +73,11 @@ namespace TheExampleApp.Tests.ViewComponents
             component.ViewComponentContext = componentContext;
 
             //Act
-            var res = component.Invoke(new SystemProperties { Id = "3232" });
+            var res = component.Invoke(new[] { new SystemProperties { Id = "3232" } });
 
             //Assert
             Assert.IsType<ViewViewComponentResult>(res);
-            Assert.Equal("3232", ((res as ViewViewComponentResult).ViewData.Model as EditorialFeaturesModel).Sys.Id);
+            Assert.Equal("3232", ((res as ViewViewComponentResult).ViewData.Model as EditorialFeaturesModel).Sys.First().Id);
             Assert.True(((res as ViewViewComponentResult).ViewData.Model as EditorialFeaturesModel).FeaturesEnabled);
         }
     }
