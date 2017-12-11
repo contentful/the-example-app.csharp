@@ -14,3 +14,9 @@ jobs:
       - run:
           name: Integration tests
           command: dotnet test TheExampleApp.IntegrationTests
+      - run:
+          name: Run app
+          command: dotnet run  TheExampleApp &
+      - run:
+          name: Clone e2e tests
+          command: git clone https://github.com/contentful/the-example-app-e2e-tests.git ./test/e2e
