@@ -109,7 +109,7 @@ namespace TheExampleApp.Tests.Pages
             //Assert
             mockSession.Verify(c => c.Set(nameof(ContentfulOptions), It.Is<byte[]>(b => Encoding.UTF8.GetString(b).Contains("\"UsePreviewApi\":true"))));
             Assert.IsType<RedirectResult>(res);
-            Assert.Equal("/previous", (res as RedirectResult).Url);
+            Assert.Equal("/previous?api=cpa", (res as RedirectResult).Url);
         }
 
         [Fact]
