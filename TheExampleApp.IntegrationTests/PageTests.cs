@@ -227,7 +227,7 @@ namespace TheExampleApp.IntegrationTests
             response.EnsureSuccessStatusCode();
             Assert.Contains("<h1>Settings</h1>",
                 responseString);
-            Assert.Contains(@"<input type=""checkbox"" checked=""checked"" data-val=""true"" data-val-required=""The EnableEditorialFeatures field is required."" id=""AppOptions_EnableEditorialFeatures"" name=""AppOptions.EnableEditorialFeatures"" value=""true"" />",
+            Assert.Contains(@"<input id=""input-editorial-features"" type=""checkbox"" checked=""checked"" data-val=""true"" data-val-required=""The EnableEditorialFeatures field is required."" name=""AppOptions.EnableEditorialFeatures"" value=""true"" />",
                 responseString);
         }
 

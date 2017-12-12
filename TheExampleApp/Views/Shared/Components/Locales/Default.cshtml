@@ -12,5 +12,6 @@
             <button class="header__controls_button @(locale.Code == Model.SelectedLocale?.Code ? "header__controls_button--active" : "" )" type="submit" name="locale" value="@locale.Code">@locale.Name (@locale.Code)</button>
             }
         </div>
+        <input type="hidden" name="api" value="@(Model.UsePreviewApi ? "cpa" : "cda")" />
     </form>
 </div>

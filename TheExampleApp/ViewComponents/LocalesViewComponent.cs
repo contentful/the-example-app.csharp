@@ -67,6 +67,8 @@ namespace TheExampleApp.ViewComponents
 
             HttpContext.Session.SetString("locale", localeInfo.SelectedLocale?.Code);
 
+            localeInfo.UsePreviewApi = _client.IsPreviewClient;
+
             return View(localeInfo);
         }
     }
@@ -82,8 +84,13 @@ namespace TheExampleApp.ViewComponents
         public List<Locale> Locales { get; set; }
 
         /// <summary>
-        /// THe currently selected locale.
+        /// The currently selected locale.
         /// </summary>
         public Locale SelectedLocale { get; set; }
+
+        /// <summary>
+        /// Whether or no the Preview API is being used.
+        /// </summary>
+        public bool UsePreviewApi { get; set; }
     }
 }
