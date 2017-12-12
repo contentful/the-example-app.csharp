@@ -99,6 +99,7 @@ namespace TheExampleApp.Pages
         {
             if (!ModelState.IsValid)
             {
+                TempData["Invalid"] = true;
                 return Page();
             }
              

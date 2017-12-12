@@ -135,6 +135,7 @@ namespace TheExampleApp.Tests.Pages
                 ViewData = viewData
             };
             var model = new SettingsModel(options.Object, client.Object);
+            model.TempData = new Mock<ITempDataDictionary>().Object;
             model.PageContext = pageContext;
             //Act
 

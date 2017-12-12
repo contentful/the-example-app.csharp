@@ -27,6 +27,23 @@
         </div>
     }
 
+    @if (TempData["Invalid"] != null)
+    {
+        <div class="status-block status-block--error">
+            <svg class="status-block__icon status-block__icon--error">
+                <use xlink:href="/icons/icons.svg#error"></use>
+            </svg>
+            <div class="status-block__content">
+                <div class="status-block__title">
+                    @Localizer["errorOcurredTitleLabel"]
+                </div>
+                <div class="status-block__message">
+                    @Localizer["errorOcurredMessageLabel"]
+                </div>
+            </div>
+        </div>
+    }
+
     @if (!string.IsNullOrEmpty(Model.SpaceName))
     {
         <div class="status-block status-block--info">
@@ -35,57 +52,57 @@
             </svg>
             @if (Model.IsUsingCustomCredentials == false)
             {
-            <div class="status-block__content">
-                <div class="status-block__message">
-                    <p>
-                        <em>
-                            @Localizer["usingServerCredentialsLabel"]
-                        </em>
-                    </p>
-                    <p>
-                        <strong>@Localizer["connectedToSpaceLabel"]:</strong><br />
-                        @Model.SpaceName (ID:@Model.AppOptions.SpaceId)
-                    </p>
-                    <p>
-                        <strong>@Localizer["credentialSourceLabel"]:</strong><br />
-                        @Localizer["loadedFromLocalFileLabel"] <a href="https://github.com/contentful/the-example-app.csharp/blob/master/TheExampleApp/appsettings.json" target="_blank" rel="noopener">appsettings.json</a>
-                    </p>
-                    <p>
-                        <em>
-                            @Localizer["overrideConfigLabel"]
-                        </em>
-                    </p>
+                <div class="status-block__content">
+                    <div class="status-block__message">
+                        <p>
+                            <em>
+                                @Localizer["usingServerCredentialsLabel"]
+                            </em>
+                        </p>
+                        <p>
+                            <strong>@Localizer["connectedToSpaceLabel"]:</strong><br />
+                            @Model.SpaceName (ID:@Model.AppOptions.SpaceId)
+                        </p>
+                        <p>
+                            <strong>@Localizer["credentialSourceLabel"]:</strong><br />
+                            @Localizer["loadedFromLocalFileLabel"] <a href="https://github.com/contentful/the-example-app.csharp/blob/master/TheExampleApp/appsettings.json" target="_blank" rel="noopener">appsettings.json</a>
+                        </p>
+                        <p>
+                            <em>
+                                @Localizer["overrideConfigLabel"]
+                            </em>
+                        </p>
+                    </div>
                 </div>
-            </div>
             }
             else
             {
-            <div class="status-block__content">
-                <div class="status-block__message">
-                    <p>
-                        <em>
-                            @Localizer["usingSessionCredentialsLabel"]
-                        </em>
-                    </p>
-                    <p>
-                        <strong>@Localizer["connectedToSpaceLabel"]:</strong><br />
-                        @Model.SpaceName (ID:@Model.AppOptions.SpaceId)
-                    </p>
-
-                    <form method="post" action="/Settings?handler=ResetCredentials" asp-antiforgery="true">
+                <div class="status-block__content">
+                    <div class="status-block__message">
                         <p>
-                            <strong>@Localizer["applicationCredentialsLabel"]:</strong><br />
-                            <button type="submit">@Localizer["resetCredentialsLabel"]</button><br />
-                            <a class="status-block__sharelink" href="@($"{Request.Scheme}://{Request.Host}?space_id={Model.AppOptions.SpaceId}&preview_token={Model.AppOptions.PreviewToken}&delivery_token={Model.AppOptions.AccessToken}&api={(Model.AppOptions.UsePreviewApi ? "cpa" : "cda")}{(Model.AppOptions.EnableEditorialFeatures ? "&enable_editorial_features" : "")}")">@Localizer["copyLinkLabel"]</a>
+                            <em>
+                                @Localizer["usingSessionCredentialsLabel"]
+                            </em>
                         </p>
-                    </form>
-                    <p>
-                        <em>
-                            @Localizer["overrideConfigLabel"]
-                        </em>
-                    </p>
+                        <p>
+                            <strong>@Localizer["connectedToSpaceLabel"]:</strong><br />
+                            @Model.SpaceName (ID:@Model.AppOptions.SpaceId)
+                        </p>
+
+                        <form method="post" action="/Settings?handler=ResetCredentials" asp-antiforgery="true">
+                            <p>
+                                <strong>@Localizer["applicationCredentialsLabel"]:</strong><br />
+                                <button type="submit">@Localizer["resetCredentialsLabel"]</button><br />
+                                <a class="status-block__sharelink" href="@($"{Request.Scheme}://{Request.Host}?space_id={Model.AppOptions.SpaceId}&preview_token={Model.AppOptions.PreviewToken}&delivery_token={Model.AppOptions.AccessToken}&api={(Model.AppOptions.UsePreviewApi ? "cpa" : "cda")}{(Model.AppOptions.EnableEditorialFeatures ? "&enable_editorial_features" : "")}")">@Localizer["copyLinkLabel"]</a>
+                            </p>
+                        </form>
+                        <p>
+                            <em>
+                                @Localizer["overrideConfigLabel"]
+                            </em>
+                        </p>
+                    </div>
                 </div>
-            </div>
 
             }
         </div>
