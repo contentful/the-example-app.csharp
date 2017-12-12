@@ -88,5 +88,9 @@ Open [http://localhost:59990?enable_editorial_features=Enabled](http://localhost
 ## Deploy to Heroku
 You can also deploy this app to Heroku:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+## Deploy to Azure
+You can also deploy this app to Azure
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
