@@ -98,20 +98,20 @@ namespace TheExampleApp.IntegrationTests
         public async Task HelloWorldCourseShouldReturn200()
         {
             // Act
-            var response = await _client.GetAsync("/courses/hello-world");
+            var response = await _client.GetAsync("/courses/hello-contentful");
             var responseString = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.EnsureSuccessStatusCode();
             Assert.Contains("Contentful Example App", responseString);
-            Assert.Contains("Hello world</h1>", responseString);
+            Assert.Contains("Hello Contentful</h1>", responseString);
         }
 
         [Fact]
         public async Task HelloWorldCourseShouldReturn200ForGerman()
         {
             // Act
-            var response = await _client.GetAsync("/courses/hello-world?locale=de-DE");
+            var response = await _client.GetAsync("/courses/hello-contentful?locale=de-DE");
             var responseString = await response.Content.ReadAsStringAsync();
 
             // Assert
@@ -159,7 +159,7 @@ namespace TheExampleApp.IntegrationTests
         public async Task ArchitextureLessonShouldReturn200()
         {
             // Act
-            var response = await _client.GetAsync("/courses/hello-world/lessons/architecture");
+            var response = await _client.GetAsync("/courses/hello-contentful/lessons/architecture");
             var responseString = await response.Content.ReadAsStringAsync();
 
             // Assert
@@ -172,7 +172,7 @@ namespace TheExampleApp.IntegrationTests
         public async Task ArchitextureLessonShouldReturn200ForGerman()
         {
             // Act
-            var response = await _client.GetAsync("/courses/hello-world/lessons/architecture?locale=de-DE");
+            var response = await _client.GetAsync("/courses/hello-contentful/lessons/architecture?locale=de-DE");
             var responseString = await response.Content.ReadAsStringAsync();
 
             // Assert
@@ -185,7 +185,7 @@ namespace TheExampleApp.IntegrationTests
         public async Task MissingLessonShouldReturn404()
         {
             // Act
-            var response = await _client.GetAsync("/courses/hello-world/lessons/this-doesn-not-exist");
+            var response = await _client.GetAsync("/courses/hello-contentful/lessons/this-doesn-not-exist");
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
