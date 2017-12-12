@@ -1,4 +1,4 @@
-﻿{
+{
   "defaultTitle": "The Example App",
   "whatIsThisApp": "Help",
   "metaDescription": "This is \"The Example App\", a reference for building your own applications using Contentful.",
@@ -85,8 +85,8 @@
   "accessTokenLabel": "access token",
   "cdaAccessTokenLabel": "Content Delivery API access token",
   "cpaAccessTokenLabel": "Content Preview API access token",
-  "contentDeliveryApiHelpText": "View published content using this API.",
-  "contentPreviewApiHelpText": "Preview unpublished content using this API (i.e. content with “Draft” status).",
+  "contentDeliveryApiHelpText": "View published content using this token.",
+  "contentPreviewApiHelpText": "Preview unpublished content using this token (i.e. content with “Draft” status).",
   "enableEditorialFeaturesLabel": "Enable editorial features",
   "enableEditorialFeaturesHelpText": "Enable to display an edit link and other contextual helpers for authors. You need to have access to the connected space to make this work.",
   "saveSettingsButtonLabel": "Save settings",
@@ -97,7 +97,7 @@
   "beginnerLabel": "Beginner",
   "intermediateLabel": "Intermediate",
   "advancedLabel": "Advanced",
-  "editInTheWebAppLabel": "Edit in the Contentful Web App",
+  "editInTheWebAppLabel": "Edit in the Contentful web app",
   "error404Route": "Verify that you are trying to reach a supported route",
   "currentLocaleLabel": "English (United States)",
   "hostedLabel": "Hosted",
