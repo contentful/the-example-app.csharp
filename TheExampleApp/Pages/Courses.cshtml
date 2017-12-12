@@ -13,12 +13,12 @@
             <div class="sidebar-menu">
                 <ul class="sidebar-menu__list">
                     <li class="sidebar-menu__item">
-                        <a class="sidebar-menu__link @(string.IsNullOrEmpty(Model.SelectedCategory) ? "active" : "")" href="/courses">@Localizer["allCoursesLabel"]</a>
+                        <a class="sidebar-menu__link @(Model.SelectedCategory == null ? "active" : "")" href="/courses">@Localizer["allCoursesLabel"]</a>
                     </li>
                     @foreach (var category in Model.Categories)
                     {
                         <li class="sidebar-menu__item">
-                            <a class="sidebar-menu__link @(Model.SelectedCategory == category.Slug ? "active" : "")"  href="/courses/categories/@category.Slug">@category.Title</a>
+                            <a class="sidebar-menu__link @(Model.SelectedCategory?.Slug == category.Slug ? "active" : "")"  href="/courses/categories/@category.Slug">@category.Title</a>
                         </li>
                     }
                 </ul>
@@ -27,7 +27,7 @@
     </section>
     <section class="layout-sidebar__content">
         <div class="courses">
-            <h1>@Localizer["allCoursesLabel"] (@Model.Courses.Count)</h1>
+            <h1>@(Model.SelectedCategory != null ? Model.SelectedCategory.Title : Localizer["allCoursesLabel"].Value) (@Model.Courses.Count)</h1>
             @if (Model.EditorialFeaturesEnabled) {
                 <div class="editorial-features">
                     <div class="editorial-features__item">

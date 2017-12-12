@@ -44,7 +44,7 @@ namespace TheExampleApp.Pages
             var courses = await _client.GetEntries(queryBuilder);
 
             Categories = categories.ToList();
-            SelectedCategory = category;
+            SelectedCategory = categories.FirstOrDefault(c => c.Slug == category);
 
             if (!string.IsNullOrEmpty(category))
             {
@@ -64,7 +64,7 @@ namespace TheExampleApp.Pages
         /// <summary>
         /// The currently selected category.
         /// </summary>
-        public string SelectedCategory { get; set; }
+        public Category SelectedCategory { get; set; }
 
         /// <summary>
         /// The courses to display.
