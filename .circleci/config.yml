@@ -25,5 +25,9 @@ jobs:
             cd test/e2e
             npm i
             add-apt-repository main
+            sudo add-apt-repository universe
+            sudo add-apt-repository restricted
+            sudo add-apt-repository multiverse
+            apt-get update
             apt-get install xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
             node_modules/.bin/cypress run --spec test/e2e/spec/the-example-app-spec.js --headed
