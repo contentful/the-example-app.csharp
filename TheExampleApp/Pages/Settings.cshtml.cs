@@ -87,7 +87,7 @@ namespace TheExampleApp.Pages
 
 
             HttpContext.Session.SetString(nameof(ContentfulOptions), JsonConvert.SerializeObject(options));
-            return Redirect(prevPage);
+            return Redirect($"{prevPage}&api={api}");
         }
 
         /// <summary>
