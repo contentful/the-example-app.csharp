@@ -16,7 +16,9 @@ jobs:
           command: dotnet test TheExampleApp.IntegrationTests
       - run:
           name: Run app
-          command: dotnet run --project TheExampleApp
+          command: | 
+            cd TheExampleApp
+            dotnet run 
           background: true
       - run:
           name: Clone e2e tests
