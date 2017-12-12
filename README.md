@@ -91,6 +91,7 @@ You can also deploy this app to Heroku:
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ## Deploy to Azure
-You can also deploy this app to Azure
+You can also deploy this app to Azure:
+
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
