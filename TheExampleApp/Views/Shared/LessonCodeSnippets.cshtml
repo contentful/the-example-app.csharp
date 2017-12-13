@@ -5,7 +5,7 @@
     <div class="lesson-module-code__header">
         @if (!string.IsNullOrEmpty(Model.Curl))
         {
-            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-curl">curl</a>
+            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-curl">cURL</a>
         }
         @if (!string.IsNullOrEmpty(Model.DotNet))
         {
@@ -44,73 +44,55 @@
         @if (!string.IsNullOrEmpty(Model.Curl))
         {
             <div class="lesson-module-code__code" id="@Model.Sys.Id-curl">
-                <pre>
-                <code class="shell">@Model.Curl</code>
-                </pre>
+                <pre><code class="shell">@Model.Curl</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.DotNet))
         {
             <div class="lesson-module-code__code lesson-module-code__code--active" id="@Model.Sys.Id-dotnet">
-                <pre>
-                <code class="shell">@Model.DotNet</code>
-                </pre>
+                <pre><code class="csharp">@Model.DotNet</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Javascript))
         {
             <div class="lesson-module-code__code" id="@Model.Sys.Id-javascript">
-                <pre>
-                <code class="shell">@Model.Javascript</code>
-                </pre>
+                <pre><code class="javascript">@Model.Javascript</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Java))
         {
             <div class="lesson-module-code__code" id="@Model.Sys.Id-java">
-                <pre>
-                <code class="shell">@Model.Java</code>
-                </pre>
+                <pre><code class="java">@Model.Java</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.JavaAndroid))
         {
             <div class="lesson-module-code__code" id="@Model.Sys.Id-android">
-                <pre>
-                <code class="shell">@Model.JavaAndroid</code>
-                </pre>
+                <pre><code class="java">@Model.JavaAndroid</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Php))
         {
             <div class="lesson-module-code__code" id="@Model.Sys.Id-php">
-                <pre>
-                <code class="shell">@Model.Php</code>
-                </pre>
+                <pre><code class="php">@Model.Php</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Python))
         {
             <div class="lesson-module-code__code" id="@Model.Sys.Id-python">
-                <pre>
-                <code class="shell">@Model.Python</code>
-                </pre>
+                <pre><code class="python">@Model.Python</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Ruby))
         {
             <div class="lesson-module-code__code" id="@Model.Sys.Id-ruby">
-                <pre>
-                <code class="shell">@Model.Ruby</code>
-                </pre>
+                <pre><code class="ruby">@Model.Ruby</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Swift))
         {
             <div class="lesson-module-code__code" id="@Model.Sys.Id-swift">
-                <pre>
-                <code class="shell">@Model.Swift</code>
-                </pre>
+                <pre><code class="swift">@Model.Swift</code></pre>
             </div>
         }
     </div>

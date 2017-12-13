@@ -3,7 +3,13 @@
 <div class="lesson-module lesson-module-image">
     @if (Model.Image != null)
     {
-        <contentful-image class="lesson-module-image__image" url="@Model.Image.File.Url" />
+        <figure class="lesson-module-image__figure">
+            <contentful-image class="lesson-module-image__image" url="@Model.Image.File.Url" />
+            @if (!string.IsNullOrEmpty(Model.Caption))
+            {
+                <figcaption class="lesson-module-image__caption">@Model.Caption</figcaption>
+            }
+        </figure>
     }
     else
     {

@@ -26,5 +26,10 @@ namespace TheExampleApp.Models
         /// The image of the module.
         /// </summary>
         public Asset Image { get; set; }
+
+        /// <summary>
+        /// The caption of the image.
+        /// </summary>
+        public string Caption { get; set; }
     }
 }
