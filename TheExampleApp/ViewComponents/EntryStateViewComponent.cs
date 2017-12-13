@@ -68,7 +68,7 @@ namespace TheExampleApp.ViewComponents
                 foreach (var publishedEntry in published)
                 {
                     var previewEntry = preview.FirstOrDefault(c => c.Id == publishedEntry.Id);
-                    if(publishedEntry.UpdatedAt != previewEntry?.UpdatedAt)
+                    if(TrimMilliseconds(publishedEntry.UpdatedAt) != TrimMilliseconds(previewEntry?.UpdatedAt))
                     {
                         // At least one of the entries have UpdatedAt that does not match, thus it has pending changes.
                         return true;
@@ -76,6 +76,16 @@ namespace TheExampleApp.ViewComponents
                 }
                 
                 return false;
+            }
+
+            DateTime? TrimMilliseconds(DateTime? dateTime)
+            {
+                if (!dateTime.HasValue)
+                {
+                    return dateTime;
+                }
+
+                return new DateTime(dateTime.Value.Year, dateTime.Value.Month, dateTime.Value.Day, dateTime.Value.Hour, dateTime.Value.Minute, dateTime.Value.Second, 0);
             }
         }
     }
