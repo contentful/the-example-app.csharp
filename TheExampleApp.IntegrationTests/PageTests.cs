@@ -117,7 +117,7 @@ namespace TheExampleApp.IntegrationTests
             // Assert
             response.EnsureSuccessStatusCode();
             Assert.Contains("Dies ist die Beispielanwendung", responseString);
-            Assert.Contains("Hallo Welt</h1>", responseString);
+            Assert.Contains("Hallo Contentful</h1>", responseString);
         }
 
         [Fact]
