@@ -1,6 +1,6 @@
 ## The ASP.NET example app
 
-The asp.net example app teaches the very basics of how to work with Contentful:
+The ASP.NET example app teaches the very basics of how to work with Contentful:
 
 - consume content from the Contentful Delivery and Preview APIs
 - model content
