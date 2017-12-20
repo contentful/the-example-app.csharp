@@ -107,7 +107,7 @@
     <form method="post" class="form">
         <div class="form-item">
             <label for="input-space-id">@Localizer["spaceIdLabel"]</label>
-            <input asp-for="@Model.AppOptions.SpaceId" id="input-space-id" />
+            <input asp-for="@Model.AppOptions.SpaceId" id="input-space-id" required />
             @if (ModelState.GetFieldValidationState("AppOptions.SpaceId") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
             {
                 <span class="form-item__error-wrapper">
@@ -122,7 +122,7 @@
             <div class="form-item__help-text">@Localizer["spaceIdHelpText"]</div>
         </div>
         <div class="form-item">
-            <label for="input-delivery-token">Content Delivery API - @Localizer["accessTokenLabel"]</label>
+            <label for="input-delivery-token">@Localizer["cdaAccessTokenLabel"]</label>
             <input asp-for="@Model.AppOptions.AccessToken" id="input-delivery-token" required />
             @if (ModelState.GetFieldValidationState("AppOptions.AccessToken") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
             {
@@ -138,7 +138,7 @@
             <div class="form-item__help-text">@Localizer["contentDeliveryApiHelpText"] <a href="https://www.contentful.com/developers/docs/references/content-delivery-api/" target="_blank" rel="noopener">Content Delivery API.</a></div>
         </div>
         <div class="form-item">
-            <label for="input-preview-token">Content Preview API - @Localizer["accessTokenLabel"]</label>
+            <label for="input-preview-token">@Localizer["cpaAccessTokenLabel"]</label>
             <input asp-for="@Model.AppOptions.PreviewToken" id="input-preview-token" required />
             @if (ModelState.GetFieldValidationState("AppOptions.PreviewToken") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
             {
@@ -154,7 +154,7 @@
             <div class="form-item__help-text">@Localizer["contentPreviewApiHelpText"] <a href="https://www.contentful.com/developers/docs/references/content-preview-api/" target="_blank" rel="noopener">Content Preview API.</a></div>
         </div>
         <div class="form-item">
-            <input asp-for="@Model.AppOptions.EnableEditorialFeatures" id="input-editorial-features" required />
+            <input asp-for="@Model.AppOptions.EnableEditorialFeatures" id="input-editorial-features" />
             <label for="input-editorial-features">@Localizer["enableEditorialFeaturesLabel"]</label>
             <div class="form-item__help-text">@Localizer["enableEditorialFeaturesHelpText"]</div>
         </div>
