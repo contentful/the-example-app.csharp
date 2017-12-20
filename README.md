@@ -1,6 +1,8 @@
+[![CircleCI](https://img.shields.io/circleci/project/github/contentful/the-example-app.csharp.svg)](https://circleci.com/gh/contentful/the-example-app.csharp)
+
 ## The ASP.NET example app
 
-The asp.net example app teaches the very basics of how to work with Contentful:
+The ASP.NET example app teaches the very basics of how to work with Contentful:
 
 - consume content from the Contentful Delivery and Preview APIs
 - model content
@@ -8,12 +10,12 @@ The asp.net example app teaches the very basics of how to work with Contentful:
 
 The app demonstrates how decoupling content from its presentation enables greater flexibility and facilitates shipping higher quality software more quickly.
 
-<a href="https://the-example-app-csharp.herokuapp.com/" target="_blank"><img src="https://images.contentful.com/qz0n5cdakyl9/4GZmvrdodGM6CksMCkkAEq/700a527b8203d4d3ccd3c303c5b3e2aa/the-example-app.png" alt="Screenshot of the example app"/></a>
+<a href="https://the-example-app-csharp.herokuapp.com/" target="_blank"><img src="https://images.contentful.com/88dyiqcr7go8/50rjTJcWm4wAuW8AQwIQeI/37a924b510db89d228b4214f8508829c/the-example-app-csharp.herokuapp.com.png" alt="Screenshot of the example app"/></a>
 
 You can see a hosted version of `The ASP.NET example app` on <a href="https://the-example-app-csharp.herokuapp.com/" target="_blank">Heroku</a>.
 
 ## What is Contentful?
-Contentful is content infrastructure for web applications, mobile apps and connected devices. It allows you to create, edit and manage content in the cloud and publish it anywhere via powerful APIs. Contentful offers tools for editorial teams and enabling cooperation between organizations.
+[Contentful](https://www.contentful.com) provides a content infrastructure for digital teams to power content in websites, apps, and devices. Unlike a CMS, Contentful was built to integrate with the modern software stack. It offers a central hub for structured content, powerful management and delivery APIs, and a customizable web app that enable developers and content creators to ship digital products faster.
 
 ## Requirements
 
