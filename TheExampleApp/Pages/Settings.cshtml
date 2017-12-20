@@ -123,7 +123,7 @@
         </div>
         <div class="form-item">
             <label for="input-delivery-token">Content Delivery API - @Localizer["accessTokenLabel"]</label>
-            <input asp-for="@Model.AppOptions.AccessToken" id="input-delivery-token" />
+            <input asp-for="@Model.AppOptions.AccessToken" id="input-delivery-token" required />
             @if (ModelState.GetFieldValidationState("AppOptions.AccessToken") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
             {
                 <span class="form-item__error-wrapper">
@@ -139,7 +139,7 @@
         </div>
         <div class="form-item">
             <label for="input-preview-token">Content Preview API - @Localizer["accessTokenLabel"]</label>
-            <input asp-for="@Model.AppOptions.PreviewToken" id="input-preview-token" />
+            <input asp-for="@Model.AppOptions.PreviewToken" id="input-preview-token" required />
             @if (ModelState.GetFieldValidationState("AppOptions.PreviewToken") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
             {
                 <span class="form-item__error-wrapper">
@@ -154,8 +154,8 @@
             <div class="form-item__help-text">@Localizer["contentPreviewApiHelpText"] <a href="https://www.contentful.com/developers/docs/references/content-preview-api/" target="_blank" rel="noopener">Content Preview API.</a></div>
         </div>
         <div class="form-item">
-            <input asp-for="@Model.AppOptions.EnableEditorialFeatures" id="input-editorial-features" />
-            <label asp-for="@Model.AppOptions.EnableEditorialFeatures">@Localizer["enableEditorialFeaturesLabel"]</label>
+            <input asp-for="@Model.AppOptions.EnableEditorialFeatures" id="input-editorial-features" required />
+            <label for="input-editorial-features">@Localizer["enableEditorialFeaturesLabel"]</label>
             <div class="form-item__help-text">@Localizer["enableEditorialFeaturesHelpText"]</div>
         </div>
         <div class="form-item">
