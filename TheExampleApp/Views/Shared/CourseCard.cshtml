@@ -6,7 +6,7 @@
         {
             foreach (var category in Model.Categories)
             {
-                <div class="course-card__category"><a class="course-card__category-link" href="/courses?category=@category.Slug">@category.Title</a></div>
+                <div class="course-card__category"><a class="course-card__category-link" href="/courses/categories/@category.Slug">@category.Title</a></div>
             }
         }
     </div>
