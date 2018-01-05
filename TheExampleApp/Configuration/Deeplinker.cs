@@ -50,6 +50,21 @@ namespace TheExampleApp.Configuration
 
                 context.Session.SetString(nameof(ContentfulOptions), JsonConvert.SerializeObject(currentOptions));
             }
+            else if (query.ContainsKey("api"))
+            {
+                var currentOptions = new ContentfulOptions
+                {
+                    UsePreviewApi = query["api"] == "cpa",
+                    DeliveryApiKey = _manager.Options.DeliveryApiKey,
+                    SpaceId = _manager.Options.SpaceId,
+                    PreviewApiKey = _manager.Options.PreviewApiKey,
+                    MaxNumberOfRateLimitRetries = _manager.Options.MaxNumberOfRateLimitRetries,
+                    ResolveEntriesSelectively = _manager.Options.ResolveEntriesSelectively,
+                    ManagementApiKey = _manager.Options.ManagementApiKey
+                };
+
+                context.Session.SetString(nameof(ContentfulOptions), JsonConvert.SerializeObject(currentOptions));
+            }
 
             if (query.ContainsKey("enable_editorial_features"))
             {
