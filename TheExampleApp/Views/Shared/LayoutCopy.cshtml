@@ -1,8 +1,8 @@
 ﻿@model LayoutCopy
 
 @{ var visualStyle = Model.VisualStyle == "Emphasized" ? "--emphasized" : ""; }
-<div class="module">
-    <div class="@("module-copy"+visualStyle)">
+<div class="module @("module-copy"+visualStyle)">
+    <div class="@("module-copy__wrapper"+visualStyle)">
         <div class="@("module-copy__first" + visualStyle)">
             @if (!string.IsNullOrEmpty(Model.Headline))
             {
