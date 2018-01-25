@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Contentful.AspNetCore;
 using Contentful.Core;
@@ -24,18 +25,36 @@ namespace TheExampleApp
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            CurrentEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
+        private IHostingEnvironment CurrentEnvironment { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddContentful(Configuration);
+            if (CurrentEnvironment.IsStaging())
+            {
+                var host = Environment.GetEnvironmentVariable("StagingHost");
+                if (!string.IsNullOrEmpty(host))
+                {
+                    services.AddSingleton((ip) =>
+                    {
+                        var stagingHandler = new StagingMessageHandler
+                        {
+                            StagingHost = host
+                        };
+                        return new HttpClient(stagingHandler);
+                    });
+                }
+            }
+
             // This would normally not be needed, but since we want to load our ContentfulOptions from memory if they're changed within the application
             // we provide our own implementation logic for the IContentfulClient
             services.AddSingleton<IContentfulOptionsManager, ContentfulOptionsManager>();
@@ -138,6 +157,17 @@ namespace TheExampleApp
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+        }
+    }
+
+    public class StagingMessageHandler : HttpClientHandler
+    {
+        public string StagingHost { get; set; }
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            var req = request.RequestUri.ToString().Replace("contentful", StagingHost);
+            request.RequestUri = new Uri(req);
+            return await base.SendAsync(request, cancellationToken);
         }
     }
 }
