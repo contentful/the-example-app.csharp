@@ -36,8 +36,8 @@ namespace TheExampleApp.Configuration
         public async Task Invoke(HttpContext context)
         {
             var query = context.Request.Query;
-            
-            if(query.ContainsKey("space_id") && query.ContainsKey("preview_token") && query.ContainsKey("delivery_token"))
+
+            if (query.ContainsKey("space_id") && query.ContainsKey("preview_token") && query.ContainsKey("delivery_token"))
             {
                 var currentOptions = new ContentfulOptions();
                 currentOptions.DeliveryApiKey = query["delivery_token"];
@@ -66,9 +66,13 @@ namespace TheExampleApp.Configuration
                 context.Session.SetString(nameof(ContentfulOptions), JsonConvert.SerializeObject(currentOptions));
             }
 
-            if (query.ContainsKey("enable_editorial_features"))
-            {
+            if (query.ContainsKey("editorial_features") && string.Equals(query["editorial_features"], "enabled", StringComparison.InvariantCultureIgnoreCase))
+            { 
                 context.Session.SetString("EditorialFeatures", "Enabled");
+            }
+            else if(query.ContainsKey("editorial_features"))
+            {
+                context.Session.SetString("EditorialFeatures", "Disabled");
             }
 
             await _next(context);
