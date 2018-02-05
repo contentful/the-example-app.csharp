@@ -5,93 +5,93 @@
     <div class="lesson-module-code__header">
         @if (!string.IsNullOrEmpty(Model.Curl))
         {
-            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-curl">cURL</a>
+            <a class="lesson-module-code__trigger" data-target="curl">cURL</a>
         }
         @if (!string.IsNullOrEmpty(Model.DotNet))
         {
-            <a class="lesson-module-code__trigger lesson-module-code__trigger--active" data-target="@Model.Sys.Id-dotnet">.NET</a>
+            <a class="lesson-module-code__trigger lesson-module-code__trigger--active" data-target="dotnet">.NET</a>
         }
         @if (!string.IsNullOrEmpty(Model.Javascript))
         {
-            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-javascript">JavaScript</a>
+            <a class="lesson-module-code__trigger" data-target="javascript">JavaScript</a>
         }
         @if (!string.IsNullOrEmpty(Model.Java))
         {
-            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-java">Java</a>
+            <a class="lesson-module-code__trigger" data-target="java">Java</a>
         }
         @if (!string.IsNullOrEmpty(Model.JavaAndroid))
         {
-            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-android">Android</a>
+            <a class="lesson-module-code__trigger" data-target="android">Android</a>
         }
         @if (!string.IsNullOrEmpty(Model.Php))
         {
-            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-php">PHP</a>
+            <a class="lesson-module-code__trigger" data-target="php">PHP</a>
         }
         @if (!string.IsNullOrEmpty(Model.Python))
         {
-            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-python">Python</a>
+            <a class="lesson-module-code__trigger" data-target="python">Python</a>
         }
         @if (!string.IsNullOrEmpty(Model.Ruby))
         {
-            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-ruby">Ruby</a>
+            <a class="lesson-module-code__trigger" data-target="ruby">Ruby</a>
         }
         @if (!string.IsNullOrEmpty(Model.Swift))
         {
-            <a class="lesson-module-code__trigger" data-target="@Model.Sys.Id-swift">Swift</a>
+            <a class="lesson-module-code__trigger" data-target="swift">Swift</a>
         }
     </div>
     <div class="lesson-module-code__code-area">
         @if (!string.IsNullOrEmpty(Model.Curl))
         {
-            <div class="lesson-module-code__code" id="@Model.Sys.Id-curl">
+            <div class="lesson-module-code__code" id="curl">
                 <pre><code class="shell">@Model.Curl</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.DotNet))
         {
-            <div class="lesson-module-code__code lesson-module-code__code--active" id="@Model.Sys.Id-dotnet">
+            <div class="lesson-module-code__code lesson-module-code__code--active" id="dotnet">
                 <pre><code class="csharp">@Model.DotNet</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Javascript))
         {
-            <div class="lesson-module-code__code" id="@Model.Sys.Id-javascript">
+            <div class="lesson-module-code__code" id="javascript">
                 <pre><code class="javascript">@Model.Javascript</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Java))
         {
-            <div class="lesson-module-code__code" id="@Model.Sys.Id-java">
+            <div class="lesson-module-code__code" id="java">
                 <pre><code class="java">@Model.Java</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.JavaAndroid))
         {
-            <div class="lesson-module-code__code" id="@Model.Sys.Id-android">
+            <div class="lesson-module-code__code" id="android">
                 <pre><code class="java">@Model.JavaAndroid</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Php))
         {
-            <div class="lesson-module-code__code" id="@Model.Sys.Id-php">
+            <div class="lesson-module-code__code" id="php">
                 <pre><code class="php">@Model.Php</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Python))
         {
-            <div class="lesson-module-code__code" id="@Model.Sys.Id-python">
+            <div class="lesson-module-code__code" id="python">
                 <pre><code class="python">@Model.Python</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Ruby))
         {
-            <div class="lesson-module-code__code" id="@Model.Sys.Id-ruby">
+            <div class="lesson-module-code__code" id="ruby">
                 <pre><code class="ruby">@Model.Ruby</code></pre>
             </div>
         }
         @if (!string.IsNullOrEmpty(Model.Swift))
         {
-            <div class="lesson-module-code__code" id="@Model.Sys.Id-swift">
+            <div class="lesson-module-code__code" id="swift">
                 <pre><code class="swift">@Model.Swift</code></pre>
             </div>
         }

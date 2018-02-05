@@ -156,29 +156,29 @@ namespace TheExampleApp.IntegrationTests
         }
 
         [Fact]
-        public async Task ArchitextureLessonShouldReturn200()
+        public async Task ContentmodelLessonShouldReturn200()
         {
             // Act
-            var response = await _client.GetAsync("/courses/hello-contentful/lessons/architecture");
+            var response = await _client.GetAsync("/courses/hello-contentful/lessons/content-model");
             var responseString = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.EnsureSuccessStatusCode();
             Assert.Contains("Contentful Example App", responseString);
-            Assert.Contains("Architecture</h1>", responseString);
+            Assert.Contains("Content model</h1>", responseString);
         }
 
         [Fact]
-        public async Task ArchitextureLessonShouldReturn200ForGerman()
+        public async Task ContentmodelLessonShouldReturn200ForGerman()
         {
             // Act
-            var response = await _client.GetAsync("/courses/hello-contentful/lessons/architecture?locale=de-DE");
+            var response = await _client.GetAsync("/courses/hello-contentful/lessons/content-model?locale=de-DE");
             var responseString = await response.Content.ReadAsStringAsync();
 
             // Assert
             response.EnsureSuccessStatusCode();
             Assert.Contains("Dies ist die Beispielanwendung", responseString);
-            Assert.Contains("Architektur</h1>", responseString);
+            Assert.Contains("Content-Modell</h1>", responseString);
         }
 
         [Fact]
@@ -220,7 +220,7 @@ namespace TheExampleApp.IntegrationTests
         public async Task SettingsShouldTurnOnEditorialFeaturesAndReturn200()
         {
             // Act
-            var response = await _client.GetAsync("/Settings?enable_editorial_features=true");
+            var response = await _client.GetAsync("/Settings?editorial_features=enabled");
             var responseString = await response.Content.ReadAsStringAsync();
 
             // Assert

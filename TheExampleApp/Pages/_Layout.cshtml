@@ -6,7 +6,7 @@
             return "";
         }
 
-        return $"?space_id={Manager.Options.SpaceId}&preview_token={Manager.Options.PreviewApiKey}&delivery_token={Manager.Options.DeliveryApiKey}&api={(Manager.Options.UsePreviewApi ? "cpa" : "cda")}{( Context.Session.GetString("EditorialFeatures") == "Enabled" ? "&enable_editorial_features" : "")}";
+        return $"?space_id={Manager.Options.SpaceId}&preview_token={Manager.Options.PreviewApiKey}&delivery_token={Manager.Options.DeliveryApiKey}&api={(Manager.Options.UsePreviewApi ? "cpa" : "cda")}{( Context.Session.GetString("EditorialFeatures") == "Enabled" ? "&editorial_features=enabled" : "")}";
     };
 }
 
