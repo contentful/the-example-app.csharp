@@ -93,7 +93,8 @@ namespace TheExampleApp.Tests.Configuration
             mockSession.Setup(c => c.Set("EditorialFeatures", It.IsAny<byte[]>())).Verifiable();
 
             var mockQuery = new Mock<IQueryCollection>();
-            mockQuery.Setup(c => c.ContainsKey(It.Is<string>(s => s == "enable_editorial_features"))).Returns(true);
+            mockQuery.Setup(c => c.ContainsKey(It.Is<string>(s => s == "editorial_features"))).Returns(true);
+            mockQuery.Setup(c => c["editorial_features"]).Returns("enabled");
 
             var mockRequest = new Mock<HttpRequest>();
             mockRequest.SetupGet(r => r.Query).Returns(mockQuery.Object);
