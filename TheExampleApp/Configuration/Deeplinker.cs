@@ -1,11 +1,23 @@
 ﻿using Contentful.Core.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
+using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using TheExampleApp.Pages;
 
 namespace TheExampleApp.Configuration
 {
@@ -22,6 +34,7 @@ namespace TheExampleApp.Configuration
         /// </summary>
         /// <param name="next">The next request delegate in the chain of middleware.</param>
         /// <param name="manager">The <see cref="IContentfulOptionsManager"/> used to read the current options.</param>
+
         public Deeplinker(RequestDelegate next, IContentfulOptionsManager manager)
         {
             _next = next;
@@ -48,7 +61,38 @@ namespace TheExampleApp.Configuration
                 currentOptions.ResolveEntriesSelectively = _manager.Options.ResolveEntriesSelectively;
                 currentOptions.ManagementApiKey = _manager.Options.ManagementApiKey;
 
-                context.Session.SetString(nameof(ContentfulOptions), JsonConvert.SerializeObject(currentOptions));
+                var validateableOptions = new SelectedOptions
+                {
+                    AccessToken = currentOptions.DeliveryApiKey,
+                    PreviewToken = currentOptions.PreviewApiKey,
+                    SpaceId = currentOptions.SpaceId
+                };
+                var validationContext = new ValidationContext(validateableOptions, context.RequestServices, null);
+                var validationResult = validateableOptions.Validate(validationContext);
+
+                if (validationResult.Any())
+                {
+                    var modelStateErrors = new List<ModelStateError>();
+
+                    foreach (var result in validationResult)
+                    {
+                        foreach (var member in result.MemberNames)
+                        {
+                            modelStateErrors.Add(new ModelStateError { ErrorMessage = result.ErrorMessage, Key = member });
+                        }
+                    }
+
+                    context.Session.SetString("SettingsErrors", JsonConvert.SerializeObject(modelStateErrors));
+                    context.Session.SetString("SettingsErrorsOptions", JsonConvert.SerializeObject(validateableOptions));
+                    context.Response.Redirect("/settings");
+                    context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
+                    context.Response.Headers.Add("Pragma", "no-cache");
+                    return;
+                }
+                else
+                {
+                    context.Session.SetString(nameof(ContentfulOptions), JsonConvert.SerializeObject(currentOptions));
+                }
             }
             else if (query.ContainsKey("api"))
             {
@@ -93,5 +137,21 @@ namespace TheExampleApp.Configuration
         {
             return builder.UseMiddleware<Deeplinker>();
         }
+    }
+
+    /// <summary>
+    /// Simple data transfer object to transfer error messages back to the view.
+    /// </summary>
+    public class ModelStateError
+    {
+        /// <summary>
+        /// The error message.
+        /// </summary>
+        public string ErrorMessage { get; set; }
+
+        /// <summary>
+        /// The key for the error message.
+        /// </summary>
+        public string Key { get; set; }
     }
 }

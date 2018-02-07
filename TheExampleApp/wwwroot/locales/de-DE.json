@@ -114,5 +114,8 @@
   "loadedFromLocalFileLabel": "Geladen von der lokalen Datei",
   "usingServerCredentialsLabel": "Die Beispielanwendung verwendet derzeit serverseitig gespeicherte Anmeldeinformationen zum Herstellen einer Verbindung mit einem Contentful-Space.",
   "usingSessionCredentialsLabel": "Die Beispielanwendung verwendet derzeit Anmeldeinformationen von der Anwendungssitzung, um eine Verbindung zu einem Contentful-Space herzustellen.",
-  "applicationCredentialsLabel": "Anmeldeinformationen für die Anwendungssitzung"
+  "applicationCredentialsLabel": "Anmeldeinformationen für die Anwendungssitzung",
+  "error404lesson": "Vergewissern Sie sich, dass die Lektion veröffentlich ist und nicht gelöscht wurde.",
+  "error404course": "Vergewissern Sie sich, dass der Kurs veröffentlich ist und nicht gelöscht wurde.",
+  "errorHighlightedCourse": "⚠️ Der Kurs wird nicht veröffentlicht oder existiert nicht"
 }

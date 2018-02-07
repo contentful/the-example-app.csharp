@@ -49,6 +49,23 @@ namespace TheExampleApp.Pages
         /// <returns>The view.</returns>
         public async Task OnGet()
         {
+            var sessionErrors = HttpContext.Session.GetString("SettingsErrors");
+            var sessionOptions = HttpContext.Session.GetString("SettingsErrorsOptions");
+            HttpContext.Session.Remove("SettingsErrors");
+            HttpContext.Session.Remove("SettingsErrorsOptions");
+            if (!string.IsNullOrEmpty(sessionErrors))
+            {
+                var errors = JsonConvert.DeserializeObject<List<ModelStateError>>(sessionErrors);
+                var options = JsonConvert.DeserializeObject<SelectedOptions>(sessionOptions);
+                foreach (var error in errors)
+                {
+                    ModelState.AddModelError($"AppOptions.{error.Key}", error.ErrorMessage);
+                }
+                AppOptions = options;
+                TempData["Invalid"] = true;
+                return;
+            }
+
             var space = await _client.GetSpace();
             SpaceName = space.Name;
             AppOptions.EnableEditorialFeatures = HttpContext.Session.GetString("EditorialFeatures") == "Enabled";
@@ -88,6 +105,12 @@ namespace TheExampleApp.Pages
 
             HttpContext.Session.SetString(nameof(ContentfulOptions), JsonConvert.SerializeObject(options));
             return Redirect($"{prevPage}?api={api}");
+        }
+
+        public IActionResult OnGetInvalidCredentials()
+        {
+            
+            return RedirectToPage();
         }
 
         /// <summary>
@@ -260,6 +283,7 @@ namespace TheExampleApp.Pages
                 ae.Handle((ce) => {
                     if (ce is ContentfulException)
                     {
+
                         if ((ce as ContentfulException).StatusCode == 401)
                         {
                             validationResult = new ValidationResult(localizer["previewKeyInvalidLabel"].Value, new[] { nameof(PreviewToken) });

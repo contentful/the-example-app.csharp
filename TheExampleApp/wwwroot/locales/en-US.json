@@ -114,5 +114,8 @@
   "loadedFromLocalFileLabel": "Loaded from local file",
   "usingServerCredentialsLabel": "The example app is currently using server side stored credentials to connect to a Contentful space.",
   "usingSessionCredentialsLabel": "The example app is currently using application session stored credentials to connect to a Contentful space.",
-  "applicationCredentialsLabel": "Application session credentials"
+  "applicationCredentialsLabel": "Application session credentials",
+  "error404lesson": "Make sure that the lesson has not been deleted or unpublished.",
+  "error404course": "Make sure that the course has not been deleted or unpublished.",
+  "errorHighlightedCourse": "⚠️ The course is not published or does not exist"
 }

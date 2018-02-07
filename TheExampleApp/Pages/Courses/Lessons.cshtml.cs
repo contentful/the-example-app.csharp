@@ -7,6 +7,7 @@ using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TheExampleApp.Configuration;
 using TheExampleApp.Models;
@@ -20,6 +21,7 @@ namespace TheExampleApp.Pages.Courses
     {
         private readonly IVisitedLessonsManager _visitedLessonsManager;
         private readonly IBreadcrumbsManager _breadcrumbsManager;
+        private readonly IViewLocalizer _localizer;
 
         /// <summary>
         /// Instantiates the model.
@@ -27,10 +29,11 @@ namespace TheExampleApp.Pages.Courses
         /// <param name="client">The client used to communicate with the Contentful API.</param>
         /// <param name="visitedLessonsManager">Class manages which lessons and courses have been visited.</param>
         /// <param name="breadcrumbsManager">Class that manages which breadcrumbs the view should display.</param>
-        public LessonsModel(IContentfulClient client, IVisitedLessonsManager visitedLessonsManager, IBreadcrumbsManager breadcrumbsManager) : base(client)
+        public LessonsModel(IContentfulClient client, IVisitedLessonsManager visitedLessonsManager, IBreadcrumbsManager breadcrumbsManager, IViewLocalizer localizer) : base(client)
         {
             _visitedLessonsManager = visitedLessonsManager;
             _breadcrumbsManager = breadcrumbsManager;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -47,6 +50,7 @@ namespace TheExampleApp.Pages.Courses
             if (Course == null)
             {
                 // If the course is not found return 404.
+                TempData["NotFound"] = _localizer["error404course"].Value;
                 return NotFound();
             }
 
@@ -55,6 +59,7 @@ namespace TheExampleApp.Pages.Courses
             if (SelectedLesson == null)
             {
                 // If the lesson is not found, also return a 404.
+                TempData["NotFound"] = _localizer["error404lesson"].Value;
                 return NotFound();
             }
 
