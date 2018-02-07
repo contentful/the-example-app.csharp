@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Contentful.AspNetCore;
@@ -39,6 +40,7 @@ namespace TheExampleApp
         {
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddContentful(Configuration);
+
             if (CurrentEnvironment.IsStaging())
             {
                 var host = Environment.GetEnvironmentVariable("StagingHost");
@@ -165,7 +167,8 @@ namespace TheExampleApp
         public string StagingHost { get; set; }
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var req = request.RequestUri.ToString().Replace("contentful", StagingHost);
+            var regex = new Regex("contentful");
+            var req = regex.Replace(request.RequestUri.ToString(), StagingHost, 1);
             request.RequestUri = new Uri(req);
             return await base.SendAsync(request, cancellationToken);
         }
