@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TheExampleApp.Configuration;
+using TheExampleApp.Tests.Pages;
 using Xunit;
 
 namespace TheExampleApp.Tests.Configuration
@@ -34,11 +36,16 @@ namespace TheExampleApp.Tests.Configuration
 
             var mockRequest = new Mock<HttpRequest>();
             mockRequest.SetupGet(r => r.Query).Returns(mockQuery.Object);
-
+            var handler = new FakeMessageHandler();
+            handler.Responses.Enqueue(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(@"{""sys"":{""type"":""Array""},""total"":0,""skip"":0,""limit"":100,""items"":[]}") });
+            handler.Responses.Enqueue(new HttpResponseMessage() { StatusCode = System.Net.HttpStatusCode.OK, Content = new StringContent(@"{""sys"":{""type"":""Array""},""total"":0,""skip"":0,""limit"":100,""items"":[]}") });
+            var httpClient = new HttpClient(handler);
+            var mockProvider = new Mock<IServiceProvider>();
+            mockProvider.Setup(c => c.GetService(typeof(HttpClient))).Returns(httpClient);
             var mockContext = new Mock<HttpContext>();
             mockContext.Setup(c => c.Session).Returns(mockSession.Object);
             mockContext.SetupGet(c => c.Request).Returns(mockRequest.Object);
-            
+            mockContext.SetupGet(c => c.RequestServices).Returns(mockProvider.Object);
             //Act
             await deeplinker.Invoke(mockContext.Object);
 

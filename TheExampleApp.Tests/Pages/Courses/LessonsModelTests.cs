@@ -3,6 +3,7 @@ using Contentful.Core.Models;
 using Contentful.Core.Search;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -36,7 +37,11 @@ namespace TheExampleApp.Tests.Pages.Courses
                 .Returns(Task.FromResult(courses));
             var visitedLessons = new Mock<IVisitedLessonsManager>();
             var breadcrumbsManager = new Mock<IBreadcrumbsManager>();
-            var model = new LessonsModel(client.Object, visitedLessons.Object, breadcrumbsManager.Object);
+            var viewlocalizer = new Mock<IViewLocalizer>();
+            viewlocalizer.SetupGet(c => c[It.IsAny<string>()]).Returns(new LocalizedHtmlString("bab", "hello"));
+
+            var model = new LessonsModel(client.Object, visitedLessons.Object, breadcrumbsManager.Object, viewlocalizer.Object);
+            model.TempData = new Mock<ITempDataDictionary>().Object;
 
             //Act
             var res = await model.OnGet("somewhat-sluggish", "real-slugger");
@@ -63,7 +68,10 @@ namespace TheExampleApp.Tests.Pages.Courses
                 .Returns(Task.FromResult(courses));
             var visitedLessons = new Mock<IVisitedLessonsManager>();
             var breadcrumbsManager = new Mock<IBreadcrumbsManager>();
-            var model = new LessonsModel(client.Object, visitedLessons.Object, breadcrumbsManager.Object);
+            var viewlocalizer = new Mock<IViewLocalizer>();
+            viewlocalizer.SetupGet(c => c[It.IsAny<string>()]).Returns(new LocalizedHtmlString("something", "else"));
+            var model = new LessonsModel(client.Object, visitedLessons.Object, breadcrumbsManager.Object, viewlocalizer.Object);
+            model.TempData = new Mock<ITempDataDictionary>().Object;
 
             //Act
             var res = await model.OnGet("somewhat-sluggish", "real-slugger");
@@ -100,6 +108,7 @@ namespace TheExampleApp.Tests.Pages.Courses
                 .Returns(Task.FromResult(courses));
             var visitedLessons = new Mock<IVisitedLessonsManager>();
             var breadcrumbsManager = new Mock<IBreadcrumbsManager>();
+            var viewlocalizer = new Mock<IViewLocalizer>();
             var httpContext = new Mock<HttpContext>();
             var modelState = new ModelStateDictionary();
             var modelMetadataProvider = new EmptyModelMetadataProvider();
@@ -109,7 +118,7 @@ namespace TheExampleApp.Tests.Pages.Courses
             {
                 ViewData = viewData
             };
-            var model = new LessonsModel(client.Object, visitedLessons.Object, breadcrumbsManager.Object);
+            var model = new LessonsModel(client.Object, visitedLessons.Object, breadcrumbsManager.Object, viewlocalizer.Object);
             model.PageContext = pageContext;
 
             //Act
