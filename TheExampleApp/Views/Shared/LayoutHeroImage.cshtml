@@ -1,10 +1,19 @@
 ﻿@model LayoutHeroImage
 
-<div class="module module-hero-image">
-    <div class="module-hero-image__wrapper">
-        <div class="module-hero-image__headline-wrapper">
-            <h2 class="module-hero-image__headline">@Model.Headline</h2>
-        </div>
-        <contentful-image class="module-hero-image__image" url="@Model.BackgroundImage.File.Url" />
+@if (Model == null || Model.BackgroundImage == null)
+{
+    <div class="module module-hero-image">
+        <h3>@Localizer["imageErrorTitle"]</h3>
     </div>
-</div>
+}
+else
+{
+    <div class="module module-hero-image">
+        <div class="module-hero-image__wrapper">
+            <div class="module-hero-image__headline-wrapper">
+                <h2 class="module-hero-image__headline">@Model.Headline</h2>
+            </div>
+            <contentful-image class="module-hero-image__image" url="@Model.BackgroundImage.File.Url" />
+        </div>
+    </div>
+}
