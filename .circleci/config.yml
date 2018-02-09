@@ -27,17 +27,17 @@ jobs:
             cd test/e2e
       - restore_cache:
           keys:
-            - package-{{ checksum "./test/e2e/package.json" }}
-            - package
+            - package-v2-{{ checksum "./test/e2e/package.json" }}
+            - package-v2
       - run: 
           name: Install e2e tests dependencies
           command: |
             cd test/e2e 
             npm i
       - save_cache:
-          key: package-{{ checksum "./test/e2e/package.json" }}
+          key: package-v2-{{ checksum "./test/e2e/package.json" }}
           paths:
-            - node_modules      
+            - ./test/e2e/node_modules      
       - run:
           name: Run e2e tests
           command: |
