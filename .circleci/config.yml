@@ -31,7 +31,8 @@ jobs:
             - package
       - run: 
           name: Install e2e tests dependencies
-          command: | 
+          command: |
+            cd test/e2e 
             npm i
       - save_cache:
           key: package-{{ checksum "./test/e2e/package.json" }}
@@ -39,5 +40,6 @@ jobs:
             - node_modules      
       - run:
           name: Run e2e tests
-          command: | 
+          command: |
+            cd test/e2e 
             node_modules/.bin/cypress run --project /root/project --env LANGUAGE=dotnet
