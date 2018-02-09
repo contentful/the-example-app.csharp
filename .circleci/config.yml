@@ -21,9 +21,23 @@ jobs:
             dotnet run 
           background: true
       - run:
-          name: Run e2e tests
+          name: Clone e2e tests
           command: | 
             git clone https://github.com/contentful/the-example-app-e2e-tests.git ./test/e2e
             cd test/e2e
+      - restore_cache:
+          keys:
+            - package-{{ checksum "package.json" }}
+            - package
+      - run: 
+          name: Install e2e tests dependencies
+          command: | 
             npm i
+      - save_cache:
+          key: package-{{ checksum "package.json" }}
+          paths:
+            - node_modules      
+      - run:
+          name: Run e2e tests
+          command: | 
             node_modules/.bin/cypress run --project /root/project --env LANGUAGE=dotnet
