@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using TheExampleApp.Configuration;
 
@@ -35,12 +36,20 @@ namespace TheExampleApp
         public IConfiguration Configuration { get; }
         private IHostingEnvironment CurrentEnvironment { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public static List<CultureInfo> SupportedCultures = new List<CultureInfo>
+            {
+                //When adding supported locales make sure to also add a static translation files for the locale under /wwwroot/locales
+                new CultureInfo("en-US"),
+                new CultureInfo("de-DE"),
+            };
+
+        public const string LOCALE_KEY = "locale";
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
         {
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddContentful(Configuration);
-
             if (CurrentEnvironment.IsStaging())
             {
                 var host = Environment.GetEnvironmentVariable("StagingHost");
@@ -120,23 +129,26 @@ namespace TheExampleApp
             
             app.UseSession();
 
-            var supportedCultures = new[]
-            {
-                new CultureInfo("en-US"),
-                new CultureInfo("de-DE"),
-            };
-
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 RequestCultureProviders = new List<IRequestCultureProvider>
                 {
+                    new CustomRequestCultureProvider(async (s) => {
+
+                        if (s.Request.Query.ContainsKey(LOCALE_KEY))
+                        {
+                            s.Session.SetString(LOCALE_KEY, s.Request.Query[LOCALE_KEY]);
+                        }
+
+                        return null;
+                    }),
                     new QueryStringRequestCultureProvider()
                     {
-                        QueryStringKey = "locale"
+                        QueryStringKey = LOCALE_KEY
                     },
                     new CustomRequestCultureProvider(async (s) => {
 
-                        var sessionCulture = s.Session.GetString("locale");
+                        var sessionCulture = s.Session.GetString(LOCALE_KEY);
 
                         if (!string.IsNullOrEmpty(sessionCulture))
                         {
@@ -147,8 +159,8 @@ namespace TheExampleApp
                     })
                 },
                 DefaultRequestCulture = new RequestCulture("en-US"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
+                SupportedCultures = SupportedCultures,
+                SupportedUICultures = SupportedCultures
             });
             
             app.UseBreadcrumbs();

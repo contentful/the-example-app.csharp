@@ -1,6 +1,7 @@
 ﻿using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Moq;
 using Newtonsoft.Json;
 using System;
@@ -59,8 +60,9 @@ namespace TheExampleApp.Tests.Pages
             client.Setup(c => c.GetEntriesByType("category", It.IsAny<QueryBuilder<Category>>(), default(CancellationToken)))
                 .Returns(Task.FromResult(categories));
             var crumbs = new Mock<IBreadcrumbsManager>();
+            var localizer = new Mock<IViewLocalizer>();
 
-            var model = new CoursesModel(client.Object, crumbs.Object);
+            var model = new CoursesModel(client.Object, crumbs.Object, localizer.Object);
             //Act
             await model.OnGet(null);
 
@@ -125,8 +127,9 @@ namespace TheExampleApp.Tests.Pages
             client.Setup(c => c.GetEntriesByType("category", It.IsAny<QueryBuilder<Category>>(), default(CancellationToken)))
                 .Returns(Task.FromResult(categories));
             var crumbs = new Mock<IBreadcrumbsManager>();
+            var localizer = new Mock<IViewLocalizer>();
 
-            var model = new CoursesModel(client.Object, crumbs.Object);
+            var model = new CoursesModel(client.Object, crumbs.Object, localizer.Object);
             //Act
             await model.OnGet("another-sluG");
 

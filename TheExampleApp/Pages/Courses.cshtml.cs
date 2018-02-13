@@ -7,6 +7,7 @@ using Contentful.Core;
 using Contentful.Core.Search;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TheExampleApp.Configuration;
 using TheExampleApp.Models;
@@ -19,15 +20,17 @@ namespace TheExampleApp.Pages
     public class CoursesModel : BasePageModel
     {
         private readonly IBreadcrumbsManager _breadcrumbsManager;
+        private readonly IViewLocalizer _localizer;
 
         /// <summary>
         /// Instantiates the model.
         /// </summary>
         /// <param name="client">The client used to communicate with the Contentful API.</param>
         /// <param name="breadcrumbsManager">Class that manages which breadcrumbs the view should display.</param>
-        public CoursesModel(IContentfulClient client, IBreadcrumbsManager breadcrumbsManager) : base(client)
+        public CoursesModel(IContentfulClient client, IBreadcrumbsManager breadcrumbsManager, IViewLocalizer localizer) : base(client)
         {
             _breadcrumbsManager = breadcrumbsManager;
+            _localizer = localizer;
         }
 
         /// <summary>
@@ -35,11 +38,11 @@ namespace TheExampleApp.Pages
         /// </summary>
         /// <param name="category">The optional category to filter courses by.</param>
         /// <returns>The view.</returns>
-        public async Task OnGet(string category)
+        public async Task<IActionResult> OnGet(string category)
         {
             // Get all categories since they're always displayed in the left hand side of the view.
-            var categories = await _client.GetEntriesByType("category", QueryBuilder<Category>.New.Include(5).LocaleIs(CultureInfo.CurrentCulture.ToString()));
-            var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").Include(5).LocaleIs(CultureInfo.CurrentCulture.ToString()).OrderBy("-sys.createdAt");
+            var categories = await _client.GetEntriesByType("category", QueryBuilder<Category>.New.Include(5).LocaleIs(HttpContext?.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString()));
+            var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").Include(5).LocaleIs(HttpContext?.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString()).OrderBy("-sys.createdAt");
 
             var courses = await _client.GetEntries(queryBuilder);
 
@@ -51,6 +54,12 @@ namespace TheExampleApp.Pages
                 // Filter the courses by the selected category.
                 Courses = courses.Where(c => c.Categories.Any(x => x.Slug == category.ToLower())).ToList();
                 var cat = Categories.FirstOrDefault(c => c.Slug == category.ToLower());
+
+                if(cat == null)
+                {
+                    TempData["NotFound"] = _localizer["error404Category"].Value;
+                    return NotFound();
+                }
                 // Replace the breadcrumb for the category to the title of the category, which is more readable.
                 _breadcrumbsManager.ReplaceCrumbForSlug(category.ToLower().Replace('-', ' '), cat.Title);
             }
@@ -59,6 +68,7 @@ namespace TheExampleApp.Pages
                 // If we don't have a category, just display all courses.
                 Courses = courses.ToList();
             }
+            return Page();
         }
 
         /// <summary>

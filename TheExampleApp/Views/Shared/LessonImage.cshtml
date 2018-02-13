@@ -1,10 +1,10 @@
 ﻿@model LessonImage
 
 <div class="lesson-module lesson-module-image">
-    @if (Model.Image != null)
+    @if (Model.Image != null && Model.Image.File != null && Model.Image.File.Url != null)
     {
         <figure class="lesson-module-image__figure">
-            <contentful-image class="lesson-module-image__image" url="@Model.Image.File.Url" />
+            <contentful-image class="lesson-module-image__image" url="@Model.Image?.File?.Url" />
             @if (!string.IsNullOrEmpty(Model.Caption))
             {
                 <figcaption class="lesson-module-image__caption">@Model.Caption</figcaption>

@@ -1,8 +1,10 @@
 ﻿using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Models.Management;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -56,16 +58,14 @@ namespace TheExampleApp.ViewComponents
                     }
                 };
             }
-
-            var selectedLocale = CultureInfo.CurrentCulture.ToString();
-
+            var selectedLocale = HttpContext.Session.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString();
             var localeInfo = new LocalesInfo
             {
                 Locales = space.Locales,
-                SelectedLocale = space?.Locales.FirstOrDefault(c => c.Code == selectedLocale) ?? space?.Locales.Single(c => c.Default)
+                SelectedLocale = space?.Locales.FirstOrDefault(c => c.Code == selectedLocale) ?? space?.Locales.Single(c => c.Default),
             };
 
-            HttpContext.Session.SetString("locale", localeInfo.SelectedLocale?.Code);
+            HttpContext.Session.SetString(Startup.LOCALE_KEY, localeInfo.SelectedLocale?.Code);
 
             localeInfo.UsePreviewApi = _client.IsPreviewClient;
 
