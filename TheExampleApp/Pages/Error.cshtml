@@ -8,16 +8,22 @@
 <div class="layout-centered">
     <h1>@Localizer["somethingWentWrongLabel"] (@Response.StatusCode)</h1>
 
+    @if (TempData["NotFound"] != null)
+    {
+        <p>@TempData["NotFound"]</p>
+    }
+    else if (Response.StatusCode == 404)
+    {
+        <p>@Localizer["notFoundErrorLabel"]</p>
+    }
+
     @if (Response.StatusCode < 500)
     {
         <h2>@Localizer["tryLabel"]</h2>
         <ul>
             @if (Response.StatusCode == 404)
             {
-                if(TempData["NotFound"] != null)
-                {
-                    <li>@TempData["NotFound"]</li>
-                }
+                <li>@Localizer["error404Route"] </li>
                 <li>@Localizer["draftOrPublishedErrorLabel"]</li>
             }
             @if (Response.StatusCode == 400)
@@ -40,7 +46,17 @@
             </code>
         </pre>
     }
-    <form method="post" action="/Settings?handler=ResetCredentials" asp-antiforgery="true">
-        <button type="submit">@Localizer["resetCredentialsLabel"]</button>
-    </form>
+    else if (Response.StatusCode == 500)
+    {
+       <h2>@Localizer["tryLabel"]</h2>
+        <ul>
+            <li>@Localizer["contentModelChangedErrorLabel"] </li>
+        </ul>
+    }
+    @if (Manager.IsUsingCustomCredentials)
+    {
+        <form method="post" action="/Settings?handler=ResetCredentials" asp-antiforgery="true">
+            <button type="submit">@Localizer["resetCredentialsLabel"]</button>
+        </form>
+    }
 </div>

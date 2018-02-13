@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Contentful.Core;
 using Contentful.Core.Models;
 using Contentful.Core.Search;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -44,13 +45,13 @@ namespace TheExampleApp.Pages.Courses
         /// <returns>The view.</returns>
         public async Task<IActionResult> OnGet(string slug, string lessonSlug)
         {
-            var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").FieldEquals(f => f.Slug, slug?.ToLower()).Include(5).LocaleIs(CultureInfo.CurrentCulture.ToString());
+            var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").FieldEquals(f => f.Slug, slug?.ToLower()).Include(5).LocaleIs(HttpContext.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString());
             Course = (await _client.GetEntries(queryBuilder)).FirstOrDefault();
 
             if (Course == null)
             {
                 // If the course is not found return 404.
-                TempData["NotFound"] = _localizer["error404course"].Value;
+                TempData["NotFound"] = _localizer["error404Course"].Value;
                 return NotFound();
             }
 
@@ -59,7 +60,7 @@ namespace TheExampleApp.Pages.Courses
             if (SelectedLesson == null)
             {
                 // If the lesson is not found, also return a 404.
-                TempData["NotFound"] = _localizer["error404lesson"].Value;
+                TempData["NotFound"] = _localizer["error404Lesson"].Value;
                 return NotFound();
             }
 

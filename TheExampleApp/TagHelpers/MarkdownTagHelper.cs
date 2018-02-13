@@ -36,7 +36,7 @@ namespace TheExampleApp.TagHelpers
 
             var content = await GetContent(output);
             var markdown = content;
-            var html = Markdown.ToHtml(markdown);
+            var html = Markdown.ToHtml(markdown ?? "");
             output.Content.SetHtmlContent(html ?? "");
         }
 

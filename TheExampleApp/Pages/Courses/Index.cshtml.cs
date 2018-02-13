@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Contentful.Core;
 using Contentful.Core.Search;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -43,14 +44,14 @@ namespace TheExampleApp.Pages.Courses
         public async Task<IActionResult> OnGet(string slug)
         {
             var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").FieldEquals(f => f.Slug, slug?.ToLower())
-                .Include(5).LocaleIs(CultureInfo.CurrentCulture.ToString());
+                .Include(5).LocaleIs(HttpContext.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString());
             var courses = await _client.GetEntries(queryBuilder);
 
             Course = (await _client.GetEntries(queryBuilder)).FirstOrDefault();
 
             if(Course == null)
             {
-                TempData["NotFound"] = _localizer["error404course"].Value;
+                TempData["NotFound"] = _localizer["error404Course"].Value;
                 // If the course is not found return a 404 result.
                 return NotFound();
             }

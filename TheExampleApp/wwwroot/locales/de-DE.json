@@ -98,7 +98,7 @@
   "intermediateLabel": "Fortgeschrittener",
   "advancedLabel": "Experte",
   "editInTheWebAppLabel": "In der Contentful web app bearbeiten",
-  "error404Route": "Eine nicht unterstützte HTTP Route",
+  "error404Route": "Vergewissern Sie sich, dass sie eine unterstützte Adresse aufrufen.",
   "currentLocaleLabel": "Deutsch (Deutschland)",
   "hostedLabel": "Gehostet",
   "comingSoonLabel": "Bald verfügbar",
@@ -115,7 +115,9 @@
   "usingServerCredentialsLabel": "Die Beispielanwendung verwendet derzeit serverseitig gespeicherte Anmeldeinformationen zum Herstellen einer Verbindung mit einem Contentful-Space.",
   "usingSessionCredentialsLabel": "Die Beispielanwendung verwendet derzeit Anmeldeinformationen von der Anwendungssitzung, um eine Verbindung zu einem Contentful-Space herzustellen.",
   "applicationCredentialsLabel": "Anmeldeinformationen für die Anwendungssitzung",
-  "error404lesson": "Vergewissern Sie sich, dass die Lektion veröffentlich ist und nicht gelöscht wurde.",
-  "error404course": "Vergewissern Sie sich, dass der Kurs veröffentlich ist und nicht gelöscht wurde.",
+  "notFoundErrorLabel": "Diese Seite kann nicht gefunden werden. Stellen Sie sicher, dass sie existiert und veröffentlicht ist.",
+  "error404Lesson": "Vergewissern Sie sich, dass die Lektion veröffentlich ist und nicht gelöscht wurde.",
+  "error404Course": "Vergewissern Sie sich, dass der Kurs veröffentlich ist und nicht gelöscht wurde.",
+  "error404Category": "Vergewissern Sie sich, dass die Kategorie veröffentlich ist und nicht gelöscht wurde.",
   "errorHighlightedCourse": "⚠️ Der Kurs wird nicht veröffentlicht oder existiert nicht"
 }
