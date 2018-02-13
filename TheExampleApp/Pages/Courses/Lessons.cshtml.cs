@@ -45,7 +45,7 @@ namespace TheExampleApp.Pages.Courses
         /// <returns>The view.</returns>
         public async Task<IActionResult> OnGet(string slug, string lessonSlug)
         {
-            var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").FieldEquals(f => f.Slug, slug?.ToLower()).Include(5).LocaleIs(HttpContext.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString());
+            var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").FieldEquals(f => f.Slug, slug?.ToLower()).Include(5).LocaleIs(HttpContext?.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString());
             Course = (await _client.GetEntries(queryBuilder)).FirstOrDefault();
 
             if (Course == null)

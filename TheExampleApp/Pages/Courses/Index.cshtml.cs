@@ -44,7 +44,7 @@ namespace TheExampleApp.Pages.Courses
         public async Task<IActionResult> OnGet(string slug)
         {
             var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").FieldEquals(f => f.Slug, slug?.ToLower())
-                .Include(5).LocaleIs(HttpContext.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString());
+                .Include(5).LocaleIs(HttpContext?.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString());
             var courses = await _client.GetEntries(queryBuilder);
 
             Course = (await _client.GetEntries(queryBuilder)).FirstOrDefault();

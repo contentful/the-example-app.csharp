@@ -41,8 +41,8 @@ namespace TheExampleApp.Pages
         public async Task<IActionResult> OnGet(string category)
         {
             // Get all categories since they're always displayed in the left hand side of the view.
-            var categories = await _client.GetEntriesByType("category", QueryBuilder<Category>.New.Include(5).LocaleIs(HttpContext.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString()));
-            var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").Include(5).LocaleIs(HttpContext.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString()).OrderBy("-sys.createdAt");
+            var categories = await _client.GetEntriesByType("category", QueryBuilder<Category>.New.Include(5).LocaleIs(HttpContext?.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString()));
+            var queryBuilder = QueryBuilder<Course>.New.ContentTypeIs("course").Include(5).LocaleIs(HttpContext?.Session?.GetString(Startup.LOCALE_KEY) ?? CultureInfo.CurrentCulture.ToString()).OrderBy("-sys.createdAt");
 
             var courses = await _client.GetEntries(queryBuilder);
 
