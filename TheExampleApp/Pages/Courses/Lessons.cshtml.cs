@@ -51,7 +51,7 @@ namespace TheExampleApp.Pages.Courses
             if (Course == null)
             {
                 // If the course is not found return 404.
-                TempData["NotFound"] = _localizer["error404Course"].Value;
+                TempData["NotFound"] = _localizer["errorMessage404Course"].Value;
                 return NotFound();
             }
 
@@ -60,7 +60,7 @@ namespace TheExampleApp.Pages.Courses
             if (SelectedLesson == null)
             {
                 // If the lesson is not found, also return a 404.
-                TempData["NotFound"] = _localizer["error404Lesson"].Value;
+                TempData["NotFound"] = _localizer["errorMessage404Lesson"].Value;
                 return NotFound();
             }
 
