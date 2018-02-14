@@ -57,7 +57,7 @@ namespace TheExampleApp.Pages
 
                 if(cat == null)
                 {
-                    TempData["NotFound"] = _localizer["error404Category"].Value;
+                    TempData["NotFound"] = _localizer["errorMessage404Category"].Value;
                     return NotFound();
                 }
                 // Replace the breadcrumb for the category to the title of the category, which is more readable.
