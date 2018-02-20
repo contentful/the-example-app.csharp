@@ -6,60 +6,62 @@
 }
 
 <div class="layout-centered">
-    <h1>@Localizer["somethingWentWrongLabel"] (@Response.StatusCode)</h1>
+    <div class="error">
+        <h1>@Localizer["somethingWentWrongLabel"] (@Response.StatusCode)</h1>
 
-    @if (TempData["NotFound"] != null)
-    {
-        <p>@TempData["NotFound"]</p>
-    }
-    else if (Response.StatusCode == 404)
-    {
-        <p>@Localizer["errorMessage404Route"]</p>
-    }
+        @if (TempData["NotFound"] != null)
+        {
+            <p>@TempData["NotFound"]</p>
+        }
+        else if (Response.StatusCode == 404)
+        {
+            <p>@Localizer["errorMessage404Route"]</p>
+        }
 
-    @if (Response.StatusCode < 500)
-    {
-        <h2>@Localizer["hintsLabel"]</h2>
-        <ul>
-            @if (Response.StatusCode == 404)
-            {
-                <li>@Localizer["notFoundErrorHint"] </li>
-                <li>@Localizer["draftOrPublishedErrorHint"]</li>
-            }
-            @if (Response.StatusCode == 400)
-            {
-                <li>@Localizer["contentModelChangedErrorHint"]</li>
-            }
-            @if (Response.StatusCode == 401)
-            {
-                <li>@Localizer["verifyCredentialsErrorHint"]</li>
-                <li>@Localizer["localeContentErrorHint"]</li>
-            }
-        </ul>
-    }
-    else if (Model.ContentfulException != null)
-    {
-        <h2>@Localizer["errorLabel"]</h2>
-        <p>Request id: @Model.ContentfulException.RequestId</p>
-        <pre class="error__stack-trace">
-        <code class="shell">
+        @if (Response.StatusCode < 500)
+        {
+            <h2>@Localizer["hintsLabel"]</h2>
+            <ul>
+                @if (Response.StatusCode == 404)
+                {
+                    <li>@Localizer["notFoundErrorHint"] </li>
+                    <li>@Localizer["draftOrPublishedErrorHint"]</li>
+                }
+                @if (Response.StatusCode == 400)
+                {
+                    <li>@Localizer["contentModelChangedErrorHint"]</li>
+                }
+                @if (Response.StatusCode == 401)
+                {
+                    <li>@Localizer["verifyCredentialsErrorHint"]</li>
+                    <li>@Localizer["localeContentErrorHint"]</li>
+                }
+            </ul>
+        }
+        else if (Model.ContentfulException != null)
+        {
+            <h2>@Localizer["errorLabel"]</h2>
+            <p>Request id: @Model.ContentfulException.RequestId</p>
+            <pre class="error__stack-trace">
+            <code class="shell">
                 @Model.ContentfulException.Message
             </code>
         </pre>
-    }
-    else if (Response.StatusCode == 500)
-    {
-       <h2>@Localizer["hintsLabel"]</h2>
-       <ul>
-           <li>@Localizer["contentModelChangedErrorHint"] </li>
-           <li>@Localizer["draftOrPublishedErrorHint"] </li>
-           <li>@Localizer["localeContentErrorHint"] </li>
-       </ul>
-    }
-    @if (Manager.IsUsingCustomCredentials)
-    {
-        <form method="post" action="/Settings?handler=ResetCredentials" asp-antiforgery="true">
-            <button type="submit">@Localizer["resetCredentialsLabel"]</button>
-        </form>
-    }
+        }
+        else if (Response.StatusCode == 500)
+        {
+            <h2>@Localizer["hintsLabel"]</h2>
+            <ul>
+                <li>@Localizer["contentModelChangedErrorHint"] </li>
+                <li>@Localizer["draftOrPublishedErrorHint"] </li>
+                <li>@Localizer["localeContentErrorHint"] </li>
+            </ul>
+        }
+        @if (Manager.IsUsingCustomCredentials)
+        {
+            <form method="post" action="/Settings?handler=ResetCredentials" asp-antiforgery="true">
+                <button type="submit">@Localizer["resetCredentialsLabel"]</button>
+            </form>
+        }
+    </div>
 </div>
