@@ -102,7 +102,7 @@ namespace TheExampleApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseStatusCodePagesWithReExecute("/Error");
+            
             var options = new RewriteOptions();
             if (env.IsDevelopment())
             {
@@ -220,7 +220,9 @@ namespace TheExampleApp
                 SupportedCultures = SupportedCultures,
                 SupportedUICultures = SupportedCultures
             });
-            
+
+            app.UseStatusCodePagesWithReExecute("/Error");
+
             app.UseBreadcrumbs();
             app.UseDeeplinks();
             app.UseMvc(routes =>
