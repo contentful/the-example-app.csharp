@@ -4,9 +4,7 @@
     <div class="editorial-features">
         @if (Model.UsePreviewApi)
         {
-            <div class="editorial-features__item">
-                <vc:entry-state sys="@Model.Sys"></vc:entry-state>
-            </div>
+            <vc:entry-state sys="@Model.Sys"></vc:entry-state>
         }
         <div class="editorial-features__item">
             <a class="editorial-features__text" target="_blank" rel="noopener" href="@($"https://app.contentful.com/spaces/{Model.SpaceId}/entries/{Model.Sys?.FirstOrDefault()?.Id}")">
