@@ -2,13 +2,17 @@
 
 @if (Model.Draft)
 {
-    <div class="pill pill--draft">
-        @Localizer["draftLabel"]
+    <div class="editorial-features__item">
+        <div class="pill pill--draft">
+            @Localizer["draftLabel"]
+        </div>
     </div>
 }
 @if (Model.PendingChanges)
 {
-    <div class="pill pill--pending-changes">
-        @Localizer["pendingChangesLabel"]
+    <div class="editorial-features__item">
+        <div class="pill pill--pending-changes">
+            @Localizer["pendingChangesLabel"]
+        </div>
     </div>
 }
