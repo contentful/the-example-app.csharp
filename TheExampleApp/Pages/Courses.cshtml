@@ -1,7 +1,7 @@
 ﻿@page
 @model TheExampleApp.Pages.CoursesModel
 @{
-    ViewData["Title"] = $"{Localizer["allCoursesLabel"].Value} ({Model.Courses.Count})";
+    ViewData["Title"] = $"{Localizer["allCoursesLabel"].Value} ({Model.Courses?.Count})";
 }
 <div class="layout-no-sidebar">@Html.Partial("Breadcrumbs")</div>
 <div class="layout-sidebar">
@@ -15,11 +15,14 @@
                     <li class="sidebar-menu__item">
                         <a class="sidebar-menu__link @(Model.SelectedCategory == null ? "active" : "")" href="/courses">@Localizer["allCoursesLabel"]</a>
                     </li>
-                    @foreach (var category in Model.Categories)
+                    @if (Model.Categories != null && Model.Categories.Any())
                     {
-                        <li class="sidebar-menu__item">
-                            <a class="sidebar-menu__link @(Model.SelectedCategory?.Slug == category.Slug ? "active" : "")"  href="/courses/categories/@category.Slug">@category.Title</a>
-                        </li>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li class="sidebar-menu__item">
+                                <a class="sidebar-menu__link @(Model.SelectedCategory?.Slug == category.Slug ? "active" : "")"  href="/courses/categories/@category.Slug">@category.Title</a>
+                            </li>
+                        }
                     }
                 </ul>
             </div>
@@ -27,7 +30,7 @@
     </section>
     <section class="layout-sidebar__content">
         <div class="courses">
-            <h1>@(Model.SelectedCategory != null ? Model.SelectedCategory.Title : Localizer["allCoursesLabel"].Value) (@Model.Courses.Count)</h1>
+            <h1>@(Model.SelectedCategory != null ? Model.SelectedCategory.Title : Localizer["allCoursesLabel"].Value) (@Model.Courses?.Count)</h1>
             @if (Model.EditorialFeaturesEnabled) {
                 <div class="editorial-features">
                     <div class="editorial-features__item">
@@ -46,12 +49,15 @@
                 </div>
             }
             <div class="grid-list">
-            @foreach (var course in Model.Courses)
-            {
-                <div class="grid-list__item">
-                    @Html.Partial("CourseCard", course)
-                </div>
-            }
+                @if (Model.Courses != null && Model.Courses.Any())
+                {
+                    @foreach (var course in Model.Courses)
+                    {
+                        <div class="grid-list__item">
+                            @Html.Partial("CourseCard", course)
+                        </div>
+                    }
+                }
                 </div>
             </div>
     </section>

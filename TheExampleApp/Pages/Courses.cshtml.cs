@@ -52,7 +52,7 @@ namespace TheExampleApp.Pages
             if (!string.IsNullOrEmpty(category))
             {
                 // Filter the courses by the selected category.
-                Courses = courses.Where(c => c.Categories.Any(x => x.Slug == category.ToLower())).ToList();
+                Courses = courses.Where(c => c.Categories != null && c.Categories.Any(x => x.Slug == category.ToLower())).ToList();
                 var cat = Categories.FirstOrDefault(c => c.Slug == category.ToLower());
 
                 if(cat == null)
