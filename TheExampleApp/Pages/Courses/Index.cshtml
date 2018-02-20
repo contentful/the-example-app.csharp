@@ -17,7 +17,9 @@
                         <use xlink:href="/icons/icons.svg#duration"></use>
                     </svg>
                     <div class="course__overview-value">
-                        @Localizer["durationLabel"]: @Model.Course?.Duration @Localizer["minutesLabel"]
+                        @if (Model?.Course?.Duration != null) {
+                            @:Localizer["durationLabel"]: @Model.Course?.Duration @Localizer["minutesLabel"]
+                        }
                     </div>
                 </div>
                 <div class="course__overview-item">
@@ -25,11 +27,13 @@
                         <use xlink:href="/icons/icons.svg#skill-level"></use>
                     </svg>
                     <div class="course__overview-value">
-                        @Localizer["skillLevelLabel"]: @Localizer[$"{@Model.Course?.SkillLevel}Label"] 
+                        @if (Model?.Course?.SkillLevel != null) {
+                            @:Localizer["skillLevelLabel"]: @Localizer[$"{@Model.Course?.SkillLevel}Label"]
+                        }
                     </div>
                 </div>
                 <div class="course__overview-cta-wrapper">
-                    <a class="course__overview-cta cta" href="/courses/@Model.Course?.Slug/lessons/@Model.Course?.Lessons.FirstOrDefault()?.Slug">@Localizer["startCourseLabel"]</a>
+                    <a class="course__overview-cta cta" href="/courses/@Model.Course?.Slug/lessons/@Model.Course?.Lessons?.FirstOrDefault()?.Slug">@Localizer["startCourseLabel"]</a>
                 </div>
             </div>
             <div class="course-description"><markdown content="@Model.Course.Description" /></div>

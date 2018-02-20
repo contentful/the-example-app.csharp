@@ -14,11 +14,14 @@
                 <li class="table-of-contents__item">
                     <a class="table-of-contents__link @(ViewData["slug"] == null ? "active" : "") @isVisited(Model.Sys.Id)" href="/courses/@Model.Slug">@Localizer["courseOverviewLabel"]</a>
                 </li>
-                @foreach (var lesson in Model.Lessons)
+                @if (Model.Lessons != null && Model.Lessons.Any())
                 {
-                    <li class="table-of-contents__item">
-                        <a class="table-of-contents__link @(ViewData["slug"]?.ToString() == lesson.Slug ? "active" : "") @isVisited(lesson.Sys.Id)" href="/courses/@Model.Slug/lessons/@lesson.Slug">@lesson.Title</a>
-                    </li>
+                    @foreach (var lesson in Model.Lessons)
+                    {
+                        <li class="table-of-contents__item">
+                            <a class="table-of-contents__link @(ViewData["slug"]?.ToString() == lesson.Slug ? "active" : "") @isVisited(lesson.Sys.Id)" href="/courses/@Model.Slug/lessons/@lesson.Slug">@lesson.Title</a>
+                        </li>
+                    }
                 }
             </ul>
         </div>
