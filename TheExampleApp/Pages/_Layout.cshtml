@@ -6,8 +6,9 @@
             return "";
         }
 
-        return $"?space_id={Manager.Options.SpaceId}&preview_token={Manager.Options.PreviewApiKey}&delivery_token={Manager.Options.DeliveryApiKey}&api={(Manager.Options.UsePreviewApi ? "cpa" : "cda")}{( Context.Session.GetString("EditorialFeatures") == "Enabled" ? "&editorial_features=enabled" : "")}";
+        return $"?space_id={Manager.Options.SpaceId}&preview_token={Manager.Options.PreviewApiKey}&delivery_token={Manager.Options.DeliveryApiKey}&api={(Manager.Options.UsePreviewApi ? "cpa" : "cda")}{(Context.Session.GetString("EditorialFeatures") == "Enabled" ? "&editorial_features=enabled" : "")}";
     };
+    var rawTarget = Context.Features.Get<Microsoft.AspNetCore.Http.Features.IHttpRequestFeature>().RawTarget;
 }
 
 <!DOCTYPE html>
@@ -39,7 +40,7 @@
                                 </a>
                             </div>
                             <div class="header__controls">
-                                <vc:selected-api current-path="@Context.Request.Path"></vc:selected-api>
+                                <vc:selected-api current-path="@rawTarget"></vc:selected-api>
                                 <vc:locales></vc:locales>
                             </div>
                             <div class="header__upper-menu">
