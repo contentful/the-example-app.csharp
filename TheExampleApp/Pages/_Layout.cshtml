@@ -9,6 +9,10 @@
         return $"?space_id={Manager.Options.SpaceId}&preview_token={Manager.Options.PreviewApiKey}&delivery_token={Manager.Options.DeliveryApiKey}&api={(Manager.Options.UsePreviewApi ? "cpa" : "cda")}{(Context.Session.GetString("EditorialFeatures") == "Enabled" ? "&editorial_features=enabled" : "")}";
     };
     var rawTarget = Context.Features.Get<Microsoft.AspNetCore.Http.Features.IHttpRequestFeature>().RawTarget;
+    if(rawTarget?.IndexOf("?") > 0)
+    {
+        rawTarget = rawTarget.Substring(0, rawTarget.IndexOf("?"));
+    }
 }
 
 <!DOCTYPE html>
