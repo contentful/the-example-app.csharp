@@ -18,7 +18,7 @@
                     </svg>
                     <div class="course__overview-value">
                         @if (Model?.Course?.Duration != null) {
-                            @:Localizer["durationLabel"]: @Model.Course?.Duration @Localizer["minutesLabel"]
+                            @Localizer["durationLabel"]@:: @Model.Course?.Duration @Localizer["minutesLabel"]
                         }
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                     </svg>
                     <div class="course__overview-value">
                         @if (Model?.Course?.SkillLevel != null) {
-                            @:Localizer["skillLevelLabel"]: @Localizer[$"{@Model.Course?.SkillLevel}Label"]
+                            @Localizer["skillLevelLabel"]@:: @Localizer[$"{@Model.Course?.SkillLevel}Label"]
                         }
                     </div>
                 </div>
