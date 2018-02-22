@@ -32,9 +32,12 @@
                         }
                     </div>
                 </div>
+                @if (Model.Course != null && Model.Course.Lessons != null && Model.Course.Lessons.Any())
+                {
                 <div class="course__overview-cta-wrapper">
                     <a class="course__overview-cta cta" href="/courses/@Model.Course?.Slug/lessons/@Model.Course?.Lessons?.FirstOrDefault()?.Slug">@Localizer["startCourseLabel"]</a>
                 </div>
+                }
             </div>
             <div class="course-description"><markdown content="@Model.Course.Description" /></div>
         </div>
