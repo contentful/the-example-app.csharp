@@ -7,20 +7,26 @@
 <div class="layout-sidebar">
     @Html.Partial("TableOfContents", Model.Course, new ViewDataDictionary(this.ViewData) { { "slug", Model.SelectedLesson.Slug } })
     <section class="layout-sidebar__content">
-        <div class="lesson">
-            <h1 class="lesson__title">@Model.SelectedLesson.Title</h1>
-            <vc:editorial-features sys="@Model.SystemProperties"></vc:editorial-features>
-            <div class="lesson__modules">
-                @foreach (var module in Model.SelectedLesson.Modules)
+        
+            <div class="lesson">
+                <h1 class="lesson__title">@Model.SelectedLesson.Title</h1>
+                <vc:editorial-features sys="@Model.SystemProperties"></vc:editorial-features>
+                <div class="lesson__modules">
+                    @if (Model.SelectedLesson.Modules.Count == 0)
+                    {
+                        @Html.Partial("NoContent")
+                    }
+                    @foreach (var module in Model.SelectedLesson.Modules)
+                    {
+                        @Html.Partial(module.GetType().Name, module)
+                    }
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.NextLessonSlug))
                 {
-                    @Html.Partial(module.GetType().Name, module)
+                    <a class="lesson__cta cta" href="/courses/@Model.Course.Slug/lessons/@Model.NextLessonSlug">@Localizer["nextLessonLabel"]</a>
                 }
             </div>
-
-            @if (!string.IsNullOrEmpty(Model.NextLessonSlug))
-            {
-                <a class="lesson__cta cta" href="/courses/@Model.Course.Slug/lessons/@Model.NextLessonSlug">@Localizer["nextLessonLabel"]</a>
-            }
-        </div>
+        
     </section>
 </div>
