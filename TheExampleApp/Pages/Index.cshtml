@@ -11,12 +11,15 @@
 </div>
 
 <div class="modules-container">
-    @if (Model.IndexPage.ContentModules.Count == 0)
+    @if (Model.IndexPage.ContentModules == null || Model.IndexPage.ContentModules.Count == 0)
     {
         @Html.Partial("NoContent")
     }
-    @foreach (var module in Model.IndexPage.ContentModules)
+    else
     {
-        @Html.Partial(module.GetType().Name, module)
+        @foreach (var module in Model.IndexPage.ContentModules)
+        {
+            @Html.Partial(module.GetType().Name, module)
+        }
     }
 </div>
