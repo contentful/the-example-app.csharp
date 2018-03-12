@@ -12,13 +12,16 @@
                 <h1 class="lesson__title">@Model.SelectedLesson.Title</h1>
                 <vc:editorial-features sys="@Model.SystemProperties"></vc:editorial-features>
                 <div class="lesson__modules">
-                    @if (Model.SelectedLesson.Modules.Count == 0)
+                    @if (Model.SelectedLesson.Modules == null || Model.SelectedLesson.Modules.Count == 0)
                     {
                         @Html.Partial("NoContent")
                     }
-                    @foreach (var module in Model.SelectedLesson.Modules)
+                    else
                     {
-                        @Html.Partial(module.GetType().Name, module)
+                        @foreach (var module in Model.SelectedLesson.Modules)
+                        {
+                            @Html.Partial(module.GetType().Name, module)
+                        }
                     }
                 </div>
 
