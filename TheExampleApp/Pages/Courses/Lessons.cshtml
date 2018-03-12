@@ -12,7 +12,7 @@
                 <h1 class="lesson__title">@Model.SelectedLesson.Title</h1>
                 <vc:editorial-features sys="@Model.SystemProperties"></vc:editorial-features>
                 <div class="lesson__modules">
-                    @if (Model.SelectedLesson == null || Model.SelectedLesson.Modules.Count == 0)
+                    @if (Model.SelectedLesson.Modules == null || Model.SelectedLesson.Modules.Count == 0)
                     {
                         @Html.Partial("NoContent")
                     }
