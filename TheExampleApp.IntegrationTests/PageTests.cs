@@ -286,7 +286,6 @@ namespace TheExampleApp.IntegrationTests
             // Assert
             response.EnsureSuccessStatusCode();
             Assert.Contains(@"<span class=""field-validation-error"" data-valmsg-for=""AppOptions.SpaceId"" data-valmsg-replace=""true"">This space does not exist or your access token is not associated with your space.</span>", responseString);
-            Assert.Contains(@"<span class=""field-validation-error"" data-valmsg-for=""AppOptions.AccessToken"" data-valmsg-replace=""true"">Your Delivery API key is invalid.</span>", responseString);
         }
 
         [Fact]
