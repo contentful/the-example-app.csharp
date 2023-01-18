@@ -1,3 +1,6 @@
+> **Note**: This repo is no longer officially maintained as of Jan, 2023.
+> Feel free to use it, fork it and patch it for your own needs.
+
 [![CircleCI](https://img.shields.io/circleci/project/github/contentful/the-example-app.csharp.svg)](https://circleci.com/gh/contentful/the-example-app.csharp)
 
 ## The ASP.NET example app
